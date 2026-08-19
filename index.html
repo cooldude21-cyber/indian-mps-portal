@@ -157,7 +157,7 @@
 
     async function fetchWikipediaData(mpName, id, isModal) {
         try {
-            const url = \`https://en.wikipedia.org/w/api.php?action=query&titles=\${encodeURIComponent(mpName)}&prop=extracts|pageimages&exintro&explaintext&pithumbsize=500&format=json&origin=*\`;
+            const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(mpName)}&prop=extracts|pageimages&exintro&explaintext&pithumbsize=500&format=json&origin=*`;
             const response = await fetch(url);
             const data = await response.json();
             const pages = data.query.pages;
@@ -175,7 +175,7 @@
                     }
                 } else {
                     if (pageData.thumbnail) {
-                        document.getElementById(\`img-grid-\${id}\`).src = pageData.thumbnail.source;
+                        document.getElementById(`img-grid-${id}`).src = pageData.thumbnail.source;
                         const mpIndex = allMPs.findIndex(m => m.id === id);
                         if(mpIndex !== -1) allMPs[mpIndex].image = pageData.thumbnail.source;
                     }
@@ -194,13 +194,13 @@
         
         const nameParts = mp.name.split(' ');
         if(nameParts.length > 1) {
-            document.getElementById('modalName').innerHTML = \`\${nameParts[0]}<br>\${nameParts.slice(1).join(' ')}\`;
+            document.getElementById('modalName').innerHTML = `${nameParts[0]}<br>${nameParts.slice(1).join(' ')}`;
         } else {
             document.getElementById('modalName').innerText = mp.name;
         }
 
         document.getElementById('modalParty').innerText = mp.party;
-        document.getElementById('modalConstituency').innerText = \`\${mp.constituency}\`;
+        document.getElementById('modalConstituency').innerText = `${mp.constituency}`;
         document.getElementById('modalAssets').innerText = mp.assets || 'Check MyNeta';
         document.getElementById('modalCriminal').innerText = mp.criminalCases || '0';
         document.getElementById('modalBio').innerText = mp.detailedBio || 'Detailed biography is not available. Searching Wikipedia...';
