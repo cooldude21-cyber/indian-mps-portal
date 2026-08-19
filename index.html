@@ -1,248 +1,659 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indian Parliament Members | Open Data Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<meta name="description" content="Indian Parliament Members — visual public archive and political intelligence database.">
+<title>INDIA NETA — Parliament Members Archive</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:'Poppins',sans-serif;margin:0;padding:0;color:#fff;background:#071f22;background-image:radial-gradient(circle at 70% 30%,rgba(143,64,39,.4) 0,transparent 50%),radial-gradient(circle at 20% 80%,rgba(13,68,64,.8) 0,transparent 50%),radial-gradient(circle at 50% 100%,rgba(23,96,87,.6) 0,transparent 60%);background-attachment:fixed;min-height:100vh;display:flex;flex-direction:column;scroll-behavior:smooth}
-.glass-panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.15);border-radius:24px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:inset 0 0 20px rgba(255,255,255,.02),0 10px 30px rgba(0,0,0,.3)}
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:rgba(0,0,0,.5);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:0;z-index:100}
-.logo{font-family:Montserrat,sans-serif;font-size:22px;font-weight:900;letter-spacing:1px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}.logo i{color:#9e4c35;font-size:26px}
-.nav-links{list-style:none;display:flex;gap:35px;margin:0;padding:0}.nav-links li a{color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:1px}.nav-links li a:hover,.nav-links li a.active{color:#9e4c35}
-.hero{text-align:center;padding:100px 20px 60px}.hero-badge{display:inline-block;background:rgba(158,76,53,.15);border:1px solid rgba(158,76,53,.4);color:#ffb8a3;padding:8px 25px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:25px}
-.hero h1{font-family:Montserrat,sans-serif;margin:0;font-size:60px;font-weight:900;text-transform:uppercase;letter-spacing:2px;line-height:1.1}.hero h1 span{color:transparent;-webkit-text-stroke:1px #fff}.hero p{color:rgba(255,255,255,.7);font-weight:300;font-size:16px;max-width:700px;margin:25px auto 0;line-height:1.7}
-.main-content{flex:1;max-width:1300px;margin:0 auto;padding:0 20px 80px;width:100%;box-sizing:border-box}
-.search-box{width:100%;padding:25px 35px;font-size:18px;color:#fff;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.15);border-radius:50px;margin-bottom:20px;box-sizing:border-box;outline:none;backdrop-filter:blur(15px);font-family:Poppins,sans-serif}.search-box::placeholder{color:rgba(255,255,255,.4)}
-.tabs{display:flex;gap:15px;margin-bottom:25px;justify-content:center;flex-wrap:wrap}.tab{padding:12px 40px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.15);cursor:pointer;border-radius:50px;font-size:14px;font-weight:600;color:#fff;transition:.3s;text-transform:uppercase;letter-spacing:1px}.tab.active,.tab:hover{background:#9e4c35;border-color:#9e4c35}
-.result-info{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:0 0 25px;color:rgba(255,255,255,.55);font-size:13px;flex-wrap:wrap}
-.mp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:35px}.mp-card{padding:35px 25px;text-align:center;transition:.4s ease;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}.mp-card:hover{transform:translateY(-10px);border-color:rgba(255,255,255,.4)}
-.mp-card img{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.8);margin-bottom:20px;box-shadow:0 15px 30px rgba(0,0,0,.4)}.mp-name{font-family:Montserrat,sans-serif;font-size:20px;font-weight:800;margin:0 0 10px;letter-spacing:1px}.mp-party{background:rgba(158,76,53,.2);border:1px solid rgba(158,76,53,.3);padding:5px 15px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:1px;margin-bottom:15px;color:#ffb8a3}.portfolio-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:12px 20px;border-radius:50px;cursor:pointer;font-size:13px;font-weight:600;width:100%;transition:.3s;margin-top:auto;text-transform:uppercase;letter-spacing:1px}.portfolio-btn:hover{background:#fff;color:#071f22}
-.pagination{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:40px;flex-wrap:wrap}.page-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:#fff;padding:10px 16px;border-radius:30px;cursor:pointer}.page-btn.active,.page-btn:hover{background:#9e4c35;border-color:#9e4c35}.page-btn:disabled{opacity:.35;cursor:not-allowed}
-.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(15px);overflow-y:auto;padding:40px 20px;box-sizing:border-box}.modal-content{max-width:1200px;margin:0 auto;position:relative}.close-btn{position:absolute;right:0;top:-40px;font-size:35px;color:rgba(255,255,255,.5);cursor:pointer;z-index:10}.close-btn:hover{color:#fff}
-.profile-header{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;align-items:center;margin-bottom:30px}.profile-left h3{font-weight:300;font-size:20px;color:rgba(255,255,255,.7);margin:0 0 5px}.profile-left h1{font-family:Montserrat,sans-serif;font-size:45px;font-weight:900;text-transform:uppercase;line-height:1.1;margin:0 0 15px}.profile-left p{color:#9e4c35;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:14px}.profile-center{text-align:center;position:relative}.profile-center img{width:320px;height:320px;border-radius:50%;object-fit:cover;position:relative;z-index:2;border:1px solid rgba(255,255,255,.2)}
-.profile-right{padding:30px;height:100%;box-sizing:border-box}.profile-right h4{font-family:Montserrat,sans-serif;margin:0 0 15px;letter-spacing:2px;font-size:14px;text-transform:uppercase}.profile-right p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7);font-weight:300}
-.stats-bar{padding:40px;margin-bottom:30px;display:flex;justify-content:space-between;text-align:center;flex-wrap:wrap;gap:20px}.stat-box{flex:1;min-width:150px}.stat-icon{font-size:30px;color:rgba(255,255,255,.8);margin-bottom:15px;display:inline-block;padding:20px;background:rgba(255,255,255,.05);border-radius:20px}.stat-value{font-family:Montserrat,sans-serif;font-size:20px;font-weight:700;margin-bottom:5px}.stat-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5)}
-.detail-cards-container{display:flex;gap:30px;margin-bottom:40px}.detail-card{flex:1;padding:30px}.detail-card h5{margin:0 0 10px;font-size:12px;color:#9e4c35;text-transform:uppercase;letter-spacing:2px}.detail-card h2{font-family:Montserrat,sans-serif;margin:0;font-size:22px}
-.footer{background:#041214;padding:60px 20px 30px;border-top:1px solid rgba(255,255,255,.05);margin-top:auto;text-align:center}.footer-content{max-width:1000px;margin:0 auto}.footer-logo{font-family:Montserrat,sans-serif;font-size:20px;font-weight:900;color:#555}.footer-links{display:flex;gap:20px;margin:20px 0;justify-content:center;flex-wrap:wrap}.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;text-transform:uppercase;letter-spacing:1px}.disclaimer-text{color:rgba(255,255,255,.4);font-size:12px;line-height:1.6;max-width:800px;margin:0 auto}
-@media(max-width:1000px){.profile-header{grid-template-columns:1fr;text-align:center}.detail-cards-container{flex-direction:column}.nav-links{display:none}.hero h1{font-size:42px}.profile-left h1{font-size:35px}.profile-center img{width:260px;height:260px}}
+:root{
+  --bg:#171717;
+  --bg2:#202020;
+  --panel:#0f0f0f;
+  --panel2:#171717;
+  --text:#f4f4f0;
+  --muted:#a6a6a1;
+  --line:rgba(255,255,255,.13);
+  --blue:#168cff;
+  --blue2:#45a8ff;
+  --danger:#ff6f61;
+  --max:1450px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(255,255,255,.07),transparent 26%),
+    radial-gradient(circle at 10% 85%,rgba(22,140,255,.08),transparent 25%),
+    linear-gradient(135deg,#171717,#242424 50%,#151515);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  min-height:100vh;
+}
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  z-index:9999;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.topbar{
+  position:sticky;top:0;z-index:1000;
+  height:76px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  background:rgba(18,18,18,.82);
+  backdrop-filter:blur(22px);
+}
+.brand{
+  font-family:"Space Grotesk",sans-serif;font-weight:700;
+  letter-spacing:.08em;font-size:19px;
+}
+.brand span{color:var(--blue)}
+.nav{display:flex;gap:30px;color:#cfcfca;font-size:13px;text-transform:uppercase;letter-spacing:.12em}
+.nav a:hover{color:var(--blue)}
+.menu-btn{display:none;background:none;border:0;color:#fff;font-size:24px}
+
+.hero{
+  max-width:var(--max);margin:auto;min-height:690px;
+  padding:70px 5% 40px;position:relative;
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  align-items:center;overflow:hidden;
+}
+.hero-title{
+  position:relative;z-index:3;align-self:start;padding-top:15px;
+}
+.kicker{
+  color:var(--blue);font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:15px;
+}
+.hero h1{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(70px,10vw,145px);
+  line-height:.78;letter-spacing:-.075em;
+  text-transform:uppercase;margin:0;
+  color:#c7c7c5;
+}
+.hero h1 span{display:block}
+.hero-sub{
+  max-width:520px;color:var(--muted);
+  margin-top:28px;line-height:1.7;font-size:15px;
+}
+.hero-stat{
+  margin-top:30px;display:flex;gap:28px;flex-wrap:wrap;
+}
+.hero-stat strong{
+  display:block;font-family:"Space Grotesk";font-size:27px;color:#fff;
+}
+.hero-stat small{color:#777;text-transform:uppercase;letter-spacing:.12em;font-size:10px}
+
+.hero-portrait{
+  position:absolute;right:17%;bottom:0;width:min(480px,42vw);
+  height:610px;display:flex;justify-content:center;align-items:flex-end;
+  z-index:2;pointer-events:none;
+}
+.hero-portrait .silhouette{
+  width:320px;height:530px;
+  background:
+    radial-gradient(circle at 50% 12%,#3a3a3a 0 45px,transparent 46px),
+    linear-gradient(100deg,transparent 0 24%,#111 25% 75%,transparent 76%);
+  border-radius:48% 48% 8% 8%;
+  filter:drop-shadow(0 25px 45px #000);
+  opacity:.85;
+}
+.hero-portrait:after{
+  content:"PARLIAMENT\nARCHIVE";
+  white-space:pre;
+  position:absolute;bottom:80px;right:-20px;
+  font-family:"Space Grotesk";font-weight:700;
+  font-size:14px;line-height:1.5;letter-spacing:.15em;color:#777;
+}
+
+.hero-card{
+  position:absolute;z-index:5;left:5%;bottom:55px;
+  width:350px;padding:26px;border:1px solid var(--line);
+  background:rgba(8,8,8,.9);box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+.hero-card h3,.panel h3{
+  margin:0 0 15px;font-family:"Space Grotesk";
+  font-size:18px;text-transform:uppercase;letter-spacing:.02em;
+}
+.blue{color:var(--blue)}
+.hero-card p{color:#b4b4b0;font-size:13px;line-height:1.7;margin:8px 0}
+.hero-card strong{color:#fff}
+
+.section{
+  max-width:var(--max);margin:auto;padding:75px 5%;
+}
+.section-head{
+  display:flex;justify-content:space-between;align-items:end;
+  gap:25px;margin-bottom:28px;
+}
+.section-head h2{
+  font-family:"Space Grotesk";font-size:48px;line-height:1;
+  letter-spacing:-.05em;margin:0;text-transform:uppercase;
+}
+.section-head p{max-width:470px;color:#888;font-size:13px;line-height:1.6;margin:0}
+
+.toolbar{
+  display:grid;grid-template-columns:1fr auto auto;gap:12px;margin-bottom:22px;
+}
+.search{
+  width:100%;background:#101010;border:1px solid var(--line);
+  color:#fff;padding:17px 20px;outline:0;
+}
+.search:focus{border-color:var(--blue)}
+.filter{
+  background:#101010;color:#ddd;border:1px solid var(--line);
+  padding:0 18px;min-width:155px;
+}
+.filter.active{border-color:var(--blue);color:#fff}
+
+.directory{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+}
+.card{
+  min-height:265px;background:#111;border:1px solid var(--line);
+  padding:22px;position:relative;overflow:hidden;
+  transition:.25s transform,.25s border-color,.25s background;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(22,140,255,.55);background:#151515}
+.card-top{display:flex;justify-content:space-between;gap:12px}
+.status{
+  font-size:9px;text-transform:uppercase;letter-spacing:.13em;
+  border:1px solid var(--line);padding:5px 7px;color:#aaa;
+}
+.status.sitting{color:#61b7ff;border-color:rgba(22,140,255,.45)}
+.card-index{color:#555;font-family:"Space Grotesk";font-size:11px}
+.card h3{
+  font-family:"Space Grotesk";font-size:25px;line-height:1.02;
+  margin:45px 0 15px;letter-spacing:-.035em;
+}
+.card-party{color:var(--blue);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.card-meta{margin-top:18px;color:#888;font-size:12px;line-height:1.65}
+.card button{
+  position:absolute;right:18px;bottom:17px;
+  border:1px solid var(--line);background:none;color:#aaa;
+  padding:7px 11px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+}
+.card button:hover{color:#fff;border-color:var(--blue)}
+
+.pagination{
+  display:flex;justify-content:center;align-items:center;gap:7px;
+  margin-top:35px;flex-wrap:wrap;
+}
+.page{
+  min-width:38px;height:38px;border:1px solid var(--line);
+  background:#111;color:#aaa;
+}
+.page:hover,.page.current{background:var(--blue);border-color:var(--blue);color:#fff}
+.page:disabled{opacity:.3;cursor:not-allowed}
+
+.footer{
+  border-top:1px solid var(--line);padding:55px 5%;
+  max-width:var(--max);margin:auto;color:#666;font-size:12px;
+}
+.footer-row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.footer strong{color:#aaa}
+
+.modal{
+  position:fixed;inset:0;z-index:5000;display:none;
+  background:rgba(0,0,0,.82);backdrop-filter:blur(18px);
+  overflow:auto;padding:45px 20px;
+}
+.modal.show{display:block}
+.profile{
+  max-width:1250px;margin:auto;background:#161616;
+  border:1px solid var(--line);min-height:700px;
+  position:relative;overflow:hidden;
+}
+.close{
+  position:absolute;right:22px;top:17px;z-index:4;
+  width:42px;height:42px;border:1px solid var(--line);
+  background:#0d0d0d;color:#fff;font-size:22px;
+}
+.profile-grid{
+  min-height:700px;display:grid;grid-template-columns:42% 58%;
+}
+.profile-visual{
+  position:relative;min-height:700px;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(22,140,255,.13),transparent 35%),
+    linear-gradient(150deg,#282828,#111);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.profile-visual:before{
+  content:"POLITICAL\nARCHIVE";
+  position:absolute;left:25px;top:25px;
+  white-space:pre;font-family:"Space Grotesk";font-weight:700;
+  font-size:12px;letter-spacing:.2em;line-height:1.5;color:#555;
+}
+.profile-photo{
+  width:360px;height:470px;object-fit:cover;
+  filter:grayscale(100%);mix-blend-mode:screen;opacity:.85;
+}
+.profile-placeholder{
+  width:330px;height:430px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:25px;
+  font-family:"Space Grotesk";font-size:60px;line-height:.85;
+  color:#555;border:1px solid #333;
+}
+.profile-info{padding:60px 55px}
+.profile-label{color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:700}
+.profile-info h2{
+  font-family:"Space Grotesk";font-size:clamp(45px,5vw,82px);
+  line-height:.84;letter-spacing:-.065em;text-transform:uppercase;
+  margin:14px 0 25px;
+}
+.profile-info .party{
+  font-size:13px;color:#aaa;text-transform:uppercase;letter-spacing:.1em;
+}
+.profile-panels{
+  margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.panel{
+  background:#0e0e0e;border:1px solid var(--line);padding:20px;
+  min-height:125px;
+}
+.panel h3{font-size:11px;color:#777;letter-spacing:.13em}
+.panel p{margin:0;color:#ddd;font-size:14px;line-height:1.55}
+.journey{
+  margin-top:12px;background:#0e0e0e;border:1px solid var(--line);padding:22px;
+}
+.term-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.term{
+  padding:7px 9px;background:#1d1d1d;border:1px solid #333;
+  font-size:11px;color:#ccc;
+}
+.bio{
+  margin-top:12px;background:#0e0e0e;border:1px solid var(--line);
+  padding:22px;color:#aaa;font-size:13px;line-height:1.75;
+}
+
+.empty{
+  padding:70px 20px;text-align:center;color:#666;
+  border:1px dashed #333;grid-column:1/-1;
+}
+
+@media(max-width:1050px){
+  .directory{grid-template-columns:repeat(3,1fr)}
+  .hero{min-height:650px}
+  .hero-portrait{right:8%}
+}
+@media(max-width:800px){
+  .nav{display:none}.menu-btn{display:block}
+  .hero{display:block;min-height:720px;padding-top:55px}
+  .hero h1{font-size:clamp(62px,18vw,110px)}
+  .hero-portrait{right:2%;width:75%;height:500px;opacity:.7}
+  .hero-card{left:5%;right:5%;bottom:35px;width:auto}
+  .directory{grid-template-columns:repeat(2,1fr)}
+  .toolbar{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}
+  .profile-grid{grid-template-columns:1fr}
+  .profile-visual{min-height:420px}.profile-info{padding:40px 25px}
+}
+@media(max-width:520px){
+  .section{padding:55px 5%}.section-head{display:block}.section-head h2{font-size:37px;margin-bottom:15px}
+  .directory{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}
+  .profile-panels{grid-template-columns:1fr}
+  .profile-info h2{font-size:52px}
+}
 </style>
 </head>
-<body>
-<nav class="navbar" id="home">
-<a href="#home" class="logo"><i class="fas fa-landmark"></i> INDIA NETA</a>
-<ul class="nav-links"><li><a href="#home" class="active">Home</a></li><li><a href="#search-section">Search Data</a></li><li><a href="#about">About Project</a></li></ul>
-</nav>
 
-<header class="hero">
-<div class="hero-badge">Verified Public Data</div>
-<h1>Indian Parliament<br><span>Members Database</span></h1>
-<p>ভারতের সংসদ সদস্যদের ঐতিহাসিক ও বর্তমান রেকর্ডের একটি ইন্টারেক্টিভ ওপেন ডেটা পোর্টাল।</p>
+<body>
+<header class="topbar">
+  <a href="#top" class="brand">INDIA <span>NETA</span></a>
+  <nav class="nav">
+    <a href="#directory">Archive</a>
+    <a href="#methodology">Methodology</a>
+    <a href="#about">About</a>
+  </nav>
+  <button class="menu-btn" onclick="document.querySelector('.nav').classList.toggle('mobile')">☰</button>
 </header>
 
-<main class="main-content" id="search-section">
-<input id="searchInput" class="search-box" type="search" placeholder="Search by name, constituency, state or party...">
-<div class="tabs">
-<button class="tab" data-filter="Sitting">Current MPs</button>
-<button class="tab active" data-filter="All">All Members</button>
-</div>
-<div class="result-info"><span id="resultCount">Loading...</span><span id="pageInfo"></span></div>
-<div class="mp-grid" id="mpContainer"><p style="text-align:center;width:100%;color:rgba(255,255,255,.5)">Connecting to database...</p></div>
-<div class="pagination" id="pagination"></div>
+<main id="top">
+<section class="hero">
+  <div class="hero-title">
+    <div class="kicker">Indian Parliament / Open Data Archive</div>
+    <h1>INDIA<span>NETA</span></h1>
+    <p class="hero-sub">
+      A visual public archive of Lok Sabha members, parliamentary terms,
+      constituencies, parties and membership status — built from the supplied
+      historical member records.
+    </p>
+    <div class="hero-stat">
+      <div><strong id="heroTotal">—</strong><small>Members</small></div>
+      <div><strong id="heroSitting">—</strong><small>Sitting</small></div>
+      <div><strong>1–18</strong><small>Lok Sabha Terms</small></div>
+    </div>
+  </div>
+
+  <div class="hero-portrait" aria-hidden="true">
+    <div class="silhouette"></div>
+  </div>
+
+  <div class="hero-card">
+    <h3><span class="blue">POLITICAL</span> DNA</h3>
+    <p><strong>18</strong> Lok Sabha terms represented</p>
+    <p><strong>Public archive</strong> of historical and sitting members</p>
+    <p><strong>Source-linked</strong> records from supplied parliamentary PDFs</p>
+  </div>
+</section>
+
+<section class="section" id="directory">
+  <div class="section-head">
+    <div>
+      <div class="kicker">The Archive</div>
+      <h2>Parliament<br>Members</h2>
+    </div>
+    <p>Search the complete local dataset by name, party, constituency, state or Lok Sabha term.</p>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="SEARCH NAME / PARTY / CONSTITUENCY / STATE / TERM">
+    <button class="filter active" data-filter="All">ALL MEMBERS</button>
+    <button class="filter" data-filter="Sitting">CURRENT MPs</button>
+  </div>
+
+  <div class="result-line" style="color:#666;font-size:12px;margin-bottom:16px">
+    <span id="count">Loading database…</span>
+  </div>
+
+  <div id="directoryGrid" class="directory"></div>
+  <div id="pagination" class="pagination"></div>
+</section>
+
+<section class="section" id="methodology">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Data Methodology</div>
+      <h2>Source<br>First</h2>
+    </div>
+    <p>
+      The interface does not invent unavailable biographical information.
+      Fields not supplied by the source dataset remain unavailable in the profile.
+    </p>
+  </div>
+</section>
 </main>
 
-<div id="portfolioModal" class="modal" aria-hidden="true">
-<div class="modal-content">
-<span class="close-btn" onclick="closeModal()">&times;</span>
-<div class="profile-header">
-<div class="profile-left"><h3>Profile of</h3><h1 id="modalName">Name</h1><p id="modalDesignation">Member of Parliament</p></div>
-<div class="profile-center"><img id="modalImg" src="" alt="MP Photo"></div>
-<div class="profile-right glass-panel"><h4>Political Biography</h4><p id="modalBio">No biography was supplied in the source PDFs.</p></div>
-</div>
-<div class="stats-bar glass-panel">
-<div class="stat-box"><i class="fas fa-university stat-icon"></i><div class="stat-value" id="modalEducation">N/A</div><div class="stat-label">Education</div></div>
-<div class="stat-box"><i class="fas fa-gavel stat-icon"></i><div class="stat-value" id="modalCriminal">N/A</div><div class="stat-label">Criminal Cases</div></div>
-<div class="stat-box"><i class="fas fa-rupee-sign stat-icon"></i><div class="stat-value" id="modalAssets">N/A</div><div class="stat-label">Declared Assets</div></div>
-<div class="stat-box"><i class="fas fa-history stat-icon"></i><div class="stat-value" id="modalTerm">-</div><div class="stat-label">Lok Sabha Terms</div></div>
-</div>
-<div class="detail-cards-container">
-<div class="detail-card glass-panel"><h5>Constituency</h5><h2 id="modalConstituency">-</h2></div>
-<div class="detail-card glass-panel"><h5>State</h5><h2 id="modalState">-</h2></div>
-<div class="detail-card glass-panel"><h5>Political Party</h5><h2 id="modalParty">-</h2></div>
-</div>
-</div>
-</div>
+<footer class="footer" id="about">
+  <div class="footer-row">
+    <div><strong>INDIA NETA</strong><br>Indian Parliament Open Data Archive</div>
+    <div>Independent public-information project<br>Verify critical records against official sources.</div>
+  </div>
+</footer>
 
-<footer class="footer" id="about"><div class="footer-content"><div class="footer-logo">INDIA NETA PORTAL</div>
-<div class="footer-links"><a href="#home">Home</a><a href="#search-section">Search</a><a href="#about">Methodology</a></div>
-<p class="disclaimer-text"><strong>DISCLAIMER:</strong> This dataset is extracted from the supplied Lok Sabha member PDFs. Education, criminal cases, assets, biographies and images are intentionally left blank where the supplied source PDFs do not provide those fields. Verify critical information against official sources.</p>
-<p style="color:rgba(255,255,255,.3);font-size:11px">&copy; 2026 Indian Parliament Members Open Data Portal.</p>
-</div></footer>
+<div id="modal" class="modal" aria-hidden="true">
+  <article class="profile">
+    <button class="close" onclick="closeProfile()" aria-label="Close">×</button>
+    <div class="profile-grid">
+      <div class="profile-visual">
+        <div id="profileVisual"></div>
+      </div>
+
+      <div class="profile-info">
+        <div class="profile-label" id="profileStatus">Member of Parliament</div>
+        <h2 id="profileName">Name</h2>
+        <div class="party" id="profileParty">Party</div>
+
+        <div class="profile-panels">
+          <div class="panel">
+            <h3>Constituency</h3>
+            <p id="profileConstituency">—</p>
+          </div>
+          <div class="panel">
+            <h3>State</h3>
+            <p id="profileState">—</p>
+          </div>
+          <div class="panel">
+            <h3>Education</h3>
+            <p id="profileEducation">Not supplied</p>
+          </div>
+          <div class="panel">
+            <h3>Public Record</h3>
+            <p id="profileRecord">Not supplied</p>
+          </div>
+        </div>
+
+        <div class="journey">
+          <div class="profile-label">Political Journey / Lok Sabha Terms</div>
+          <div id="profileTerms" class="term-list"></div>
+        </div>
+
+        <div class="bio" id="profileBio">
+          No biography supplied in the local source dataset.
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
 
 <script>
 'use strict';
 
+const PAGE_SIZE = 32;
 let allMPs = [];
-let currentFilter = 'All';
-let currentPage = 1;
-const PAGE_SIZE = 48;
+let filtered = [];
+let page = 1;
+let activeFilter = 'All';
 
-const container = document.getElementById('mpContainer');
-const searchInput = document.getElementById('searchInput');
+const grid = document.getElementById('directoryGrid');
+const search = document.getElementById('search');
 const pagination = document.getElementById('pagination');
-const resultCount = document.getElementById('resultCount');
-const pageInfo = document.getElementById('pageInfo');
+const count = document.getElementById('count');
 
-function escapeHTML(value) {
-    return String(value ?? '').replace(/[&<>"']/g, ch => ({
-        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
-    }[ch]));
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[c]));
 }
 
-function filteredMPs() {
-    const query = searchInput.value.trim().toLowerCase();
-    return allMPs.filter(mp => {
-        const matchesFilter = currentFilter === 'All' || mp.type === 'Sitting';
-        if (!matchesFilter) return false;
-        if (!query) return true;
-        return [mp.name, mp.constituency, mp.party, mp.state, mp.term]
-            .some(v => String(v ?? '').toLowerCase().includes(query));
-    });
+function getText(mp, key) {
+  const value = mp?.[key];
+  return value === undefined || value === null || value === '' ? 'Not supplied' : String(value);
 }
 
-function renderPagination(total) {
-    pagination.innerHTML = '';
-    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-    if (totalPages <= 1) return;
+async function loadData() {
+  try {
+    const response = await fetch('mps.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('HTTP ' + response.status);
 
-    const prev = document.createElement('button');
-    prev.className = 'page-btn';
-    prev.textContent = 'Previous';
-    prev.disabled = currentPage === 1;
-    prev.onclick = () => { currentPage--; render(); };
-    pagination.appendChild(prev);
+    const data = await response.json();
+    if (!Array.isArray(data)) throw new Error('mps.json is not an array');
 
-    const start = Math.max(1, currentPage - 2);
-    const end = Math.min(totalPages, currentPage + 2);
-    for (let p = start; p <= end; p++) {
-        const btn = document.createElement('button');
-        btn.className = 'page-btn' + (p === currentPage ? ' active' : '');
-        btn.textContent = p;
-        btn.onclick = () => { currentPage = p; render(); };
-        pagination.appendChild(btn);
-    }
+    allMPs = data;
+    document.getElementById('heroTotal').textContent = allMPs.length.toLocaleString();
+    document.getElementById('heroSitting').textContent =
+      allMPs.filter(mp => mp.type === 'Sitting').length.toLocaleString();
 
-    const next = document.createElement('button');
-    next.className = 'page-btn';
-    next.textContent = 'Next';
-    next.disabled = currentPage === totalPages;
-    next.onclick = () => { currentPage++; render(); };
-    pagination.appendChild(next);
+    applyFilters();
+  } catch (error) {
+    console.error(error);
+    count.textContent = 'Database failed to load';
+    grid.innerHTML = '<div class="empty">Unable to load mps.json. Check that index.html and mps.json are in the same directory.</div>';
+  }
+}
+
+function applyFilters() {
+  const q = search.value.trim().toLowerCase();
+
+  filtered = allMPs.filter(mp => {
+    if (activeFilter === 'Sitting' && mp.type !== 'Sitting') return false;
+    if (!q) return true;
+
+    return [
+      mp.name, mp.party, mp.constituency, mp.state, mp.term, mp.type
+    ].some(value => String(value ?? '').toLowerCase().includes(q));
+  });
+
+  page = 1;
+  render();
 }
 
 function render() {
-    const list = filteredMPs();
-    const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-    if (currentPage > totalPages) currentPage = totalPages;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  if (page > totalPages) page = totalPages;
 
-    const start = (currentPage - 1) * PAGE_SIZE;
-    const visible = list.slice(start, start + PAGE_SIZE);
+  const start = (page - 1) * PAGE_SIZE;
+  const visible = filtered.slice(start, start + PAGE_SIZE);
 
-    resultCount.textContent = `${list.length.toLocaleString()} members`;
-    pageInfo.textContent = list.length ? `Page ${currentPage} of ${totalPages}` : '';
+  count.textContent =
+    `${filtered.length.toLocaleString()} records · Page ${page} of ${totalPages}`;
 
-    if (!visible.length) {
-        container.innerHTML = '<p style="text-align:center;width:100%;color:rgba(255,255,255,.5)">No matching records found.</p>';
-        pagination.innerHTML = '';
-        return;
-    }
+  if (!visible.length) {
+    grid.innerHTML = '<div class="empty">No matching parliamentary records found.</div>';
+    pagination.innerHTML = '';
+    return;
+  }
 
-    container.innerHTML = visible.map(mp => `
-        <div class="mp-card glass-panel">
-            <img src="https://via.placeholder.com/150/0d4440/ffffff?text=MP" alt="${escapeHTML(mp.name)}">
-            <div class="mp-name">${escapeHTML(mp.name)}</div>
-            <div class="mp-party">${escapeHTML(mp.party)}</div>
-            <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px">${escapeHTML(mp.constituency)}, ${escapeHTML(mp.state)}</p>
-            <button class="portfolio-btn" data-id="${escapeHTML(mp.id)}">View Complete Portfolio</button>
+  grid.innerHTML = visible.map((mp, i) => {
+    const statusClass = mp.type === 'Sitting' ? 'sitting' : '';
+    return `
+      <article class="card">
+        <div class="card-top">
+          <span class="card-index">${String(start+i+1).padStart(4,'0')}</span>
+          <span class="status ${statusClass}">${esc(mp.type || 'Unknown')}</span>
         </div>
-    `).join('');
+        <h3>${esc(mp.name)}</h3>
+        <div class="card-party">${esc(mp.party)}</div>
+        <div class="card-meta">
+          ${esc(mp.constituency)}<br>
+          ${esc(mp.state)}<br>
+          Lok Sabha: ${esc(mp.term)}
+        </div>
+        <button type="button" data-id="${esc(mp.id)}">VIEW PROFILE →</button>
+      </article>
+    `;
+  }).join('');
 
-    container.querySelectorAll('.portfolio-btn').forEach(btn => {
-        btn.addEventListener('click', () => openModal(btn.dataset.id));
-    });
-    renderPagination(list.length);
+  grid.querySelectorAll('button[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => openProfile(btn.dataset.id));
+  });
+
+  renderPagination(totalPages);
 }
 
-async function fetchMPData() {
-    try {
-        const response = await fetch('mps.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        if (!Array.isArray(data)) throw new Error('mps.json must contain an array');
-        allMPs = data;
-        render();
-    } catch (error) {
-        console.error('MP database load failed:', error);
-        container.innerHTML = '<p style="color:#ffcccb;text-align:center;width:100%">ডেটা লোড করতে সমস্যা হচ্ছে। mps.json ফাইলটি পরীক্ষা করুন।</p>';
-        resultCount.textContent = 'Database error';
-    }
+function renderPagination(totalPages) {
+  pagination.innerHTML = '';
+
+  if (totalPages <= 1) return;
+
+  const previous = document.createElement('button');
+  previous.className = 'page';
+  previous.textContent = '←';
+  previous.disabled = page === 1;
+  previous.onclick = () => { page--; render(); window.scrollTo({top:document.getElementById('directory').offsetTop-80,behavior:'smooth'}); };
+  pagination.appendChild(previous);
+
+  const start = Math.max(1, page - 2);
+  const end = Math.min(totalPages, page + 2);
+
+  for (let i = start; i <= end; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'page' + (i === page ? ' current' : '');
+    btn.textContent = i;
+    btn.onclick = () => { page = i; render(); };
+    pagination.appendChild(btn);
+  }
+
+  const next = document.createElement('button');
+  next.className = 'page';
+  next.textContent = '→';
+  next.disabled = page === totalPages;
+  next.onclick = () => { page++; render(); };
+  pagination.appendChild(next);
 }
 
-function setFilter(filter, button) {
-    currentFilter = filter;
-    currentPage = 1;
-    document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+function openProfile(id) {
+  const mp = allMPs.find(item => String(item.id) === String(id));
+  if (!mp) return;
+
+  document.getElementById('profileStatus').textContent =
+    mp.type === 'Sitting' ? 'Sitting Member of Parliament' : `${getText(mp,'type')} · Parliamentary Archive`;
+
+  document.getElementById('profileName').textContent = getText(mp,'name');
+  document.getElementById('profileParty').textContent = getText(mp,'party');
+  document.getElementById('profileConstituency').textContent = getText(mp,'constituency');
+  document.getElementById('profileState').textContent = getText(mp,'state');
+  document.getElementById('profileEducation').textContent = getText(mp,'education');
+
+  const assets = getText(mp,'assets');
+  const criminal = getText(mp,'criminalCases');
+  document.getElementById('profileRecord').textContent =
+    `Assets: ${assets} · Criminal cases: ${criminal}`;
+
+  const terms = String(mp.term || '').split(',').map(t => t.trim()).filter(Boolean);
+  document.getElementById('profileTerms').innerHTML =
+    terms.length
+      ? terms.map(term => `<span class="term">Lok Sabha ${esc(term)}</span>`).join('')
+      : '<span class="term">Not supplied</span>';
+
+  document.getElementById('profileBio').textContent =
+    mp.detailedBio || mp.shortBio ||
+    'No biography supplied in the local source dataset.';
+
+  const visual = document.getElementById('profileVisual');
+  if (mp.image) {
+    visual.innerHTML = `<img class="profile-photo" src="${esc(mp.image)}" alt="${esc(mp.name)}">`;
+  } else {
+    const initials = getText(mp,'name')
+      .replace(/^(Shri|Smt\.|Dr\.|Km\.|Kum\.)\s+/i,'')
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0,2)
+      .map(x => x[0])
+      .join('')
+      .toUpperCase();
+
+    visual.innerHTML =
+      `<div class="profile-placeholder">${esc(initials || 'MP')}</div>`;
+  }
+
+  const modal = document.getElementById('modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfile() {
+  const modal = document.getElementById('modal');
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+
+search.addEventListener('input', applyFilters);
+
+document.querySelectorAll('.filter').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
     button.classList.add('active');
-    render();
-}
-
-function searchMPs() {
-    currentPage = 1;
-    render();
-}
-
-function openModal(id) {
-    const mp = allMPs.find(item => String(item.id) === String(id));
-    if (!mp) return;
-
-    document.getElementById('modalImg').src = mp.image || 'https://via.placeholder.com/400/0d4440/ffffff?text=MP';
-    document.getElementById('modalName').textContent = mp.name || 'Unknown';
-    document.getElementById('modalParty').textContent = mp.party || 'N/A';
-    document.getElementById('modalConstituency').textContent = mp.constituency || 'N/A';
-    document.getElementById('modalState').textContent = mp.state || 'N/A';
-    document.getElementById('modalEducation').textContent = mp.education || 'N/A';
-    document.getElementById('modalCriminal').textContent = mp.criminalCases || 'N/A';
-    document.getElementById('modalAssets').textContent = mp.assets || 'N/A';
-    document.getElementById('modalTerm').textContent = mp.term ? `Terms: ${mp.term}` : 'N/A';
-    document.getElementById('modalDesignation').textContent = mp.type === 'Sitting' ? 'Sitting Member of Parliament' : 'Former Member of Parliament';
-    document.getElementById('modalBio').textContent = mp.detailedBio || mp.shortBio || 'No biography was supplied in the source PDFs.';
-
-    const modal = document.getElementById('portfolioModal');
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    const modal = document.getElementById('portfolioModal');
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-}
-
-document.querySelectorAll('.tab').forEach(btn => {
-    btn.addEventListener('click', () => setFilter(btn.dataset.filter, btn));
+    activeFilter = button.dataset.filter;
+    applyFilters();
+  });
 });
-searchInput.addEventListener('input', searchMPs);
+
 document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeModal();
+  if (event.key === 'Escape') closeProfile();
 });
-window.addEventListener('click', event => {
-    if (event.target === document.getElementById('portfolioModal')) closeModal();
+
+document.getElementById('modal').addEventListener('click', event => {
+  if (event.target.id === 'modal') closeProfile();
 });
-window.addEventListener('DOMContentLoaded', fetchMPData);
+
+loadData();
 </script>
 </body>
 </html>
