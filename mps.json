@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "name": "Mulla Taherali Abdullabhai",
+    "constituency": "Chanda",
+    "state": "Madhya Pradesh",
+    "party": "Congress",
+    "type": "MP",
+    "term": "1",
+    "education": "",
+    "criminalCases": "",
+    "assets": "",
+    "shortBio": "",
+    "detailedBio": "",
+    "image": ""
+  },
+  {
+    "id": "2",
+    "name": "Abdus Sattar",
+    "constituency": "Unknown",
+    "state": "West Bengal",
+    "party": "Congress",
+    "type": "MP",
+    "term": "1",
+    "education": "",
+    "criminalCases": "",
+    "assets": "",
+    "shortBio": "",
+    "detailedBio": "",
+    "image": ""
+  },
+  {
+    "id": "3",
+    "name": "Seth Achal Singh",
+    "constituency": "Agra",
+    "state": "Uttar Pradesh",
+    "party": "Congress",
+    "type": "MP",
+    "term": "1,2,3,4,5",
+    "education": "",
+    "criminalCases": "",
+    "assets": "",
+    "shortBio": "",
+    "detailedBio": "",
+    "image": ""
+  }
+]
