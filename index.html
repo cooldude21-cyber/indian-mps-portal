@@ -286,12 +286,152 @@ a{color:inherit;text-decoration:none}
   border:1px dashed #333;grid-column:1/-1;
 }
 
+
+.overview-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.overview-card{background:#111;border:1px solid var(--line);padding:24px 18px;min-height:130px;display:flex;flex-direction:column;justify-content:space-between}
+.overview-number{font-family:"Space Grotesk";font-size:34px;font-weight:700;color:#fff;letter-spacing:-.04em}
+.overview-card span:last-child{color:#777;font-size:10px;text-transform:uppercase;letter-spacing:.1em;line-height:1.5}
+.house-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.house-card{border:1px solid var(--line);background:#111;color:#fff;text-align:left;padding:32px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s}
+.house-card:hover,.house-card.selected{border-color:rgba(22,140,255,.6);background:linear-gradient(145deg,#141414,#0d0d0d)}
+.house-card strong{font-family:"Space Grotesk";font-size:48px;letter-spacing:-.06em}
+.house-card span{color:#888}.house-card small{color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.house-kicker,.kicker{color:var(--blue)!important;font-size:10px!important;font-weight:700!important;text-transform:uppercase;letter-spacing:.18em}
+.source-note{margin-top:14px;border:1px solid var(--line);background:#0e0e0e;color:#777;padding:18px;font-size:12px;line-height:1.7}
+.source-note strong{color:#aaa}
+.state-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.state-card{border:1px solid var(--line);background:#111;color:#ddd;padding:16px;text-align:left;min-height:105px;cursor:pointer;transition:.2s}
+.state-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.state-name{display:block;font-family:"Space Grotesk";font-size:14px;font-weight:600;line-height:1.15}
+.state-count{display:block;margin-top:16px;color:var(--blue);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+
+
+.biodata-grid{margin-top:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#292929;border:1px solid var(--line)}
+.biodata-grid div{background:#0e0e0e;padding:16px}
+.biodata-grid span{display:block;color:#666;font-size:9px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
+.biodata-grid strong{display:block;color:#ddd;font-size:12px;line-height:1.45}
+
+
+/* ---------- Political intelligence navigation / dashboards ---------- */
+.sidebar-toggle{
+  position:fixed;left:18px;top:92px;z-index:1100;
+  width:44px;height:44px;border:1px solid var(--line);
+  background:#0d0d0d;color:#fff;border-radius:50%;
+}
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:285px;z-index:1050;
+  background:#0c0c0c;border-right:1px solid var(--line);
+  transform:translateX(-100%);transition:.28s ease;
+  padding:95px 20px 25px;overflow:auto;
+}
+.sidebar.open{transform:translateX(0)}
+.sidebar .side-title{font-family:"Space Grotesk";font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.18em;margin:20px 10px 8px}
+.side-link{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 10px;color:#aaa;font-size:12px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.side-link:hover{color:#fff;background:#151515}
+.side-link b{color:var(--blue);font-size:10px}
+.side-source{
+  display:block;margin-top:20px;padding:15px;
+  border:1px solid var(--line);background:#111;color:#888;
+  font-size:11px;line-height:1.6;
+}
+.side-source strong{color:#ddd}
+.dashboard-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.dashboard-card{
+  background:#0e0e0e;border:1px solid var(--line);padding:22px;
+  min-height:145px;
+}
+.dashboard-card .big{
+  font-family:"Space Grotesk";font-size:42px;line-height:1;
+  margin:12px 0;color:#fff;
+}
+.dashboard-card small{color:#666;text-transform:uppercase;letter-spacing:.12em}
+.house-switch{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;
+}
+.house-switch button{
+  background:#111;color:#999;border:1px solid var(--line);
+  padding:12px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+}
+.house-switch button.active,.house-switch button:hover{
+  color:#fff;border-color:var(--blue);background:rgba(22,140,255,.08);
+}
+.state-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+}
+.state-card{
+  background:#111;border:1px solid var(--line);padding:17px;
+  min-height:110px;cursor:pointer;transition:.2s;
+}
+.state-card:hover{border-color:rgba(22,140,255,.55);transform:translateY(-2px)}
+.state-card h3{font-family:"Space Grotesk";font-size:15px;margin:0 0 12px}
+.state-card .state-count{color:var(--blue);font-family:"Space Grotesk";font-size:22px}
+.state-card small{color:#666;font-size:10px;text-transform:uppercase}
+.source-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+}
+.source-card{
+  display:block;background:#0f0f0f;border:1px solid var(--line);
+  padding:22px;transition:.2s;
+}
+.source-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.source-card strong{display:block;font-family:"Space Grotesk";font-size:17px;margin-bottom:8px}
+.source-card span{color:#777;font-size:12px;line-height:1.6}
+.donate{
+  border:1px solid rgba(22,140,255,.35);
+  background:linear-gradient(135deg,rgba(22,140,255,.09),rgba(0,0,0,.2));
+  padding:35px;display:grid;grid-template-columns:1.5fr 1fr;gap:25px;
+}
+.donate h2{font-family:"Space Grotesk";font-size:42px;letter-spacing:-.05em;margin:0 0 12px}
+.donate p{color:#888;font-size:13px;line-height:1.7}
+.donate-box{background:#0c0c0c;border:1px solid var(--line);padding:22px}
+.donate-box label{display:block;color:#666;font-size:10px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
+.donate-box input{
+  width:100%;padding:13px;background:#151515;border:1px solid var(--line);
+  color:#fff;margin-bottom:10px;
+}
+.donate-btn{
+  width:100%;padding:14px;background:var(--blue);border:0;color:#fff;
+  font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+}
+.notice{
+  padding:15px;background:#111;border-left:3px solid var(--blue);
+  color:#888;font-size:12px;line-height:1.65;margin-top:15px;
+}
+.live-badge{
+  display:inline-block;color:#62c1ff;border:1px solid rgba(22,140,255,.35);
+  padding:5px 8px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;
+}
 @media(max-width:1050px){
+  .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+  .state-grid{grid-template-columns:repeat(3,1fr)}
+  .source-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .sidebar{width:85vw}
+  .dashboard-grid,.state-grid,.source-grid{grid-template-columns:1fr 1fr}
+  .donate{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .dashboard-grid,.state-grid,.source-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:1050px){
+  .overview-grid{grid-template-columns:repeat(3,1fr)}
+  .state-grid{grid-template-columns:repeat(4,1fr)}
   .directory{grid-template-columns:repeat(3,1fr)}
   .hero{min-height:650px}
   .hero-portrait{right:8%}
 }
 @media(max-width:800px){
+  .overview-grid{grid-template-columns:repeat(2,1fr)}
+  .state-grid{grid-template-columns:repeat(2,1fr)}
+  .house-grid{grid-template-columns:1fr}
   .nav{display:none}.menu-btn{display:block}
   .hero{display:block;min-height:720px;padding-top:55px}
   .hero h1{font-size:clamp(62px,18vw,110px)}
@@ -303,6 +443,9 @@ a{color:inherit;text-decoration:none}
   .profile-visual{min-height:420px}.profile-info{padding:40px 25px}
 }
 @media(max-width:520px){
+  .overview-grid{grid-template-columns:1fr 1fr}
+  .state-grid{grid-template-columns:1fr 1fr}
+  .house-card strong{font-size:38px}
   .section{padding:55px 5%}.section-head{display:block}.section-head h2{font-size:37px;margin-bottom:15px}
   .directory{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}
   .profile-panels{grid-template-columns:1fr}
@@ -312,11 +455,32 @@ a{color:inherit;text-decoration:none}
 </head>
 
 <body>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">☰</button>
+<aside class="sidebar" id="sidebar">
+  <div class="side-title">India Neta</div>
+  <a class="side-link" href="#top">Overview <b>HOME</b></a>
+  <a class="side-link" href="#dashboard">National Dashboard <b>DATA</b></a>
+  <a class="side-link" href="#directory">Politicians Archive <b>MPs</b></a>
+  <a class="side-link" href="#states">States & UTs <b>36</b></a>
+  <a class="side-link" href="#houses">Lok Sabha / Rajya Sabha <b>2 HOUSES</b></a>
+  <a class="side-link" href="#sources">Government Sources <b>VERIFY</b></a>
+  <a class="side-link" href="#methodology">Methodology <b>ABOUT</b></a>
+  <a class="side-link" href="#donate">Support / Donate <b>UPI</b></a>
+  <div class="side-source">
+    <strong>Independent public archive</strong><br>
+    Parliamentary facts should be traceable to official sources. Wikipedia is used only for optional biography/image enrichment.
+  </div>
+</aside>
+
 <header class="topbar">
   <a href="#top" class="brand">INDIA <span>NETA</span></a>
   <nav class="nav">
-    <a href="#directory">Archive</a>
-    <a href="#methodology">Methodology</a>
+    <a href="#overview">Overview</a>
+    <a href="#houses">Lok Sabha</a>
+    <a href="#houses">Rajya Sabha</a>
+    <a href="#states">States & UTs</a>
+    <a href="#directory">Politicians</a>
     <a href="#about">About</a>
   </nav>
   <button class="menu-btn" onclick="document.querySelector('.nav').classList.toggle('mobile')">☰</button>
@@ -351,6 +515,98 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+
+<section class="section" id="overview">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Political Intelligence</div>
+      <h2>India<br>At A Glance</h2>
+    </div>
+    <p>Explore politicians by House, state or Union Territory, party, constituency and parliamentary history.</p>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-card"><span class="overview-number" id="dashTotal">—</span><span>Politicians in local archive</span></div>
+    <div class="overview-card"><span class="overview-number" id="dashSitting">—</span><span>Sitting Lok Sabha MPs</span></div>
+    <div class="overview-card"><span class="overview-number">36</span><span>States + Union Territories</span></div>
+    <div class="overview-card"><span class="overview-number">2</span><span>Houses of Parliament</span></div>
+    <div class="overview-card"><span class="overview-number" id="dashParties">—</span><span>Political parties represented</span></div>
+    <div class="overview-card"><span class="overview-number">18</span><span>Lok Sabha terms</span></div>
+  </div>
+</section>
+
+<section class="section" id="houses">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Parliament of India</div>
+      <h2>Two<br>Houses</h2>
+    </div>
+    <p>Separate intelligence views for the Lok Sabha and Rajya Sabha. The current supplied dataset is the Lok Sabha historical archive.</p>
+  </div>
+
+  <div class="house-grid">
+    <button class="house-card selected" id="lokSabhaCard" type="button">
+      <span class="house-kicker">LOWER HOUSE</span>
+      <strong>LOK SABHA</strong>
+      <span>House of the People</span>
+      <small id="lokSabhaCount">Loading…</small>
+    </button>
+
+    <button class="house-card" id="rajyaSabhaCard" type="button">
+      <span class="house-kicker">UPPER HOUSE</span>
+      <strong>RAJYA SABHA</strong>
+      <span>Council of States</span>
+      <small id="rajyaSabhaCount">Optional rajya_sabha.json</small>
+    </button>
+  </div>
+
+  <div id="houseNotice" class="source-note">
+    Rajya Sabha records are designed into the interface but are not included in the supplied Lok Sabha PDF dataset. Add a validated <strong>rajya_sabha.json</strong> file to populate the upper-house archive.
+  </div>
+</section>
+
+<section class="section" id="states">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Geographic Explorer</div>
+      <h2>36 States<br>& UTs</h2>
+    </div>
+    <p>Open a state or Union Territory to see the politicians represented in the local archive. Counts are calculated directly from the dataset.</p>
+  </div>
+
+  <div id="stateGrid" class="state-grid"></div>
+</section>
+
+
+<section class="section" id="dashboard">
+  <div class="section-head">
+    <div>
+      <div class="kicker">National Dashboard</div>
+      <h2>India<br>Political Map</h2>
+    </div>
+    <p>Live interface metrics are calculated from the local parliamentary dataset. Official Parliament and Election Commission sources are linked below for verification.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card"><small>Parliamentary Records</small><div class="big" id="dashTotal">—</div><span class="live-badge">Local database</span></div>
+    <div class="dashboard-card"><small>Sitting Records</small><div class="big" id="dashSitting">—</div><span class="live-badge">Current source set</span></div>
+    <div class="dashboard-card"><small>States + UTs</small><div class="big">36</div><small>28 States · 8 UTs</small></div>
+    <div class="dashboard-card"><small>Lok Sabha Archive</small><div class="big">18</div><small>Terms represented</small></div>
+  </div>
+</section>
+
+
+<section class="section" id="states">
+  <div class="section-head">
+    <div>
+      <div class="kicker">State / UT Explorer</div>
+      <h2>36<br>Regions</h2>
+    </div>
+    <p>Choose a State or Union Territory to filter the parliamentary archive. Counts below are calculated from the current local dataset.</p>
+  </div>
+  <div id="stateGrid" class="state-grid"></div>
+</section>
+
 <section class="section" id="directory">
   <div class="section-head">
     <div>
@@ -374,6 +630,59 @@ a{color:inherit;text-decoration:none}
   <div id="pagination" class="pagination"></div>
 </section>
 
+<section class="section" id="live-data">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Live Enrichment</div>
+      <h2>Automatic<br>Research</h2>
+    </div>
+    <p>
+      Profiles automatically search Wikipedia when opened. Results are cached
+      in the browser so repeat visits are faster and unnecessary API calls are avoided.
+      Parliamentary facts remain controlled by mps.json.
+    </p>
+  </div>
+  <div class="panel" style="max-width:760px">
+    <h3>Wikipedia API</h3>
+    <p>Free public MediaWiki API · automatic biography + lead image matching · source shown on every enriched profile.</p>
+  </div>
+</section>
+
+
+<section class="section" id="houses">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Parliament of India</div>
+      <h2>Two<br>Houses</h2>
+    </div>
+    <p>Lok Sabha and Rajya Sabha are the two Houses of Parliament. This interface separates their data so users can understand the source and status of each record.</p>
+  </div>
+
+  <div class="house-switch">
+    <button class="active" data-house="lok">LOK SABHA</button>
+    <button data-house="rajya">RAJYA SABHA</button>
+  </div>
+
+  <div id="lokHouse" class="dashboard-grid">
+    <div class="dashboard-card"><small>House</small><div class="big">18th</div><small>Lok Sabha</small></div>
+    <div class="dashboard-card"><small>Dataset</small><div class="big" id="houseLokCount">—</div><small>records in local archive</small></div>
+    <div class="dashboard-card"><small>Constituencies</small><div class="big">543</div><small>elected seats</small></div>
+    <div class="dashboard-card"><small>Official Source</small><div class="big">DS</div><small>Digital Sansad</small></div>
+  </div>
+
+  <div id="rajyaHouse" class="dashboard-card" style="display:none;max-width:900px">
+    <span class="live-badge">Official-source module</span>
+    <div class="big">Rajya Sabha</div>
+    <p style="color:#888;line-height:1.7">
+      Rajya Sabha member data should be imported from the official Rajya Sabha/Digital Sansad member database before being presented as a local dataset. This build does not fabricate or copy an unofficial list.
+    </p>
+    <a class="source-card" style="display:inline-block" href="https://sansad.in/rs" target="_blank" rel="noopener">
+      <strong>Open Official Rajya Sabha →</strong>
+      <span>Digital Sansad / Rajya Sabha</span>
+    </a>
+  </div>
+</section>
+
 <section class="section" id="methodology">
   <div class="section-head">
     <div>
@@ -381,17 +690,81 @@ a{color:inherit;text-decoration:none}
       <h2>Source<br>First</h2>
     </div>
     <p>
-      The interface does not invent unavailable biographical information.
+      Parliamentary facts are kept separate from live enrichment. Official Government/Parliament sources are preferred for verification; Wikipedia is optional enrichment only. The interface does not invent unavailable biographical information.
       Fields not supplied by the source dataset remain unavailable in the profile.
     </p>
   </div>
 </section>
 </main>
 
+
+<section class="section" id="sources">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Primary Sources</div>
+      <h2>Government<br>Records</h2>
+    </div>
+    <p>Use these official sources to verify political identity, parliamentary membership, election results and party information.</p>
+  </div>
+
+  <div class="source-grid">
+    <a class="source-card" href="https://sansad.in/ls/members" target="_blank" rel="noopener">
+      <strong>Digital Sansad — Lok Sabha</strong>
+      <span>Official member list, constituency, State/UT, membership status and Lok Sabha terms.</span>
+    </a>
+    <a class="source-card" href="https://sansad.in/rs" target="_blank" rel="noopener">
+      <strong>Digital Sansad — Rajya Sabha</strong>
+      <span>Official Rajya Sabha parliamentary information and member resources.</span>
+    </a>
+    <a class="source-card" href="https://www.eci.gov.in/" target="_blank" rel="noopener">
+      <strong>Election Commission of India</strong>
+      <span>Official election results, candidate information, political-party records and statistical reports.</span>
+    </a>
+    <a class="source-card" href="https://sansad.in/ls/library/computerized" target="_blank" rel="noopener">
+      <strong>Lok Sabha Digital Library</strong>
+      <span>Official parliamentary database describing member biodata, biographies and historical records.</span>
+    </a>
+    <a class="source-card" href="https://www.eci.gov.in/list-of-political-parties/" target="_blank" rel="noopener">
+      <strong>ECI — Political Parties</strong>
+      <span>Official registered-party and recognition information.</span>
+    </a>
+    <a class="source-card" href="https://sansad.in/poi/about" target="_blank" rel="noopener">
+      <strong>Parliament of India — About</strong>
+      <span>Official explanation of Parliament, Lok Sabha and Rajya Sabha.</span>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="donate">
+  <div class="donate">
+    <div>
+      <div class="kicker">Support the Archive</div>
+      <h2>KEEP PUBLIC<br>DATA OPEN.</h2>
+      <p>
+        India Neta is intended as an independent public-information archive.
+        Donations can help with hosting, data processing, source verification and maintenance.
+      </p>
+      <div class="notice">
+        Donation payment details are intentionally not hard-coded. Add your own verified UPI ID or payment gateway credentials before publishing a payment button.
+      </div>
+    </div>
+    <div class="donate-box">
+      <label>UPI ID</label>
+      <input id="donationUPI" type="text" placeholder="yourname@upi">
+      <label>Amount (₹)</label>
+      <input id="donationAmount" type="number" min="1" step="1" placeholder="500">
+      <button class="donate-btn" id="donateButton">DONATE VIA UPI</button>
+      <p id="donationMessage" style="color:#666;font-size:11px;line-height:1.5;margin-bottom:0">
+        Your UPI ID is not stored by this page.
+      </p>
+    </div>
+  </div>
+</section>
+
 <footer class="footer" id="about">
   <div class="footer-row">
     <div><strong>INDIA NETA</strong><br>Indian Parliament Open Data Archive</div>
-    <div>Independent public-information project<br>Verify critical records against official sources.</div>
+    <div>Independent public-information project<br>Primary verification: Digital Sansad / ECI · Biography enrichment: Wikipedia</div>
   </div>
 </footer>
 
@@ -435,6 +808,18 @@ a{color:inherit;text-decoration:none}
         <div class="bio" id="profileBio">
           No biography supplied in the local source dataset.
         </div>
+        <div class="biodata-grid">
+          <div><span>Full Name</span><strong id="bioFullName">—</strong></div>
+          <div><span>House</span><strong id="bioHouse">Lok Sabha</strong></div>
+          <div><span>Membership Status</span><strong id="bioStatus">—</strong></div>
+          <div><span>Lok Sabha Terms</span><strong id="bioTerms">—</strong></div>
+          <div><span>Constituency</span><strong id="bioConstituency">—</strong></div>
+          <div><span>State / UT</span><strong id="bioState">—</strong></div>
+          <div><span>Political Party</span><strong id="bioParty">—</strong></div>
+          <div><span>Education</span><strong id="bioEducation">Not supplied</strong></div>
+          <div><span>Declared Assets</span><strong id="bioAssets">Not supplied</strong></div>
+          <div><span>Criminal Cases</span><strong id="bioCriminal">Not supplied</strong></div>
+        </div>
       </div>
     </div>
   </article>
@@ -443,11 +828,31 @@ a{color:inherit;text-decoration:none}
 <script>
 'use strict';
 
+/*
+  INDIA NETA — live enrichment layer
+
+  Local source of truth:
+    mps.json = parliamentary facts extracted from the supplied PDFs.
+
+  Live enrichment:
+    Wikipedia MediaWiki API = biography, description and lead image.
+
+  Important:
+    Wikipedia is displayed as an enrichment source, never as a replacement
+    for parliamentary facts in mps.json.
+*/
+
 const PAGE_SIZE = 32;
+const WIKI_CACHE_KEY = 'india_neta_wikipedia_v2';
+const WIKI_CONCURRENCY = 3;
+
 let allMPs = [];
 let filtered = [];
 let page = 1;
 let activeFilter = 'All';
+let wikiCache = loadWikiCache();
+let wikiQueue = [];
+let wikiRunning = 0;
 
 const grid = document.getElementById('directoryGrid');
 const search = document.getElementById('search');
@@ -457,12 +862,87 @@ const count = document.getElementById('count');
 function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
-  }[c]));
+  }[c]);
 }
 
 function getText(mp, key) {
   const value = mp?.[key];
   return value === undefined || value === null || value === '' ? 'Not supplied' : String(value);
+}
+
+function loadWikiCache() {
+  try { return JSON.parse(localStorage.getItem(WIKI_CACHE_KEY) || '{}'); }
+  catch { return {}; }
+}
+
+function saveWikiCache() {
+  try { localStorage.setItem(WIKI_CACHE_KEY, JSON.stringify(wikiCache)); }
+  catch {}
+}
+
+
+const STATES_AND_UTS = [
+  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh",
+  "Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka",
+  "Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram",
+  "Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana",
+  "Tripura","Uttar Pradesh","Uttarakhand","West Bengal",
+  "Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"
+];
+
+function renderDashboard() {
+  document.getElementById('dashTotal').textContent = allMPs.length.toLocaleString();
+  document.getElementById('dashSitting').textContent =
+    allMPs.filter(x => x.type === 'Sitting').length.toLocaleString();
+  document.getElementById('dashParties').textContent =
+    new Set(allMPs.map(x => String(x.party || '').trim()).filter(Boolean)).size.toLocaleString();
+  document.getElementById('lokSabhaCount').textContent =
+    `${allMPs.length.toLocaleString()} local records`;
+}
+
+function renderStates() {
+  const grid = document.getElementById('stateGrid');
+  const counts = new Map(STATES_AND_UTS.map(s => [s, 0]));
+
+  allMPs.forEach(mp => {
+    const state = String(mp.state || '').trim();
+    if (counts.has(state)) counts.set(state, counts.get(state) + 1);
+  });
+
+  grid.innerHTML = STATES_AND_UTS.map(state => `
+    <button class="state-card" type="button" data-state="${esc(state)}">
+      <span class="state-name">${esc(state)}</span>
+      <span class="state-count">${counts.get(state).toLocaleString()} archive records</span>
+    </button>
+  `).join('');
+
+  grid.querySelectorAll('.state-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      search.value = '';
+      activeFilter = 'All';
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter[data-filter="All"]').classList.add('active');
+
+      filtered = allMPs.filter(mp => String(mp.state || '').trim() === btn.dataset.state);
+      page = 1;
+      render();
+      document.getElementById('directory').scrollIntoView({behavior:'smooth'});
+    });
+  });
+}
+
+async function loadOptionalRajyaSabha() {
+  try {
+    const response = await fetch('rajya_sabha.json', {cache:'no-store'});
+    if (!response.ok) return;
+    const data = await response.json();
+    if (!Array.isArray(data)) return;
+    document.getElementById('rajyaSabhaCount').textContent =
+      `${data.length.toLocaleString()} Rajya Sabha records`;
+    document.getElementById('houseNotice').innerHTML =
+      `Rajya Sabha dataset loaded from <strong>rajya_sabha.json</strong>.`;
+  } catch {}
 }
 
 async function loadData() {
@@ -474,15 +954,23 @@ async function loadData() {
     if (!Array.isArray(data)) throw new Error('mps.json is not an array');
 
     allMPs = data;
+
     document.getElementById('heroTotal').textContent = allMPs.length.toLocaleString();
     document.getElementById('heroSitting').textContent =
       allMPs.filter(mp => mp.type === 'Sitting').length.toLocaleString();
 
+    renderDashboard();
+    renderStates();
     applyFilters();
+    loadOptionalRajyaSabha();
+
+    // Enrich only records currently visible first, then continue in background.
+    queueWikipediaForVisibleRecords();
   } catch (error) {
-    console.error(error);
+    console.error('Database load failed:', error);
     count.textContent = 'Database failed to load';
-    grid.innerHTML = '<div class="empty">Unable to load mps.json. Check that index.html and mps.json are in the same directory.</div>';
+    grid.innerHTML =
+      '<div class="empty">Unable to load mps.json. Check that index.html and mps.json are in the same directory.</div>';
   }
 }
 
@@ -494,12 +982,13 @@ function applyFilters() {
     if (!q) return true;
 
     return [
-      mp.name, mp.party, mp.constituency, mp.state, mp.term, mp.type
+      mp.name, mp.party, mp.constituency, mp.state, mp.term
     ].some(value => String(value ?? '').toLowerCase().includes(q));
   });
 
   page = 1;
   render();
+  queueWikipediaForVisibleRecords();
 }
 
 function render() {
@@ -520,6 +1009,8 @@ function render() {
 
   grid.innerHTML = visible.map((mp, i) => {
     const statusClass = mp.type === 'Sitting' ? 'sitting' : '';
+    const wiki = wikiCache[mp.id];
+
     return `
       <article class="card">
         <div class="card-top">
@@ -534,6 +1025,7 @@ function render() {
           Lok Sabha: ${esc(mp.term)}
         </div>
         <button type="button" data-id="${esc(mp.id)}">VIEW PROFILE →</button>
+        ${wiki?.sourceTitle ? `<div style="position:absolute;left:22px;bottom:20px;color:#555;font-size:9px">WIKIPEDIA MATCHED</div>` : ''}
       </article>
     `;
   }).join('');
@@ -547,14 +1039,13 @@ function render() {
 
 function renderPagination(totalPages) {
   pagination.innerHTML = '';
-
   if (totalPages <= 1) return;
 
   const previous = document.createElement('button');
   previous.className = 'page';
   previous.textContent = '←';
   previous.disabled = page === 1;
-  previous.onclick = () => { page--; render(); window.scrollTo({top:document.getElementById('directory').offsetTop-80,behavior:'smooth'}); };
+  previous.onclick = () => { page--; render(); queueWikipediaForVisibleRecords(); };
   pagination.appendChild(previous);
 
   const start = Math.max(1, page - 2);
@@ -564,7 +1055,7 @@ function renderPagination(totalPages) {
     const btn = document.createElement('button');
     btn.className = 'page' + (i === page ? ' current' : '');
     btn.textContent = i;
-    btn.onclick = () => { page = i; render(); };
+    btn.onclick = () => { page = i; render(); queueWikipediaForVisibleRecords(); };
     pagination.appendChild(btn);
   }
 
@@ -572,16 +1063,152 @@ function renderPagination(totalPages) {
   next.className = 'page';
   next.textContent = '→';
   next.disabled = page === totalPages;
-  next.onclick = () => { page++; render(); };
+  next.onclick = () => { page++; render(); queueWikipediaForVisibleRecords(); };
   pagination.appendChild(next);
 }
 
-function openProfile(id) {
+/* ---------- Wikipedia automatic enrichment ---------- */
+
+function cleanPersonName(name) {
+  return String(name || '')
+    .replace(/\b(Shri|Smt\.?|Dr\.?|Km\.?|Kumari|Md\.?|Haji)\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function wikipediaSearch(name) {
+  const q = cleanPersonName(name);
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&list=search' +
+    '&srsearch=' + encodeURIComponent(q) +
+    '&srnamespace=0&srlimit=5&format=json&origin=*';
+
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Wikipedia search HTTP ' + response.status);
+
+  const data = await response.json();
+  return (data.query?.search || []).map(x => x.title);
+}
+
+async function wikipediaPage(title) {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query' +
+    '&titles=' + encodeURIComponent(title) +
+    '&prop=extracts|pageimages|info' +
+    '&exintro=1&explaintext=1&inprop=url' +
+    '&piprop=thumbnail|original&pithumbsize=800' +
+    '&format=json&origin=*';
+
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Wikipedia page HTTP ' + response.status);
+
+  const data = await response.json();
+  const pages = data.query?.pages || {};
+  const page = Object.values(pages)[0];
+
+  if (!page || page.missing) return null;
+
+  return {
+    sourceTitle: page.title || title,
+    sourceUrl: page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g,'_'))}`,
+    bio: page.extract || '',
+    image: page.original?.source || page.thumbnail?.source || ''
+  };
+}
+
+function scoreWikipediaTitle(mp, title) {
+  const target = cleanPersonName(mp.name).toLowerCase();
+  const candidate = cleanPersonName(title).toLowerCase();
+
+  if (candidate === target) return 100;
+  if (candidate.includes(target) || target.includes(candidate)) return 70;
+
+  const a = new Set(target.split(/\s+/));
+  const b = new Set(candidate.split(/\s+/));
+  let overlap = 0;
+  a.forEach(x => { if (b.has(x)) overlap++; });
+
+  return overlap / Math.max(a.size, 1) * 50;
+}
+
+async function enrichMP(mp) {
+  if (!mp || wikiCache[mp.id]) return;
+
+  try {
+    const titles = await wikipediaSearch(mp.name);
+
+    if (!titles.length) {
+      wikiCache[mp.id] = { noMatch:true, checkedAt:Date.now() };
+      saveWikiCache();
+      return;
+    }
+
+    const ranked = titles
+      .map(title => ({title, score:scoreWikipediaTitle(mp, title)}))
+      .sort((a,b) => b.score-a.score);
+
+    // Require a reasonable title match; never silently attach an unrelated person.
+    if (ranked[0].score < 35) {
+      wikiCache[mp.id] = { noMatch:true, checkedAt:Date.now() };
+      saveWikiCache();
+      return;
+    }
+
+    const pageData = await wikipediaPage(ranked[0].title);
+
+    wikiCache[mp.id] = pageData
+      ? {...pageData, matchScore:ranked[0].score, checkedAt:Date.now()}
+      : {noMatch:true, checkedAt:Date.now()};
+
+    saveWikiCache();
+  } catch (error) {
+    console.warn('Wikipedia enrichment failed for', mp.name, error);
+    wikiCache[mp.id] = { error:true, checkedAt:Date.now() };
+    saveWikiCache();
+  }
+
+  render();
+}
+
+function addWikiJob(mp) {
+  if (!mp || wikiCache[mp.id]) return;
+  if (wikiQueue.some(x => x.id === mp.id)) return;
+  wikiQueue.push(mp);
+  processWikiQueue();
+}
+
+function processWikiQueue() {
+  while (wikiRunning < WIKI_CONCURRENCY && wikiQueue.length) {
+    const mp = wikiQueue.shift();
+    wikiRunning++;
+
+    enrichMP(mp).finally(() => {
+      wikiRunning--;
+      processWikiQueue();
+    });
+  }
+}
+
+function queueWikipediaForVisibleRecords() {
+  const start = (page - 1) * PAGE_SIZE;
+  filtered.slice(start, start + PAGE_SIZE).forEach(addWikiJob);
+}
+
+/* ---------- Profile ---------- */
+
+async function openProfile(id) {
   const mp = allMPs.find(item => String(item.id) === String(id));
   if (!mp) return;
 
+  // Start enrichment immediately if not already available.
+  if (!wikiCache[mp.id]) await enrichMP(mp);
+
+  const wiki = wikiCache[mp.id] || {};
+
   document.getElementById('profileStatus').textContent =
-    mp.type === 'Sitting' ? 'Sitting Member of Parliament' : `${getText(mp,'type')} · Parliamentary Archive`;
+    mp.type === 'Sitting'
+      ? 'Sitting Member of Parliament'
+      : `${getText(mp,'type')} · Parliamentary Archive`;
 
   document.getElementById('profileName').textContent = getText(mp,'name');
   document.getElementById('profileParty').textContent = getText(mp,'party');
@@ -600,22 +1227,34 @@ function openProfile(id) {
       ? terms.map(term => `<span class="term">Lok Sabha ${esc(term)}</span>`).join('')
       : '<span class="term">Not supplied</span>';
 
-  document.getElementById('profileBio').textContent =
-    mp.detailedBio || mp.shortBio ||
-    'No biography supplied in the local source dataset.';
+  document.getElementById('bioFullName').textContent = getText(mp,'name');
+  document.getElementById('bioHouse').textContent = mp.house || 'Lok Sabha';
+  document.getElementById('bioStatus').textContent = getText(mp,'type');
+  document.getElementById('bioTerms').textContent = getText(mp,'term');
+  document.getElementById('bioConstituency').textContent = getText(mp,'constituency');
+  document.getElementById('bioState').textContent = getText(mp,'state');
+  document.getElementById('bioParty').textContent = getText(mp,'party');
+  document.getElementById('bioEducation').textContent = getText(mp,'education');
+  document.getElementById('bioAssets').textContent = getText(mp,'assets');
+  document.getElementById('bioCriminal').textContent = getText(mp,'criminalCases');
+
+  document.getElementById('profileBio').innerHTML =
+    wiki.bio
+      ? `${esc(wiki.bio)}<br><br><span style="color:#168cff">Source: Wikipedia · ${esc(wiki.sourceTitle || '')}</span>`
+      : 'No Wikipedia biography was found for this record.';
 
   const visual = document.getElementById('profileVisual');
-  if (mp.image) {
-    visual.innerHTML = `<img class="profile-photo" src="${esc(mp.image)}" alt="${esc(mp.name)}">`;
+
+  if (wiki.image) {
+    visual.innerHTML =
+      `<img class="profile-photo" src="${esc(wiki.image)}" alt="${esc(mp.name)}">`;
+  } else if (mp.image) {
+    visual.innerHTML =
+      `<img class="profile-photo" src="${esc(mp.image)}" alt="${esc(mp.name)}">`;
   } else {
-    const initials = getText(mp,'name')
-      .replace(/^(Shri|Smt\.|Dr\.|Km\.|Kum\.)\s+/i,'')
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0,2)
-      .map(x => x[0])
-      .join('')
-      .toUpperCase();
+    const initials = cleanPersonName(mp.name)
+      .split(/\s+/).filter(Boolean).slice(0,2)
+      .map(x => x[0]).join('').toUpperCase();
 
     visual.innerHTML =
       `<div class="profile-placeholder">${esc(initials || 'MP')}</div>`;
@@ -652,6 +1291,109 @@ document.addEventListener('keydown', event => {
 document.getElementById('modal').addEventListener('click', event => {
   if (event.target.id === 'modal') closeProfile();
 });
+
+
+/* ---------- Sidebar ---------- */
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+/* ---------- Dashboard counts ---------- */
+function updateDashboard() {
+  const sitting = allMPs.filter(mp => mp.type === 'Sitting').length;
+  document.getElementById('dashTotal').textContent = allMPs.length.toLocaleString();
+  document.getElementById('dashSitting').textContent = sitting.toLocaleString();
+  document.getElementById('houseLokCount').textContent = allMPs.length.toLocaleString();
+}
+
+/* ---------- 36 State / UT explorer ---------- */
+const REGIONS = [
+  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa",
+  "Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala",
+  "Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland",
+  "Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura",
+  "Uttar Pradesh","Uttarakhand","West Bengal",
+  "Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"
+];
+
+function renderRegions() {
+  const stateGrid = document.getElementById('stateGrid');
+  const sittingOnly = allMPs.filter(mp => mp.type === 'Sitting');
+
+  stateGrid.innerHTML = REGIONS.map(region => {
+    const records = sittingOnly.filter(mp => String(mp.state || '').toLowerCase() === region.toLowerCase());
+    const total = allMPs.filter(mp => String(mp.state || '').toLowerCase() === region.toLowerCase()).length;
+
+    return `
+      <div class="state-card" data-region="${esc(region)}">
+        <h3>${esc(region)}</h3>
+        <div class="state-count">${records.length}</div>
+        <small>sitting records · ${total} archive</small>
+      </div>
+    `;
+  }).join('');
+
+  stateGrid.querySelectorAll('.state-card').forEach(card => {
+    card.addEventListener('click', () => {
+      search.value = card.dataset.region;
+      activeFilter = 'Sitting';
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter[data-filter="Sitting"]').classList.add('active');
+      applyFilters();
+      document.getElementById('directory').scrollIntoView({behavior:'smooth'});
+    });
+  });
+}
+
+/* ---------- House switch ---------- */
+document.querySelectorAll('[data-house]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-house]').forEach(b => b.classList.remove('active'));
+    button.classList.add('active');
+
+    const lok = document.getElementById('lokHouse');
+    const rajya = document.getElementById('rajyaHouse');
+
+    if (button.dataset.house === 'lok') {
+      lok.style.display = 'grid';
+      rajya.style.display = 'none';
+    } else {
+      lok.style.display = 'none';
+      rajya.style.display = 'block';
+    }
+  });
+});
+
+/* ---------- Donation ---------- */
+document.getElementById('donateButton').addEventListener('click', () => {
+  const upi = document.getElementById('donationUPI').value.trim();
+  const amount = document.getElementById('donationAmount').value.trim();
+  const message = document.getElementById('donationMessage');
+
+  if (!upi) {
+    message.textContent = 'Enter the verified UPI ID of the archive owner first.';
+    message.style.color = '#ff6f61';
+    return;
+  }
+
+  if (!amount || Number(amount) < 1) {
+    message.textContent = 'Enter a valid donation amount.';
+    message.style.color = '#ff6f61';
+    return;
+  }
+
+  const link = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent('India Neta Archive')}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent('Support India Neta')}`;
+  window.location.href = link;
+});
+
+/* Extend initial data load */
+const originalLoadData = loadData;
+loadData = async function() {
+  await originalLoadData();
+  updateDashboard();
+  renderRegions();
+};
 
 loadData();
 </script>
