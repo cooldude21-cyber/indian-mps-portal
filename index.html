@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Indian Parliament Members — visual public archive and political intelligence database.">
-<title>INDIA NETA — Parliament Members Archive</title>
+<meta name="description" content="Indian Politicians — political intelligence, parliamentary records and public archive.">
+<title>INDIAN NETA — Indian Politicians & Parliament Archive</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -382,23 +382,6 @@ a{color:inherit;text-decoration:none}
 .source-card:hover{border-color:var(--blue);transform:translateY(-2px)}
 .source-card strong{display:block;font-family:"Space Grotesk";font-size:17px;margin-bottom:8px}
 .source-card span{color:#777;font-size:12px;line-height:1.6}
-.donate{
-  border:1px solid rgba(22,140,255,.35);
-  background:linear-gradient(135deg,rgba(22,140,255,.09),rgba(0,0,0,.2));
-  padding:35px;display:grid;grid-template-columns:1.5fr 1fr;gap:25px;
-}
-.donate h2{font-family:"Space Grotesk";font-size:42px;letter-spacing:-.05em;margin:0 0 12px}
-.donate p{color:#888;font-size:13px;line-height:1.7}
-.donate-box{background:#0c0c0c;border:1px solid var(--line);padding:22px}
-.donate-box label{display:block;color:#666;font-size:10px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
-.donate-box input{
-  width:100%;padding:13px;background:#151515;border:1px solid var(--line);
-  color:#fff;margin-bottom:10px;
-}
-.donate-btn{
-  width:100%;padding:14px;background:var(--blue);border:0;color:#fff;
-  font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-}
 .notice{
   padding:15px;background:#111;border-left:3px solid var(--blue);
   color:#888;font-size:12px;line-height:1.65;margin-top:15px;
@@ -407,6 +390,22 @@ a{color:inherit;text-decoration:none}
   display:inline-block;color:#62c1ff;border:1px solid rgba(22,140,255,.35);
   padding:5px 8px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;
 }
+
+.pm-feature{max-width:var(--max);margin:0 auto;padding:0 5% 75px}
+.pm-feature-inner{display:grid;grid-template-columns:38% 62%;min-height:440px;background:#0d0d0d;border:1px solid var(--line);overflow:hidden}
+.pm-feature-image{min-height:440px;background:#eee;display:flex;align-items:stretch;justify-content:center;overflow:hidden}
+.pm-feature-image img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.pm-feature-copy{padding:45px 50px;display:flex;flex-direction:column;justify-content:center}
+.pm-feature-copy .eyebrow{color:var(--blue);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.pm-feature-copy h2{font-family:"Space Grotesk";font-size:clamp(44px,6vw,88px);line-height:.84;letter-spacing:-.065em;text-transform:uppercase;margin:14px 0 20px}
+.pm-feature-copy .role{color:#ddd;font-size:16px;font-weight:600;margin-bottom:20px}
+.pm-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.pm-fact{background:#151515;border:1px solid var(--line);padding:14px}
+.pm-fact small{display:block;color:#666;text-transform:uppercase;letter-spacing:.12em;font-size:9px;margin-bottom:6px}
+.pm-fact strong{font-size:13px;color:#eee}
+.pm-source{margin-top:18px;color:#555;font-size:10px;line-height:1.5}
+.pm-source a{color:#777;text-decoration:underline}
+
 @media(max-width:1050px){
   .dashboard-grid{grid-template-columns:repeat(2,1fr)}
   .state-grid{grid-template-columns:repeat(3,1fr)}
@@ -415,8 +414,7 @@ a{color:inherit;text-decoration:none}
 @media(max-width:700px){
   .sidebar{width:85vw}
   .dashboard-grid,.state-grid,.source-grid{grid-template-columns:1fr 1fr}
-  .donate{grid-template-columns:1fr}
-}
+  }
 @media(max-width:480px){
   .dashboard-grid,.state-grid,.source-grid{grid-template-columns:1fr}
 }
@@ -428,7 +426,7 @@ a{color:inherit;text-decoration:none}
   .hero{min-height:650px}
   .hero-portrait{right:8%}
 }
-@media(max-width:800px){
+@media(max-width:800px){.pm-feature-inner{grid-template-columns:1fr}.pm-feature-image{min-height:360px}.pm-feature-copy{padding:35px 25px}
   .overview-grid{grid-template-columns:repeat(2,1fr)}
   .state-grid{grid-template-columns:repeat(2,1fr)}
   .house-grid{grid-template-columns:1fr}
@@ -458,15 +456,16 @@ a{color:inherit;text-decoration:none}
 
 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">☰</button>
 <aside class="sidebar" id="sidebar">
-  <div class="side-title">India Neta</div>
+  <div class="side-title">Indian Neta</div>
   <a class="side-link" href="#top">Overview <b>HOME</b></a>
+  <a class="side-link" href="#prime-minister">Current PM <b>PM</b></a>
   <a class="side-link" href="#dashboard">National Dashboard <b>DATA</b></a>
   <a class="side-link" href="#directory">Politicians Archive <b>MPs</b></a>
   <a class="side-link" href="#states">States & UTs <b>36</b></a>
-  <a class="side-link" href="#houses">Lok Sabha / Rajya Sabha <b>2 HOUSES</b></a>
+  <a class="side-link" href="#houses">Lok Sabha <b>LS</b></a>
+  <a class="side-link" href="rajya-sabha.html">Rajya Sabha Archive <b>RS</b></a>
   <a class="side-link" href="#sources">Government Sources <b>VERIFY</b></a>
   <a class="side-link" href="#methodology">Methodology <b>ABOUT</b></a>
-  <a class="side-link" href="#donate">Support / Donate <b>UPI</b></a>
   <div class="side-source">
     <strong>Independent public archive</strong><br>
     Parliamentary facts should be traceable to official sources. Wikipedia is used only for optional biography/image enrichment.
@@ -474,11 +473,11 @@ a{color:inherit;text-decoration:none}
 </aside>
 
 <header class="topbar">
-  <a href="#top" class="brand">INDIA <span>NETA</span></a>
+  <a href="#top" class="brand">INDIAN <span>NETA</span></a>
   <nav class="nav">
     <a href="#overview">Overview</a>
     <a href="#houses">Lok Sabha</a>
-    <a href="#houses">Rajya Sabha</a>
+    <a href="rajya-sabha.html">Rajya Sabha</a>
     <a href="#states">States & UTs</a>
     <a href="#directory">Politicians</a>
     <a href="#about">About</a>
@@ -490,7 +489,7 @@ a{color:inherit;text-decoration:none}
 <section class="hero">
   <div class="hero-title">
     <div class="kicker">Indian Parliament / Open Data Archive</div>
-    <h1>INDIA<span>NETA</span></h1>
+    <h1>INDIAN<span>NETA</span></h1>
     <p class="hero-sub">
       A visual public archive of Lok Sabha members, parliamentary terms,
       constituencies, parties and membership status — built from the supplied
@@ -515,6 +514,33 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+
+
+<section class="pm-feature" id="prime-minister">
+  <div class="pm-feature-inner">
+    <div class="pm-feature-image">
+      <img src="https://www.pmindia.gov.in/wp-content/uploads/2025/12/02.jpg"
+           alt="Official portrait of Shri Narendra Modi, Prime Minister of India"
+           loading="eager" referrerpolicy="no-referrer">
+    </div>
+    <div class="pm-feature-copy">
+      <div class="eyebrow">CURRENT PRIME MINISTER OF INDIA</div>
+      <h2>Narendra<br>Modi</h2>
+      <div class="role">Prime Minister of India · Bharatiya Janata Party · Varanasi, Uttar Pradesh</div>
+      <div class="pm-facts">
+        <div class="pm-fact"><small>Date of Birth</small><strong>17 September 1950</strong></div>
+        <div class="pm-fact"><small>Lok Sabha</small><strong>16th · 17th · 18th</strong></div>
+        <div class="pm-fact"><small>Education</small><strong>B.A., M.A. (Political Science)</strong></div>
+        <div class="pm-fact"><small>Prime Minister</small><strong>Third term · since 9 June 2024</strong></div>
+      </div>
+      <div class="pm-source">
+        Verified against <a href="https://sansad.in/ls/members/biographyM/4589?from=members" target="_blank" rel="noopener">Digital Sansad</a>
+        and <a href="https://www.pmindia.gov.in/en/" target="_blank" rel="noopener">PM India</a>.
+        Portrait: Prime Minister's Office / Government of India.
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="overview">
   <div class="section-head">
@@ -552,16 +578,16 @@ a{color:inherit;text-decoration:none}
       <small id="lokSabhaCount">Loading…</small>
     </button>
 
-    <button class="house-card" id="rajyaSabhaCard" type="button">
+    <a class="house-card" id="rajyaSabhaCard" href="rajya-sabha.html">
       <span class="house-kicker">UPPER HOUSE</span>
       <strong>RAJYA SABHA</strong>
       <span>Council of States</span>
-      <small id="rajyaSabhaCount">Optional rajya_sabha.json</small>
-    </button>
+      <small id="rajyaSabhaCount">2,547 archive records</small>
+    </a>
   </div>
 
   <div id="houseNotice" class="source-note">
-    Rajya Sabha records are designed into the interface but are not included in the supplied Lok Sabha PDF dataset. Add a validated <strong>rajya_sabha.json</strong> file to populate the upper-house archive.
+    Rajya Sabha archive is now available as a dedicated searchable page, generated from the supplied <strong>All Members (18).pdf</strong>.
   </div>
 </section>
 
@@ -735,35 +761,11 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
-<section class="section" id="donate">
-  <div class="donate">
-    <div>
-      <div class="kicker">Support the Archive</div>
-      <h2>KEEP PUBLIC<br>DATA OPEN.</h2>
-      <p>
-        India Neta is intended as an independent public-information archive.
-        Donations can help with hosting, data processing, source verification and maintenance.
-      </p>
-      <div class="notice">
-        Donation payment details are intentionally not hard-coded. Add your own verified UPI ID or payment gateway credentials before publishing a payment button.
-      </div>
-    </div>
-    <div class="donate-box">
-      <label>UPI ID</label>
-      <input id="donationUPI" type="text" placeholder="yourname@upi">
-      <label>Amount (₹)</label>
-      <input id="donationAmount" type="number" min="1" step="1" placeholder="500">
-      <button class="donate-btn" id="donateButton">DONATE VIA UPI</button>
-      <p id="donationMessage" style="color:#666;font-size:11px;line-height:1.5;margin-bottom:0">
-        Your UPI ID is not stored by this page.
-      </p>
-    </div>
-  </div>
-</section>
+
 
 <footer class="footer" id="about">
   <div class="footer-row">
-    <div><strong>INDIA NETA</strong><br>Indian Parliament Open Data Archive</div>
+    <div><strong>INDIAN NETA</strong><br>Indian Political Intelligence & Public Archive</div>
     <div>Independent public-information project<br>Primary verification: Digital Sansad / ECI · Biography enrichment: Wikipedia</div>
   </div>
 </footer>
@@ -829,7 +831,7 @@ a{color:inherit;text-decoration:none}
 'use strict';
 
 /*
-  INDIA NETA — live enrichment layer
+  INDIAN NETA — live enrichment layer
 
   Local source of truth:
     mps.json = parliamentary facts extracted from the supplied PDFs.
@@ -862,7 +864,7 @@ const count = document.getElementById('count');
 function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
-  }[c]);
+  }[c]));
 }
 
 function getText(mp, key) {
@@ -1076,43 +1078,60 @@ function cleanPersonName(name) {
     .trim();
 }
 
+async function fetchWithTimeout(url, options = {}, timeout = 9000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeout);
+  try {
+    return await fetch(url, {...options, signal:controller.signal});
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function wikipediaSummary(name) {
+  const title = cleanPersonName(name).replace(/\s+/g, '_');
+  const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title);
+  const response = await fetchWithTimeout(url);
+  if (!response.ok) return null;
+  const data = await response.json();
+  if (!data || data.type === 'disambiguation' || !data.extract) return null;
+
+  return {
+    sourceTitle: data.title || title.replace(/_/g,' '),
+    sourceUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`,
+    bio: data.extract || '',
+    image: data.originalimage?.source || data.thumbnail?.source || ''
+  };
+}
+
 async function wikipediaSearch(name) {
   const q = cleanPersonName(name);
   const url =
     'https://en.wikipedia.org/w/api.php?action=query&list=search' +
-    '&srsearch=' + encodeURIComponent(q) +
+    '&srsearch=' + encodeURIComponent('"' + q + '"') +
     '&srnamespace=0&srlimit=5&format=json&origin=*';
 
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Wikipedia search HTTP ' + response.status);
-
+  const response = await fetchWithTimeout(url);
+  if (!response.ok) return [];
   const data = await response.json();
   return (data.query?.search || []).map(x => x.title);
 }
 
 async function wikipediaPage(title) {
-  const url =
-    'https://en.wikipedia.org/w/api.php?action=query' +
-    '&titles=' + encodeURIComponent(title) +
-    '&prop=extracts|pageimages|info' +
-    '&exintro=1&explaintext=1&inprop=url' +
-    '&piprop=thumbnail|original&pithumbsize=800' +
-    '&format=json&origin=*';
+  const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' +
+    encodeURIComponent(title.replace(/ /g,'_'));
 
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Wikipedia page HTTP ' + response.status);
-
+  const response = await fetchWithTimeout(url);
+  if (!response.ok) return null;
   const data = await response.json();
-  const pages = data.query?.pages || {};
-  const page = Object.values(pages)[0];
-
-  if (!page || page.missing) return null;
+  if (!data || !data.extract) return null;
 
   return {
-    sourceTitle: page.title || title,
-    sourceUrl: page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g,'_'))}`,
-    bio: page.extract || '',
-    image: page.original?.source || page.thumbnail?.source || ''
+    sourceTitle: data.title || title,
+    sourceUrl: data.content_urls?.desktop?.page ||
+      `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g,'_'))}`,
+    bio: data.extract || '',
+    image: data.originalimage?.source || data.thumbnail?.source || ''
   };
 }
 
@@ -1135,41 +1154,32 @@ async function enrichMP(mp) {
   if (!mp || wikiCache[mp.id]) return;
 
   try {
-    const titles = await wikipediaSearch(mp.name);
+    let pageData = await wikipediaSummary(mp.name);
 
-    if (!titles.length) {
-      wikiCache[mp.id] = { noMatch:true, checkedAt:Date.now() };
-      saveWikiCache();
-      return;
+    if (!pageData) {
+      const titles = await wikipediaSearch(mp.name);
+      const ranked = titles.map(title => ({
+        title, score: scoreWikipediaTitle(mp, title)
+      })).sort((a,b) => b.score-a.score);
+
+      if (ranked[0] && ranked[0].score >= 25) {
+        pageData = await wikipediaPage(ranked[0].title);
+      }
     }
-
-    const ranked = titles
-      .map(title => ({title, score:scoreWikipediaTitle(mp, title)}))
-      .sort((a,b) => b.score-a.score);
-
-    // Require a reasonable title match; never silently attach an unrelated person.
-    if (ranked[0].score < 35) {
-      wikiCache[mp.id] = { noMatch:true, checkedAt:Date.now() };
-      saveWikiCache();
-      return;
-    }
-
-    const pageData = await wikipediaPage(ranked[0].title);
 
     wikiCache[mp.id] = pageData
-      ? {...pageData, matchScore:ranked[0].score, checkedAt:Date.now()}
+      ? {...pageData, checkedAt:Date.now()}
       : {noMatch:true, checkedAt:Date.now()};
 
     saveWikiCache();
   } catch (error) {
-    console.warn('Wikipedia enrichment failed for', mp.name, error);
-    wikiCache[mp.id] = { error:true, checkedAt:Date.now() };
+    console.warn('Wikipedia enrichment failed:', mp.name, error);
+    wikiCache[mp.id] = {error:true, checkedAt:Date.now()};
     saveWikiCache();
   }
 
   render();
 }
-
 function addWikiJob(mp) {
   if (!mp || wikiCache[mp.id]) return;
   if (wikiQueue.some(x => x.id === mp.id)) return;
@@ -1196,19 +1206,18 @@ function queueWikipediaForVisibleRecords() {
 
 /* ---------- Profile ---------- */
 
-async function openProfile(id) {
+function openProfile(id) {
   const mp = allMPs.find(item => String(item.id) === String(id));
   if (!mp) return;
 
-  // Start enrichment immediately if not already available.
-  if (!wikiCache[mp.id]) await enrichMP(mp);
-
-  const wiki = wikiCache[mp.id] || {};
+  const modal = document.getElementById('modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
 
   document.getElementById('profileStatus').textContent =
-    mp.type === 'Sitting'
-      ? 'Sitting Member of Parliament'
-      : `${getText(mp,'type')} · Parliamentary Archive`;
+    mp.type === 'Sitting' ? 'Sitting Member of Parliament' :
+    `${getText(mp,'type')} · Parliamentary Archive`;
 
   document.getElementById('profileName').textContent = getText(mp,'name');
   document.getElementById('profileParty').textContent = getText(mp,'party');
@@ -1216,56 +1225,57 @@ async function openProfile(id) {
   document.getElementById('profileState').textContent = getText(mp,'state');
   document.getElementById('profileEducation').textContent = getText(mp,'education');
 
-  const assets = getText(mp,'assets');
-  const criminal = getText(mp,'criminalCases');
   document.getElementById('profileRecord').textContent =
-    `Assets: ${assets} · Criminal cases: ${criminal}`;
+    `Assets: ${getText(mp,'assets')} · Criminal cases: ${getText(mp,'criminalCases')}`;
 
   const terms = String(mp.term || '').split(',').map(t => t.trim()).filter(Boolean);
   document.getElementById('profileTerms').innerHTML =
-    terms.length
-      ? terms.map(term => `<span class="term">Lok Sabha ${esc(term)}</span>`).join('')
-      : '<span class="term">Not supplied</span>';
-
-  document.getElementById('bioFullName').textContent = getText(mp,'name');
-  document.getElementById('bioHouse').textContent = mp.house || 'Lok Sabha';
-  document.getElementById('bioStatus').textContent = getText(mp,'type');
-  document.getElementById('bioTerms').textContent = getText(mp,'term');
-  document.getElementById('bioConstituency').textContent = getText(mp,'constituency');
-  document.getElementById('bioState').textContent = getText(mp,'state');
-  document.getElementById('bioParty').textContent = getText(mp,'party');
-  document.getElementById('bioEducation').textContent = getText(mp,'education');
-  document.getElementById('bioAssets').textContent = getText(mp,'assets');
-  document.getElementById('bioCriminal').textContent = getText(mp,'criminalCases');
-
-  document.getElementById('profileBio').innerHTML =
-    wiki.bio
-      ? `${esc(wiki.bio)}<br><br><span style="color:#168cff">Source: Wikipedia · ${esc(wiki.sourceTitle || '')}</span>`
-      : 'No Wikipedia biography was found for this record.';
+    terms.length ? terms.map(term => `<span class="term">Lok Sabha ${esc(term)}</span>`).join('') :
+    '<span class="term">Not supplied</span>';
 
   const visual = document.getElementById('profileVisual');
+  const bio = document.getElementById('profileBio');
+  const cached = wikiCache[mp.id];
 
-  if (wiki.image) {
-    visual.innerHTML =
-      `<img class="profile-photo" src="${esc(wiki.image)}" alt="${esc(mp.name)}">`;
+  if (cached?.image) {
+    visual.innerHTML = `<img class="profile-photo" src="${esc(cached.image)}" alt="${esc(mp.name)}">`;
   } else if (mp.image) {
-    visual.innerHTML =
-      `<img class="profile-photo" src="${esc(mp.image)}" alt="${esc(mp.name)}">`;
+    visual.innerHTML = `<img class="profile-photo" src="${esc(mp.image)}" alt="${esc(mp.name)}">`;
   } else {
-    const initials = cleanPersonName(mp.name)
-      .split(/\s+/).filter(Boolean).slice(0,2)
-      .map(x => x[0]).join('').toUpperCase();
-
-    visual.innerHTML =
-      `<div class="profile-placeholder">${esc(initials || 'MP')}</div>`;
+    visual.innerHTML = `<div class="profile-placeholder" style="font-size:28px">FETCHING<br>PHOTO</div>`;
   }
 
-  const modal = document.getElementById('modal');
-  modal.classList.add('show');
-  modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow = 'hidden';
-}
+  if (cached?.bio) {
+    bio.innerHTML = `${esc(cached.bio)}<br><br><span style="color:#168cff">Source: Wikipedia · ${esc(cached.sourceTitle || '')}</span>`;
+  } else if (cached?.noMatch) {
+    bio.textContent = 'No confident Wikipedia match was found for this record.';
+  } else {
+    bio.textContent = 'Fetching Wikipedia biography…';
+  }
 
+  if (!cached) {
+    enrichMP(mp).then(() => {
+      const updated = wikiCache[mp.id];
+      if (!document.getElementById('modal').classList.contains('show')) return;
+
+      if (updated?.image) {
+        visual.innerHTML = `<img class="profile-photo" src="${esc(updated.image)}" alt="${esc(mp.name)}">`;
+      } else if (!mp.image) {
+        const initials = cleanPersonName(mp.name).split(/\s+/).filter(Boolean)
+          .slice(0,2).map(x => x[0]).join('').toUpperCase();
+        visual.innerHTML = `<div class="profile-placeholder">${esc(initials || 'MP')}</div>`;
+      }
+
+      if (updated?.bio) {
+        bio.innerHTML = `${esc(updated.bio)}<br><br><span style="color:#168cff">Source: Wikipedia · ${esc(updated.sourceTitle || '')}</span>`;
+      } else if (updated?.noMatch) {
+        bio.textContent = 'No confident Wikipedia match was found for this record.';
+      } else {
+        bio.textContent = 'Wikipedia could not be reached. Parliamentary source data remains available above.';
+      }
+    });
+  }
+}
 function closeProfile() {
   const modal = document.getElementById('modal');
   modal.classList.remove('show');
@@ -1363,28 +1373,6 @@ document.querySelectorAll('[data-house]').forEach(button => {
       rajya.style.display = 'block';
     }
   });
-});
-
-/* ---------- Donation ---------- */
-document.getElementById('donateButton').addEventListener('click', () => {
-  const upi = document.getElementById('donationUPI').value.trim();
-  const amount = document.getElementById('donationAmount').value.trim();
-  const message = document.getElementById('donationMessage');
-
-  if (!upi) {
-    message.textContent = 'Enter the verified UPI ID of the archive owner first.';
-    message.style.color = '#ff6f61';
-    return;
-  }
-
-  if (!amount || Number(amount) < 1) {
-    message.textContent = 'Enter a valid donation amount.';
-    message.style.color = '#ff6f61';
-    return;
-  }
-
-  const link = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent('India Neta Archive')}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent('Support India Neta')}`;
-  window.location.href = link;
 });
 
 /* Extend initial data load */
