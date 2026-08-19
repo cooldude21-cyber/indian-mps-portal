@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Assembly Elections — INDIAN NETA</title>
+<style>
+body{margin:0;background:#171717;color:#eee;font:14px Arial,sans-serif}
+main{max-width:1300px;margin:auto;padding:45px 5%}
+h1{font-size:56px;letter-spacing:-.06em;margin:0 0 10px}
+.muted{color:#888;line-height:1.6}.blue{color:#168cff}
+.toolbar{display:grid;grid-template-columns:1fr 260px;gap:10px;margin:30px 0}
+input,select{background:#0d0d0d;color:#fff;border:1px solid #333;padding:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat,.row{background:#0d0d0d;border:1px solid #292929;padding:18px}
+.stat b{font-size:30px;display:block;margin-top:8px}
+.table{margin-top:15px}.row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:12px;align-items:center}
+.small{font-size:11px;color:#777}.pager{display:flex;gap:7px;margin-top:20px}.pager button{background:#111;color:#fff;border:1px solid #333;padding:10px 14px}
+@media(max-width:700px){.toolbar,.stats{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}}
+</style></head>
+<body><main>
+<div class="blue">INDIAN NETA / ELECTION ARCHIVE</div>
+<h1>Assembly Elections</h1>
+<p class="muted">417,035 source-derived candidate records. Select a state to load only that state's shard, keeping the static site fast.</p>
+<div class="stats"><div class="stat">Candidate records<b id="total">417,035</b></div><div class="stat">States<b id="states">32</b></div><div class="stat">Source years<b>1980s–2022</b></div></div>
+<div class="toolbar"><input id="q" placeholder="Search candidate, party, constituency..."><select id="state"><option value="">Choose state</option></select></div>
+<div id="notice" class="muted">Choose a state to load election records.</div><div id="table" class="table"></div><div id="pager" class="pager"></div>
+</main>
+<script>
+let data=[],page=1;const size=40;
+const stateEl=document.getElementById('state'),q=document.getElementById('q');
+async function init(){const m=await fetch('political-data/assembly-election-manifest.json').then(r=>r.json());m.states.forEach(x=>{let o=document.createElement('option');o.value=x.file;o.textContent=x.state.toUpperCase()+' — '+x.records.toLocaleString();stateEl.appendChild(o)})}
+async function load(){if(!stateEl.value){document.getElementById('notice').textContent='Choose a state to load election records.';return}
+document.getElementById('notice').textContent='Loading state data…';data=await fetch('political-data/'+stateEl.value.split('/').pop()).then(r=>r.json());page=1;render()}
+function render(){let s=q.value.toLowerCase();let a=data.filter(x=>[x.cand_name,x.party,x.tr_ac_name,x.eci_state_name,x.year].some(v=>String(v??'').toLowerCase().includes(s)));let pages=Math.max(1,Math.ceil(a.length/size));page=Math.min(page,pages);let v=a.slice((page-1)*size,page*size);
+document.getElementById('notice').textContent=`${a.length.toLocaleString()} matching records`;
+document.getElementById('table').innerHTML=v.map(x=>`<div class="row"><div><b>${esc(x.cand_name)}</b><div class="small">${esc(x.party)}</div></div><div>${esc(x.tr_ac_name)}</div><div>${x.year||''}</div><div>${x.votes??''} votes</div><div>#${x.position??''} · ${x.vote_share_percentage??''}%</div></div>`).join('');
+document.getElementById('pager').innerHTML=`<button onclick="page=Math.max(1,page-1);render()">←</button><span style="padding:10px">${page}/${pages}</span><button onclick="page=Math.min(pages,page+1);render()">→</button>`}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+stateEl.onchange=load;q.oninput=()=>{page=1;render()};init();
+</script></body></html>
