@@ -52,8 +52,16 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding:25px 24px;color:
 <section id="states" class="view"><div class="section-title"><h2>State Assemblies</h2><div class="meta">36 States & UTs</div></div>
 <div class="toolbar"><input id="stateSearch" placeholder="Search a state or UT…"></div><div id="stateGrid" class="grid"></div></section>
 
-<section id="elections" class="view"><div class="section-title"><h2>Elections</h2></div>
+<section id="elections" class="view"><div class="section-title"><h2>Elections & Public Records</h2></div>
 <div class="grid"><div class="card"><span class="badge">Lok Sabha</span><h3>Lok Sabha election results</h3><div class="meta">Election datasets are stored in the project's political-data directory.</div></div><div class="card"><span class="badge">Assembly</span><h3>Assembly election results</h3><div class="meta">State-level election shards are available in the project.</div></div><div class="card"><span class="badge">Affidavits</span><h3>Candidate affidavits</h3><div class="meta">Affidavit manifests and shards are available where supplied.</div></div></div></section>
+
+<div class="grid">
+<div class="card"><span class="badge">Election data</span><h3>Lok Sabha results</h3><div class="meta">Candidate, constituency, party and result records from the supplied election dataset.</div></div>
+<div class="card"><span class="badge">Assembly data</span><h3>State election archive</h3><div class="meta">State-wise election shards covering the supplied state/UT datasets.</div></div>
+<div class="card"><span class="badge">Affidavits</span><h3>Candidate declarations</h3><div class="meta">Assets, liabilities and criminal-case fields where supplied by affidavit records.</div></div>
+<div class="card"><span class="badge">Parliament</span><h3>Positions & terms</h3><div class="meta">House, constituency, party, term and parliamentary-position fields where available.</div></div>
+</div>
+</section>
 
 <section id="sources" class="view"><div class="section-title"><h2>Sources & methodology</h2></div><div class="grid">
 <div class="card"><h3>Parliament</h3><div class="meta">Digital Sansad / Parliament records are preferred for parliamentary facts.</div></div>
@@ -100,7 +108,7 @@ function renderRS(){
 }
 ["rsSearch","rsState","rsParty"].forEach(id=>$(id).addEventListener("input",renderRS));
 function renderStates(){
- const draw=()=>{const q=$("stateSearch").value.toLowerCase();$("stateGrid").innerHTML=states.filter(s=>s.toLowerCase().includes(q)).map(s=>`<div class="card"><span class="badge">State / UT</span><h3>${esc(s)}</h3><div class="meta">Assembly member dataset: available where supplied.<br>Election results and affidavit data: see project political-data shards.</div><button onclick="show('elections')">VIEW RECORDS →</button></div>`).join("")};$("stateSearch").addEventListener("input",draw);draw();
+ const draw=()=>{const q=$("stateSearch").value.toLowerCase();$("stateGrid").innerHTML=states.filter(s=>s.toLowerCase().includes(q)).map(s=>`<div class="card"><span class="badge">State / UT</span><h3>${esc(s)}</h3><div class="meta">Election and affidavit datasets are connected from political-data manifests. Current member biodata is shown only when a supplied member dataset exists.</div><button onclick="show('elections')">VIEW RECORDS →</button></div>`).join("")};$("stateSearch").addEventListener("input",draw);draw();
 }
 async function enrichPM(){
  const candidates=ls.filter(x=>/modi/i.test(x.name||""));if(!candidates.length)return;
@@ -126,6 +134,30 @@ async function openModal(name,x,house){
  if(!img||!(x.detailedBio||x.shortBio)){const d=await wikiBio(name);if(d){if(d.thumbnail?.source){$("pPhoto").src=d.thumbnail.source;$("pPhoto").style.display="block";$("pPhotoNote").textContent="Image enrichment: Wikipedia/Wikimedia."}if(d.extract)$("pBio").textContent=d.extract;$("pSources").textContent+=" Wikipedia/Wikimedia enrichment."}}
 }
 function closeProfile(){$("modal").classList.remove("show")}
+
+async function loadElectionData(){
+  const cards=[];
+  try{
+    const m=await (await fetch("political-data/assembly-election-manifest.json",{cache:"no-store"})).json();
+    cards.push({kind:"Assembly elections",title:"Assembly election archive",text:"State-level election shards supplied in political-data.",count:m.shards?.length||m.files?.length||"available"});
+  }catch(e){cards.push({kind:"Assembly elections",title:"Assembly election archive",text:"Manifest could not be loaded.",count:"unavailable"})}
+  try{
+    const m=await (await fetch("political-data/assembly-affidavit-manifest.json",{cache:"no-store"})).json();
+    cards.push({kind:"Affidavits",title:"Assembly candidate affidavits",text:"Candidate affidavit shards supplied in political-data.",count:m.shards?.length||m.files?.length||"available"});
+  }catch(e){cards.push({kind:"Affidavits",title:"Assembly candidate affidavits",text:"Manifest could not be loaded.",count:"unavailable"})}
+  cards.push({kind:"Lok Sabha",title:"Lok Sabha records",text:"Historical/current parliamentary records from mps.json.",count:ls.length});
+  cards.push({kind:"Rajya Sabha",title:"Rajya Sabha records",text:"Parliamentary records from rajya_sabha.json.",count:rs.length});
+  window._electionCards=cards;
+  renderElectionCards();
+  $("datasetStatus").innerHTML=cards.map(c=>`<div class="card"><span class="badge">${esc(c.kind)}</span><h3>${esc(c.title)}</h3><div class="meta">${esc(c.text)}</div><strong style="display:block;margin-top:14px;font:700 28px Georgia,serif">${esc(c.count)}</strong></div>`).join("");
+}
+function renderElectionCards(){
+  const q=($("electionSearch")?.value||"").toLowerCase();
+  const arr=(window._electionCards||[]).filter(c=>[c.kind,c.title,c.text].join(" ").toLowerCase().includes(q));
+  $("electionGrid").innerHTML=arr.map(c=>`<div class="card"><span class="badge">${esc(c.kind)}</span><h3>${esc(c.title)}</h3><div class="meta">${esc(c.text)}</div><div style="margin-top:14px"><b>${esc(c.count)}</b> records/files detected</div></div>`).join("")||'<div class="empty">No matching datasets.</div>';
+}
+$("electionSearch").addEventListener("input",renderElectionCards);
+loadElectionData();
 load();
 </script>
 </body></html>
