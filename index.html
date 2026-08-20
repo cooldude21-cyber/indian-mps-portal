@@ -72,6 +72,7 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding:25px 24px;color:
 </main>
 <footer>INDIAN NETA · Public information archive · Always verify important facts against the cited primary source.</footer>
 
+<div id="stateModal" class="modal" onclick="if(event.target===this)closeState()"><div class="modal-box"><button class="close" onclick="closeState()">×</button><div class="section-title"><h2 id="stateTitle">State Assembly</h2><div class="meta" id="stateMeta"></div></div><div class="toolbar"><input id="stateRecordSearch" placeholder="Search candidate, constituency or party…"></div><div id="stateRecords" class="table-wrap"></div></div></div>
 <div id="modal" class="modal" onclick="if(event.target===this)closeProfile()"><div class="modal-box"><button class="close" onclick="closeProfile()">×</button><div class="profile">
 <div><img id="pPhoto" alt=""><div id="pPhotoNote" class="source"></div></div>
 <div><div class="eyebrow" id="pHouse"></div><h1 id="pName" style="font:700 48px Georgia,serif;margin:5px 0 10px"></h1><div id="pParty" class="badge"></div><p id="pBio" class="bio"></p>
@@ -108,7 +109,7 @@ function renderRS(){
 }
 ["rsSearch","rsState","rsParty"].forEach(id=>$(id).addEventListener("input",renderRS));
 function renderStates(){
- const draw=()=>{const q=$("stateSearch").value.toLowerCase();$("stateGrid").innerHTML=states.filter(s=>s.toLowerCase().includes(q)).map(s=>`<div class="card"><span class="badge">State / UT</span><h3>${esc(s)}</h3><div class="meta">Election and affidavit datasets are connected from political-data manifests. Current member biodata is shown only when a supplied member dataset exists.</div><button onclick="show('elections')">VIEW RECORDS →</button></div>`).join("")};$("stateSearch").addEventListener("input",draw);draw();
+ const draw=()=>{const q=$("stateSearch").value.toLowerCase();$("stateGrid").innerHTML=states.filter(s=>s.toLowerCase().includes(q)).map(s=>`<div class="card"><span class="badge">State / UT</span><h3>${esc(s)}</h3><div class="meta">Election and affidavit datasets are connected from political-data manifests. Current member biodata is shown only when a supplied member dataset exists.</div><button onclick='openState(${JSON.stringify(s)})'>VIEW STATE DATA →</button></div>`).join("")};$("stateSearch").addEventListener("input",draw);draw();
 }
 async function enrichPM(){
  const candidates=ls.filter(x=>/modi/i.test(x.name||""));if(!candidates.length)return;
@@ -134,6 +135,29 @@ async function openModal(name,x,house){
  if(!img||!(x.detailedBio||x.shortBio)){const d=await wikiBio(name);if(d){if(d.thumbnail?.source){$("pPhoto").src=d.thumbnail.source;$("pPhoto").style.display="block";$("pPhotoNote").textContent="Image enrichment: Wikipedia/Wikimedia."}if(d.extract)$("pBio").textContent=d.extract;$("pSources").textContent+=" Wikipedia/Wikimedia enrichment."}}
 }
 function closeProfile(){$("modal").classList.remove("show")}
+
+const stateFiles={
+"jammu kashmir":"01-jammu-kashmir.json","himachal pradesh":"02-himachal-pradesh.json","punjab":"03-punjab.json","uttarakhand":"05-uttarakhand.json","haryana":"06-haryana.json","delhi":"07-delhi.json","rajasthan":"08-rajasthan.json","uttar pradesh":"09-uttar-pradesh.json","bihar":"10-bihar.json","sikkim":"11-sikkim.json","arunachal pradesh":"12-arunachal-pradesh.json","nagaland":"13-nagaland.json","manipur":"14-manipur.json","mizoram":"15-mizoram.json","tripura":"16-tripura.json","meghalaya":"17-meghalaya.json","assam":"18-assam.json","west bengal":"19-west-bengal.json","jharkhand":"20-jharkhand.json","orissa":"21-orissa.json","chhattisgarh":"22-chhattisgarh.json","madhya pradesh":"23-madhya-pradesh.json","gujarat":"24-gujarat.json","daman diu":"25-daman-diu.json","maharashtra":"27-maharashtra.json","andhra pradesh":"28-andhra-pradesh.json","telangana":"28-telangana.json","karnataka":"29-karnataka.json","goa":"30-goa.json","kerala":"32-kerala.json","tamil nadu":"33-tamil-nadu.json","pondicherry":"34-pondicherry.json"};
+const affidavitFiles={"jammu kashmir":"01.json","himachal pradesh":"02.json","punjab":"03.json","uttarakhand":"05.json","haryana":"06.json","delhi":"07.json","rajasthan":"08.json","uttar pradesh":"09.json","bihar":"10.json","sikkim":"11.json","arunachal pradesh":"12.json","nagaland":"13.json","manipur":"14.json","mizoram":"15.json","tripura":"16.json","meghalaya":"17.json","assam":"18.json","west bengal":"19.json","jharkhand":"20.json","orissa":"21.json","chhattisgarh":"22.json","madhya pradesh":"23.json","gujarat":"24.json","daman diu":"25.json","maharashtra":"27.json","andhra pradesh":"28.json","telangana":"36.json","karnataka":"29.json","goa":"30.json","kerala":"32.json","tamil nadu":"33.json","pondicherry":"34.json"};
+let stateElectionCache={},stateAffCache={},activeState=[];
+function normState(x){return String(x||'').toLowerCase().trim()}
+async function loadJson(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(url+' '+r.status);return r.json()}
+async function openState(name){
+ const key=normState(name); $('stateModal').classList.add('show'); $('stateTitle').textContent=name+' — Assembly Data'; $('stateMeta').textContent='Loading…'; $('stateRecords').innerHTML='<div class="empty">Loading election and affidavit records…</div>';
+ try{
+  if(!stateElectionCache[key])stateElectionCache[key]=await loadJson('political-data/assembly-election-shards/'+stateFiles[key]);
+  if(affidavitFiles[key]&&!stateAffCache[key])stateAffCache[key]=await loadJson('political-data/assembly-affidavit-shards/'+affidavitFiles[key]);
+  activeState=[...(stateElectionCache[key]||[])]; $('stateMeta').textContent=`${activeState.length.toLocaleString()} election records · ${(stateAffCache[key]||[]).length.toLocaleString()} affidavit records`;
+  renderStateRecords(name,key);
+ }catch(e){$('stateMeta').textContent='Data unavailable';$('stateRecords').innerHTML='<div class="empty">This state data could not be loaded. Check that the corresponding political-data shard exists in the website deployment.</div>'}
+}
+function renderStateRecords(name,key){
+ const q=($('stateRecordSearch').value||'').toLowerCase();
+ const a=(stateElectionCache[key]||[]).filter(x=>[x.cand_name,x.party,x.tr_ac_name,x.ac07_name,x.eci_state_name,String(x.year)].join(' ').toLowerCase().includes(q));
+ $('stateRecords').innerHTML=`<table><thead><tr><th>Candidate</th><th>Party</th><th>Constituency</th><th>Year</th><th>Position</th><th>Votes</th><th>Vote share</th></tr></thead><tbody>${a.slice(0,500).map(x=>`<tr><td><b>${esc(x.cand_name||'Not supplied')}</b></td><td>${esc(x.party||'')}</td><td>${esc(x.tr_ac_name||x.ac07_name||'')}</td><td>${esc(x.year??'')}</td><td>${esc(x.position??'')}</td><td>${x.votes==null?'':Number(x.votes).toLocaleString()}</td><td>${x.vote_share_percentage==null?'':Number(x.vote_share_percentage).toFixed(2)+'%'}</td></tr>`).join('')}</tbody></table>${a.length>500?'<div class="empty">Showing first 500 matching records. Use search to narrow results.</div>':''}`;
+}
+$('stateRecordSearch').addEventListener('input',()=>{const title=$('stateTitle').textContent.replace(' — Assembly Data','');renderStateRecords(title,normState(title))});
+function closeState(){$('stateModal').classList.remove('show')}
 
 async function loadElectionData(){
   const cards=[];
