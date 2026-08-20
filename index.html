@@ -3,222 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDIA NETA | National Political Database</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Nowaj Alam | Software Developer & Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: #ffffff; background-color: #071f22; background-image: radial-gradient(circle at 70% 30%, rgba(143, 64, 39, 0.4) 0px, transparent 50%), radial-gradient(circle at 20% 80%, rgba(13, 68, 64, 0.8) 0px, transparent 50%), radial-gradient(circle at 50% 100%, rgba(23, 96, 87, 0.6) 0px, transparent 60%); background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; scroll-behavior: smooth; }
-        .glass-panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 24px; backdrop-filter: blur(20px); box-shadow: inset 0 0 20px rgba(255,255,255,0.02), 0 10px 30px rgba(0,0,0,0.3); }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 1px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo i { color: #9e4c35; font-size: 26px; }
-        .nav-links { list-style: none; display: flex; gap: 35px; margin: 0; padding: 0; }
-        .nav-links li a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links li a:hover, .nav-links li a.active { color: #9e4c35; }
-        .hero { text-align: center; padding: 80px 20px 50px; }
-        .hero-badge { display: inline-block; background: rgba(158, 76, 53, 0.15); border: 1px solid rgba(158, 76, 53, 0.4); color: #ffb8a3; padding: 8px 25px; border-radius: 50px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
-        .hero h1 { font-family: 'Montserrat', sans-serif; margin: 0; font-size: 55px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); line-height: 1.1; }
-        .hero h1 span { color: transparent; -webkit-text-stroke: 1px #fff; }
-        .hero p { color: rgba(255,255,255,0.7); font-weight: 300; font-size: 16px; max-width: 650px; margin: 20px auto 0; line-height: 1.7; }
-        .main-content { flex: 1; max-width: 1300px; margin: 0 auto; padding: 0 20px 80px; width: 100%; box-sizing: border-box; }
-        .search-box { width: 100%; padding: 25px 35px; font-size: 18px; color: #fff; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50px; margin-bottom: 30px; outline: none; backdrop-filter: blur(15px); font-family: 'Poppins', sans-serif; transition: 0.3s; }
-        .search-box::placeholder { color: rgba(255, 255, 255, 0.4); }
-        .search-box:focus { border-color: #9e4c35; box-shadow: 0 0 30px rgba(158, 76, 53, 0.2); }
-        .mp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
-        .mp-card { padding: 35px 25px; text-align: center; transition: 0.4s ease; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
-        .mp-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.4); }
-        .mp-card img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.8); margin-bottom: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-        .mp-name { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .mp-party { background: rgba(158, 76, 53, 0.2); border: 1px solid rgba(158, 76, 53, 0.3); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px; color: #ffb8a3; }
-        .portfolio-btn { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); padding: 12px 20px; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: auto; text-transform: uppercase; }
-        .portfolio-btn:hover { background: #fff; color: #071f22; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
-        .modal-content { max-width: 1200px; margin: 0 auto; position: relative; animation: zoomIn 0.3s ease-out; }
-        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .close-btn { position: absolute; right: 0; top: -40px; font-size: 35px; color: rgba(255,255,255,0.5); cursor: pointer; transition: 0.3s; }
-        .close-btn:hover { color: #fff; }
-        .profile-header { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 30px; align-items: center; margin-bottom: 30px; }
-        .profile-left h1 { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin: 0 0 10px; }
-        .profile-left p { color: #9e4c35; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 14px; }
-        .profile-center img { width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
-        .profile-right { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
-        .profile-right h4 { font-family: 'Montserrat', sans-serif; margin: 0 0 10px; color: #ffb8a3; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
-        .profile-right p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.8); font-weight: 300; }
-        .personal-details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .personal-card { padding: 20px; }
-        .personal-card h5 { margin: 0 0 5px; font-size: 11px; color: #9e4c35; text-transform: uppercase; }
-        .personal-card h3 { font-family: 'Montserrat', sans-serif; margin: 0; font-size: 15px; font-weight: 600; }
-        .stats-bar { padding: 30px; margin-bottom: 30px; display: flex; justify-content: space-between; text-align: center; flex-wrap: wrap; gap: 15px; }
-        .stat-box { flex: 1; min-width: 120px; }
-        .stat-icon { font-size: 24px; color: #9e4c35; margin-bottom: 10px; }
-        .stat-value { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: #fff; }
-        .stat-label { font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-        .footer { background: #041214; padding: 50px 20px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; text-align: center; }
-        .disclaimer-text { color: rgba(255,255,255,0.4); font-size: 12px; line-height: 1.6; max-width: 800px; margin: 0 auto; }
-        @media (max-width: 900px) { .profile-header { grid-template-columns: 1fr; text-align: center; } .nav-links { display: none; } }
+        :root {
+            --bg-color: #0d061a;
+            --primary-purple: #b19cd9;
+            --accent-glow: rgba(177, 156, 217, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 80% 20%, rgba(128, 0, 128, 0.25) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 80%, rgba(75, 0, 130, 0.3) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(13, 6, 26, 0.6);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--primary-purple);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .cta-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-purple);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            padding: 80px 8%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 50px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 20px;
+            background: linear-gradient(135deg, #fff 30%, var(--primary-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 550px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            max-width: 380px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 0 40px rgba(177, 156, 217, 0.2);
+        }
+
+        /* Projects Section */
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 8% 80px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--primary-purple);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            padding: 25px;
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(177, 156, 217, 0.4);
+            box-shadow: 0 15px 35px rgba(177, 156, 217, 0.1);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .project-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            margin: 0 0 10px;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Tech Stack / Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-badge {
+            padding: 20px;
+            text-align: center;
+            border-radius: 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+
+        .skill-badge:hover {
+            background: rgba(177, 156, 217, 0.1);
+            border-color: var(--primary-purple);
+        }
+
+        .skill-badge i {
+            font-size: 28px;
+            color: var(--primary-purple);
+            margin-bottom: 10px;
+        }
+
+        .skill-badge span {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Footer / Contact */
+        .footer {
+            background: rgba(8, 3, 15, 0.9);
+            padding: 50px 8%;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
-<nav class="navbar">
-    <a href="index.html" class="logo"><i class="fas fa-landmark"></i> INDIA NETA</a>
-    <ul class="nav-links">
-        <li><a href="index.html" class="active">Lok Sabha</a></li>
-        <li><a href="rajya-sabha.html">Rajya Sabha</a></li>
-        <li><a href="assembly-elections.html">State MLAs</a></li>
-    </ul>
-</nav>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">N.A.</a>
+        <ul class="nav-links">
+            <li><a href="#work">Projects</a></li>
+            <li><a href="#skills">Tech Stack</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <a href="#contact" class="cta-btn">Let's Talk</a>
+    </nav>
 
-<header class="hero">
-    <div class="hero-badge">Verified Public Data (1947 - Current)</div>
-    <h1>Indian Parliament <br><span>Members Database</span></h1>
-    <p>Complete biodata, real-time tracking, and historical portfolios of Indian Politicians.</p>
-</header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <span style="color: var(--primary-purple); font-size: 12px; letter-spacing: 2px; text-transform: uppercase;">+ Software Developer & System Engineer</span>
+            <h1>Architecting Digital Code & Solutions</h1>
+            <p>Building immersive web experiences using HTML, CSS, & JavaScript, alongside powerful backend systems and logic built with Python, C, and C++.</p>
+            <a href="#work" class="cta-btn" style="display: inline-block;">Explore My Work</a>
+        </div>
+        <div class="hero-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Developer Profile">
+        </div>
+    </section>
 
-<main class="main-content">
-    <input type="text" id="searchInput" class="search-box" placeholder="Search by name, state, party or constituency..." onkeyup="searchMPs()">
-    <div class="mp-grid" id="mpContainer">
-        <p style="text-align: center; width: 100%; color: rgba(255,255,255,0.5);">Loading Database...</p>
-    </div>
-</main>
-
-<div id="portfolioModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div class="profile-header">
-            <div class="profile-left">
-                <h1 id="modalName">Name</h1>
-                <p id="modalDesignation">Member of Parliament</p>
+    <!-- Selected Projects -->
+    <section class="section-container" id="work">
+        <div class="section-title"><i class="fas fa-layer-group"></i> Selected Projects</div>
+        <div class="projects-grid">
+            
+            <div class="project-card glass-panel">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Python App" class="project-img">
+                <h3>Python Automation Tool</h3>
+                <p>A backend utility script built using Python for automated data parsing and API pipeline management.</p>
             </div>
-            <div class="profile-center">
-                <img id="modalImg" src="" alt="MP Photo">
+
+            <div class="project-card glass-panel">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="C++ Systems" class="project-img">
+                <h3>C++ Memory Manager</h3>
+                <p>High-performance system utility leveraging advanced object-oriented structures and custom memory handling in C++.</p>
             </div>
-            <div class="profile-right glass-panel">
-                <h4>Political Journey & Biography</h4>
-                <p id="modalJourney" style="color: #ffb8a3; font-size: 13px; margin-bottom: 10px;"></p>
-                <p id="modalBio">Fetching detailed Wikipedia summary...</p>
+
+            <div class="project-card glass-panel">
+                <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Web UI" class="project-img">
+                <h3>Interactive Web Portal</h3>
+                <p>Modern responsive user interface crafted with HTML5, advanced CSS layout rules, and dynamic JavaScript logic.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tech Stack (Languages requested: HTML, CSS, JS, Python, C, C++) -->
+    <section class="section-container" id="skills">
+        <div class="section-title"><i class="fas fa-code"></i> Tech Stack & Languages</div>
+        <div class="skills-grid">
+            <div class="skill-badge glass-panel">
+                <i class="fab fa-html5"></i>
+                <span>HTML5</span>
+            </div>
+            <div class="skill-badge glass-panel">
+                <i class="fab fa-css3-alt"></i>
+                <span>CSS3</span>
+            </div>
+            <div class="skill-badge glass-panel">
+                <i class="fab fa-js"></i>
+                <span>JavaScript</span>
+            </div>
+            <div class="skill-badge glass-panel">
+                <i class="fab fa-python"></i>
+                <span>Python</span>
+            </div>
+            <div class="skill-badge glass-panel">
+                <i class="fas fa-copyright"></i>
+                <span>C Language</span>
+            </div>
+            <div class="skill-badge glass-panel">
+                <i class="fas fa-plus-square"></i>
+                <span>C++</span>
             </div>
         </div>
+    </section>
 
-        <div class="personal-details-grid">
-            <div class="personal-card glass-panel"><h5>Parents Name</h5><h3 id="modalParents"></h3></div>
-            <div class="personal-card glass-panel"><h5>Date of Birth</h5><h3 id="modalDob"></h3></div>
-            <div class="personal-card glass-panel"><h5>Constituency</h5><h3 id="modalConstituency"></h3></div>
-            <div class="personal-card glass-panel"><h5>State</h5><h3 id="modalState"></h3></div>
-            <div class="personal-card glass-panel"><h5>Party</h5><h3 id="modalParty"></h3></div>
-        </div>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <p>&copy; 2026 Nowaj Alam. Designed with Lavender Glassmorphism UI/UX.</p>
+    </footer>
 
-        <div class="stats-bar glass-panel">
-            <div class="stat-box"><i class="fas fa-university stat-icon"></i><div class="stat-value" id="modalEducation"></div><div class="stat-label">Education</div></div>
-            <div class="stat-box"><i class="fas fa-gavel stat-icon"></i><div class="stat-value" id="modalCriminal"></div><div class="stat-label">Criminal Cases</div></div>
-            <div class="stat-box"><i class="fas fa-rupee-sign stat-icon"></i><div class="stat-value" id="modalAssets"></div><div class="stat-label">Declared Assets</div></div>
-            <div class="stat-box"><i class="fas fa-history stat-icon"></i><div class="stat-value" id="modalTerm"></div><div class="stat-label">Lok Sabha Term</div></div>
-        </div>
-    </div>
-</div>
-
-<footer class="footer">
-    <p class="disclaimer-text"><strong>DISCLAIMER:</strong> This is an independent open-source project, not affiliated with the Election Commission of India. Data is aggregated from public domains and Wikidata. Historical MPs (pre-2003) may not have declared assets or criminal records.</p>
-</footer>
-
-<script>
-    let allMPs = [];
-
-    async function fetchMPData() {
-        try {
-            const response = await fetch('mps.json');
-            allMPs = await response.json();
-            displayMPs(allMPs);
-        } catch (error) {
-            document.getElementById('mpContainer').innerHTML = "<p style='color:#ffcccb; text-align:center;'>Failed to load data. Please check mps.json.</p>";
-        }
-    }
-
-    function displayMPs(mps) {
-        const container = document.getElementById('mpContainer');
-        container.innerHTML = '';
-        if(mps.length === 0) {
-            container.innerHTML = '<p style="text-align:center; color: rgba(255,255,255,0.5);">No records found.</p>';
-            return;
-        }
-        mps.forEach(mp => {
-            const card = document.createElement('div');
-            card.className = 'mp-card glass-panel';
-            let displayImage = mp.image ? mp.image : 'https://via.placeholder.com/150/0d4440/ffffff?text=Loading';
-            card.innerHTML = `
-                <img src="${displayImage}" id="img-grid-${mp.id}" alt="${mp.name}" onerror="this.src='https://via.placeholder.com/150/0d4440/ffffff?text=No+Image'">
-                <div class="mp-name">${mp.name}</div>
-                <div class="mp-party">${mp.party}</div>
-                <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 20px;">${mp.constituency || 'All India'}, ${mp.state || 'India'}</p>
-                <button class="portfolio-btn" onclick="openModal('${mp.id}')">View Complete Portfolio</button>
-            `;
-            container.appendChild(card);
-            if(!mp.image) fetchWikipediaData(mp.name, mp.id, false);
-        });
-    }
-
-    function searchMPs() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = allMPs.filter(mp => 
-            (mp.name && mp.name.toLowerCase().includes(query)) || 
-            (mp.constituency && mp.constituency.toLowerCase().includes(query)) || 
-            (mp.party && mp.party.toLowerCase().includes(query)) ||
-            (mp.state && mp.state.toLowerCase().includes(query))
-        );
-        displayMPs(filtered);
-    }
-
-    async function fetchWikipediaData(mpName, id, isModal) {
-        try {
-            const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(mpName)}&prop=extracts|pageimages&exintro&explaintext&pithumbsize=600&format=json&origin=*`;
-            const response = await fetch(url);
-            const data = await response.json();
-            const pageId = Object.keys(data.query.pages)[0];
-            if (pageId !== "-1") {
-                const pageData = data.query.pages[pageId];
-                if (isModal) {
-                    if (pageData.thumbnail) document.getElementById('modalImg').src = pageData.thumbnail.source;
-                    if (pageData.extract) document.getElementById('modalBio').innerText = pageData.extract.substring(0, 600) + '... (Source: Wikipedia)';
-                } else {
-                    if (pageData.thumbnail) {
-                        document.getElementById(`img-grid-${id}`).src = pageData.thumbnail.source;
-                        const mpIndex = allMPs.findIndex(m => m.id === id);
-                        if(mpIndex !== -1) allMPs[mpIndex].image = pageData.thumbnail.source;
-                    }
-                }
-            }
-        } catch (error) { console.log("Wiki data not found for:", mpName); }
-    }
-
-    function openModal(id) {
-        const mp = allMPs.find(m => m.id === id);
-        if(!mp) return;
-
-        document.getElementById('modalImg').src = mp.image || 'https://via.placeholder.com/400/0d4440/ffffff?text=Loading';
-        document.getElementById('modalName').innerText = mp.name || 'Unknown';
-        document.getElementById('modalParty').innerText = mp.party || 'N/A';
-        document.getElementById('modalConstituency').innerText = mp.constituency || 'N/A';
-        document.getElementById('modalState').innerText = mp.state || 'N/A';
-        document.getElementById('modalParents').innerText = mp.parents || 'N/A';
-        document.getElementById('modalDob').innerText = mp.dob || 'N/A';
-        document.getElementById('modalJourney').innerText = mp.politicalJourney || 'Historical data fetched from archives.';
-        document.getElementById('modalEducation').innerText = mp.education || 'N/A';
-        document.getElementById('modalTerm').innerText = mp.term || 'N/A';
-        document.getElementById('modalAssets').innerText = mp.assets || 'N/A';
-        document.getElementById('modalCriminal').innerText = mp.criminalCases || 'N/A';
-        document.getElementById('modalBio').innerText = mp.detailedBio || 'Fetching detailed Wikipedia summary...';
-
-        document.getElementById('portfolioModal').style.display = 'block';
-        document.body.style.overflow = 'hidden'; 
-        if(!mp.detailedBio || !mp.image) fetchWikipediaData(mp.name, mp.id, true);
-    }
-
-    function closeModal() {
-        document.getElementById('portfolioModal').style.display = 'none';
-        document.body.style.overflow = 'auto'; 
-    }
-    window.onclick = function(event) { if (event.target == document.getElementById('portfolioModal')) closeModal(); }
-    window.onload = fetchMPData;
-</script>
 </body>
 </html>
