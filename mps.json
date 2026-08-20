@@ -1,38 +1,10 @@
 [
-    {
-        "id": "1001",
-        "name": "Shri Jawaharlal Nehru",
-        "constituency": "Phulpur",
-        "state": "Uttar Pradesh",
-        "party": "Congress",
-        "type": "Historical",
-        "term": "1, 2, 3",
-        "parents": "Motilal Nehru & Swarup Rani",
-        "dob": "1889-11-14",
-        "politicalJourney": "First Prime Minister of India (1947–1964).",
-        "education": "Trinity College, Cambridge",
-        "criminalCases": "N/A",
-        "assets": "N/A",
-        "shortBio": "",
-        "detailedBio": "",
-        "image": ""
-    },
-    {
-        "id": "1002",
-        "name": "Narendra Modi",
-        "constituency": "Varanasi",
-        "state": "Uttar Pradesh",
-        "party": "BJP",
-        "type": "Current",
-        "term": "16, 17, 18",
-        "parents": "Damodardas Mulchand Modi & Heeraben Modi",
-        "dob": "1950-09-17",
-        "politicalJourney": "Current Prime Minister of India.",
-        "education": "Gujarat University (MA)",
-        "criminalCases": "0",
-        "assets": "Check Affidavit",
-        "shortBio": "",
-        "detailedBio": "",
-        "image": ""
-    }
+  {
+    "id": "1001",
+    "name": "Narendra Modi",
+    "constituency": "Varanasi",
+    "state": "Uttar Pradesh",
+    "party": "BJP",
+    "image": ""
+  }
 ]
