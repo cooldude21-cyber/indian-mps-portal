@@ -184,9 +184,9 @@
 
     async function fetchWikipediaData(mpName, id, isModal) {
         try {
-            // Clean names for better wiki matching (e.g. removing "(Adv.)")
-            let cleanName = mpName.replace(/\\(.*\\)/g, '').trim();
-            const url = \`https://en.wikipedia.org/w/api.php?action=query&titles=\${encodeURIComponent(cleanName)}&prop=extracts|pageimages&exintro&explaintext&pithumbsize=600&format=json&origin=*\`;
+            // Clean names for better wiki matching
+            let cleanName = mpName.replace(/\(.*\)/g, '').trim();
+            const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(cleanName)}&prop=extracts|pageimages&exintro&explaintext&pithumbsize=600&format=json&origin=*`;
             const response = await fetch(url);
             const data = await response.json();
             const pageId = Object.keys(data.query.pages)[0];
@@ -198,7 +198,7 @@
                     if (pageData.extract) document.getElementById('modalBio').innerText = pageData.extract.substring(0, 500) + '... (Source: Wikipedia)';
                 } else {
                     if (pageData.thumbnail) {
-                        let imgElement = document.getElementById(\`img-grid-\${id}\`);
+                        let imgElement = document.getElementById(`img-grid-${id}`);
                         if(imgElement) imgElement.src = pageData.thumbnail.source;
                         const mpIndex = allMPs.findIndex(m => m.id === id);
                         if(mpIndex !== -1) allMPs[mpIndex].image = pageData.thumbnail.source;
