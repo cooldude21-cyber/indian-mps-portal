@@ -1,0 +1,8 @@
+{
+  "name": "Indian Parliament Members Database",
+  "description": "National political database featuring Lok Sabha and Rajya Sabha members biodata, portfolios, financial assets, and parliamentary archives.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
