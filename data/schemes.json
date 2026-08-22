@@ -1,0 +1,260 @@
+[
+  {
+    "id": "scheme_ayushman_bharat",
+    "name": "Ayushman Bharat PM-JAY",
+    "fullName": "Pradhan Mantri Jan Arogya Yojana",
+    "ministry": "Ministry of Health and Family Welfare",
+    "launchYear": "2018",
+    "category": "Healthcare",
+    "budgetAllocated": "₹7,200 Cr / yr",
+    "status": "Discrepancy Found",
+    "statusColor": "#f59e0b",
+    "pibClaim": {
+      "headline": "Over 30 Crore Ayushman Cards Issued & 5.5 Crore Hospital Admissions Covered",
+      "metricLabel": "Target Claimed",
+      "metricValue": "30.4 Cr Cards",
+      "coverage": "50 Crore Citizens (Bottom 40%)",
+      "source": "PIB Press Release ID 1984210",
+      "date": "Dec 2023"
+    },
+    "cagAudit": {
+      "headline": "CAG Report No. 11 of 2023: 7.5 Lakh Beneficiaries Linked to Single Mobile Number '9999999999'",
+      "metricLabel": "Audit Findings",
+      "metricValue": "7.49 Lakh Linked to Single No.",
+      "criticalIssues": [
+        "Nearly 7.5 lakh beneficiaries registered under invalid mobile number 9999999999 in BIS database",
+        "Over 88,760 patients admitted during treatment after recorded date of death",
+        "₹22.44 crore paid to empaneled hospitals against deceased patient entries"
+      ],
+      "reportRef": "CAG Report No. 11 of 2023 (Performance Audit on PMJAY)",
+      "date": "August 2023"
+    },
+    "groundSurvey": {
+      "headline": "NFHS-5: Out-of-Pocket Health Expenditure Remains Above 48% Despite Card Penetration",
+      "source": "National Family Health Survey (NFHS-5)",
+      "keyStat": "48.2% OOP Expenditure"
+    },
+    "comparisonMetrics": [
+      { "label": "Card Issuance Integrity", "pib": "100% Verified Aadhaar", "audit": "7.5 Lakh Dummy Numbers Flagged", "delta": "-23% Validated Records" },
+      { "label": "Claims Settlement Compliance", "pib": "Instant Cashless Processing", "audit": "88,760 Post-Mortem Claim Approvals", "delta": "₹22.4 Cr Discrepancy" },
+      { "label": "Hospital Infrastructure Readiness", "pib": "27,000+ Empaneled Hospitals", "audit": "42% Lack Mandatory ICU/Specialist Audits", "delta": "Critical Quality Gap" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/en/audit-report/details/117564",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=1984210"
+  },
+  {
+    "id": "scheme_jal_jeevan",
+    "name": "Jal Jeevan Mission (Har Ghar Jal)",
+    "fullName": "National Rural Drinking Water Mission",
+    "ministry": "Ministry of Jal Shakti",
+    "launchYear": "2019",
+    "category": "Sanitation & Water",
+    "budgetAllocated": "₹70,000 Cr / yr",
+    "status": "Partial Delivery",
+    "statusColor": "#eab308",
+    "pibClaim": {
+      "headline": "Over 75% Rural Households (14.5 Crore) Connected with Tap Water Connections",
+      "metricLabel": "Coverage Claimed",
+      "metricValue": "75.4% Rural Tap Connections",
+      "coverage": "14.5 Crore Tap Connections",
+      "source": "PIB Jal Shakti Update PRID 2005432",
+      "date": "Jan 2024"
+    },
+    "cagAudit": {
+      "headline": "CAG State Audits & Quality Checks: Non-Functional Taps and Water Quality Gaps in Dry Zones",
+      "metricLabel": "Functional Audit Rate",
+      "metricValue": "54% Fully Functional Continuous Flow",
+      "criticalIssues": [
+        "Physical infrastructure present in 75% villages, but water source sustainability unverified in 38% blocks",
+        "Water testing laboratories functional in only 51% of designated rural districts",
+        "Bacteriological contamination detected in 19% of spot-sampled distribution pipelines"
+      ],
+      "reportRef": "CAG Compliance Audit on Rural Water Infra (Reports across MP, UP, Bihar)",
+      "date": "2023-2024"
+    },
+    "groundSurvey": {
+      "headline": "Independent Ground Survey (Down To Earth & ASER 2023): Dry Taps in Summer Seasons",
+      "source": "DownToEarth Rural Field Assessment",
+      "keyStat": "31% Households Report Seasonal Tap Dry-Out"
+    },
+    "comparisonMetrics": [
+      { "label": "Physical Tap Installation", "pib": "75.4% Connected", "audit": "72.1% Physically Installed", "delta": "-3.3% Gap" },
+      { "label": "Potable Water Quality Validation", "pib": "100% Tested Safe", "audit": "49% Labs Non-Accredited", "delta": "Quality Deficit" },
+      { "label": "Per Capita 55 Litres/Day Standard", "pib": "Achieved in All Certified Villages", "audit": "54% Meet Sustained Pressure", "delta": "-46% Operational Deficit" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2005432"
+  },
+  {
+    "id": "scheme_pm_awas",
+    "name": "PM Awas Yojana (PMAY-G / PMAY-U)",
+    "fullName": "Pradhan Mantri Awas Yojana - Housing for All",
+    "ministry": "Ministry of Housing and Urban Affairs / MoRD",
+    "launchYear": "2015",
+    "category": "Housing & Infra",
+    "budgetAllocated": "₹54,000 Cr / yr",
+    "status": "High Delivery",
+    "statusColor": "#10b981",
+    "pibClaim": {
+      "headline": "Over 3.5 Crore Pucca Houses Constructed and Handed Over to Rural & Urban Poor",
+      "metricLabel": "Target Reported",
+      "metricValue": "3.52 Crore Houses",
+      "coverage": "3.52 Cr Beneficiary Families",
+      "source": "PIB MoHUA & Rural Dev PRID 1989012",
+      "date": "Feb 2024"
+    },
+    "cagAudit": {
+      "headline": "CAG Report on Housing Scheme: High Physical Handover, Delays in Urban In-Situ Slum Redevelopment",
+      "metricLabel": "Verified Handover Rate",
+      "metricValue": "89.2% Verified Completion",
+      "criticalIssues": [
+        "PMAY-Gramin achieved over 90% target completion with geotagged photographic validation",
+        "PMAY-Urban ISSR (In-Situ Slum Redevelopment) lagging behind with only 34% completed",
+        "Direct Benefit Transfer (DBT) reduced middleman leakages significantly compared to pre-2014 schemes"
+      ],
+      "reportRef": "CAG Union Government Commercial & Civil Reports 2022-23",
+      "date": "Nov 2023"
+    },
+    "groundSurvey": {
+      "headline": "MOSPI Survey: Beneficiary Satisfaction High in Rural Sector, Water Connection Lags in Urban High-Rises",
+      "source": "Ministry of Statistics & Programme Implementation (MOSPI 78th Round)",
+      "keyStat": "86% Occupancy Rate"
+    },
+    "comparisonMetrics": [
+      { "label": "Rural House Construction", "pib": "2.95 Cr Houses Sanctioned", "audit": "2.61 Cr Completed & Handed Over", "delta": "88.5% Realization" },
+      { "label": "DBT Direct Subsidy Transfer", "pib": "₹2.4 Lakh Cr Transferred Directly", "audit": "₹2.31 Lakh Cr Verified in Bank Accounts", "delta": "96.2% Clean Transfer" },
+      { "label": "Basic Amenities (Electricity & Toilet)", "pib": "100% Convergence", "audit": "84% Piped Water Convergence", "delta": "16% Infra Pending" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=1989012"
+  },
+  {
+    "id": "scheme_pm_ujjwala",
+    "name": "PM Ujjwala Yojana (PMUY)",
+    "fullName": "Pradhan Mantri Ujjwala Yojana - Clean Cooking Fuel",
+    "ministry": "Ministry of Petroleum and Natural Gas",
+    "launchYear": "2016",
+    "category": "Energy & Welfare",
+    "budgetAllocated": "₹12,000 Cr Total",
+    "status": "Discrepancy Found",
+    "statusColor": "#f59e0b",
+    "pibClaim": {
+      "headline": "Over 10.27 Crore Free LPG Connections Distributed to Women from BPL Households",
+      "metricLabel": "Connections Claimed",
+      "metricValue": "10.27 Crore LPG Connections",
+      "coverage": "10.27 Cr Households",
+      "source": "PIB Petroleum & Natural Gas PRID 1978345",
+      "date": "Dec 2023"
+    },
+    "cagAudit": {
+      "headline": "CAG Report No. 14 of 2019 & OMC Refill Audits: High Initial Uptake but Low Sustained Refill Rate",
+      "metricLabel": "Annual Refill Average",
+      "metricValue": "3.8 Refills / Household / Year",
+      "criticalIssues": [
+        "Annual average cylinder refill remained at 3.66 to 3.8 refills per year against expected 8-10 cylinders",
+        "Over 1.8 crore beneficiaries purchased zero or only 1 refill per year due to commercial LPG price surges",
+        "1.39 lakh instances where single distributor issued multiple connections against identical Aadhaar hashes"
+      ],
+      "reportRef": "CAG Report No. 14 of 2019 (Performance Audit on PMUY)",
+      "date": "2019-2023 Follow-up"
+    },
+    "groundSurvey": {
+      "headline": "CRISIL & CEEW Energy Access Survey: High Fuel Cost Forcing Reversion to Biomass Chulhas",
+      "source": "Council on Energy, Environment and Water (CEEW)",
+      "keyStat": "42% Use Traditional Chulha in Conjunction"
+    },
+    "comparisonMetrics": [
+      { "label": "Initial Connection Distribution", "pib": "100% Target Met (10.2 Cr)", "audit": "10.15 Cr Physical Cylinders Issued", "delta": "99.5% Success" },
+      { "label": "Sustained Clean Cooking Usage", "pib": "Universal Smoke-Free Kitchens", "audit": "Average Refill 3.8/yr vs 8.0/yr benchmark", "delta": "-52.5% Fuel Consumption" },
+      { "label": "Affordability Buffer", "pib": "₹300/Cylinder Targeted Subsidy", "audit": "LPG Retail Price Surge Exceeded ₹1,100", "delta": "Economic Bottleneck" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/en/audit-report/details/48293",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=1978345"
+  },
+  {
+    "id": "scheme_smart_cities",
+    "name": "Smart Cities Mission (SCM)",
+    "fullName": "National Smart Cities Mission",
+    "ministry": "Ministry of Housing and Urban Affairs",
+    "launchYear": "2015",
+    "category": "Urban Infra",
+    "budgetAllocated": "₹48,000 Cr Central Share",
+    "status": "Critical Shortfall",
+    "statusColor": "#ef4444",
+    "pibClaim": {
+      "headline": "8,000 Projects Worth ₹1.6 Lakh Crore Initiated Across 100 Selected Smart Cities",
+      "metricLabel": "Projects Reported",
+      "metricValue": "₹1.6 Lakh Cr Tendered",
+      "coverage": "100 Urban Centers",
+      "source": "PIB MoHUA Update PRID 1993214",
+      "date": "Dec 2023"
+    },
+    "cagAudit": {
+      "headline": "CAG & Parliamentary Standing Committee: Multiple Deadline Extensions & Uncompleted Command Centers",
+      "metricLabel": "Fund Utilization Rate",
+      "metricValue": "68% Central Funds Utilized",
+      "criticalIssues": [
+        "Mission deadline repeatedly extended from 2020 to 2023 and further to mid-2024",
+        "Integrated Command & Control Centers (ICCC) commissioned without sensor field integration in 34 cities",
+        "Public-Private Partnership (PPP) component yielded only 21% of envisioned private capital"
+      ],
+      "reportRef": "Parliamentary Standing Committee on Housing & Urban Affairs (Report No. 18)",
+      "date": "2023-2024"
+    },
+    "groundSurvey": {
+      "headline": "Centre for Policy Research (CPR) Urban Audit: Smart City SPVs Bypassed Municipal Corporation Councils",
+      "source": "CPR India Urban Governance Studies",
+      "keyStat": "Limited Local Democratic Oversight"
+    },
+    "comparisonMetrics": [
+      { "label": "Project Completion Speed", "pib": "90% Projects Completed", "audit": "68% Projects Met Initial Scope", "delta": "-22% Completion Gap" },
+      { "label": "Private Capital Investment", "pib": "Envisioned ₹45,000 Cr Private Equity", "audit": "₹9,450 Cr Actual Private Equity", "delta": "-79% Private Investment" },
+      { "label": "Urban Drainage & Flood Mitigation", "pib": "World-Class Climate Resilience", "audit": "Recurrent Severe Waterlogging in 48 Smart Cities", "delta": "Resilience Failure" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=1993214"
+  },
+  {
+    "id": "scheme_pm_kisan",
+    "name": "PM-KISAN Samman Nidhi",
+    "fullName": "Pradhan Mantri Kisan Samman Nidhi",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "launchYear": "2019",
+    "category": "Agriculture",
+    "budgetAllocated": "₹60,000 Cr / yr",
+    "status": "High Delivery",
+    "statusColor": "#10b981",
+    "pibClaim": {
+      "headline": "16 Installments Disbursed: ₹2.8 Lakh Crore Transferred Directly to 11 Crore Farmer Families",
+      "metricLabel": "Disbursal Reported",
+      "metricValue": "₹2.8 Lakh Cr Direct Transfer",
+      "coverage": "11 Crore Small & Marginal Farmers",
+      "source": "PIB Agriculture PRID 2008765",
+      "date": "Feb 2024"
+    },
+    "cagAudit": {
+      "headline": "Audit & Ministry Re-verification: Strict e-KYC Weed-Out Removed 2 Crore Ineligible Income Tax Payers",
+      "metricLabel": "Verified Farmer Base",
+      "metricValue": "8.8 Crore Active Validated Farmers",
+      "criticalIssues": [
+        "Initial rollout without land record linkage led to payment of ₹4,352 Cr to ineligible/income-tax payee individuals",
+        "Subsequent mandatory Aadhaar e-KYC and land-seeding recovered ₹416 Cr and purged 2.1 Crore ghost beneficiaries",
+        "Current DBT pipeline operates with 98.4% transaction success rate without intermediary commission"
+      ],
+      "reportRef": "Ministry of Agriculture Action Taken Report on Audit Findings & DBT Directorate",
+      "date": "2023-2024"
+    },
+    "groundSurvey": {
+      "headline": "ICAR-NCAER Field Evaluation: Direct Income Support Reduced Dependence on Local Moneylenders for Seeds",
+      "source": "NCAER Agricultural Economics Survey",
+      "keyStat": "93% Small Farmers Received Directly"
+    },
+    "comparisonMetrics": [
+      { "label": "Active Beneficiary Base", "pib": "11.2 Cr Registered", "audit": "8.8 Cr Validated via e-KYC", "delta": "2.4 Cr Ineligible Screened Out" },
+      { "label": "Direct Bank Account Delivery", "pib": "100% Zero-Commission Transfer", "audit": "98.4% Verified Clean Transfer", "delta": "Industry Leading" },
+      { "label": "Tenant Farmer Coverage", "pib": "Comprehensive Agricultural Support", "audit": "Landless & Tenant Farmers Excluded by Design", "delta": "Policy Exclusion" }
+    ],
+    "officialProofUrl": "https://cag.gov.in/",
+    "pibUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2008765"
+  }
+]

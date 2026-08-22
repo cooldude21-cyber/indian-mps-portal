@@ -1,0 +1,67 @@
+[
+  {
+    "id": "rti_pm_cares_fund",
+    "caseNumber": "CIC/PMOIN/A/2021/114982",
+    "subject": "Status and Audit Structure of PM CARES Fund",
+    "publicAuthority": "Prime Minister's Office (PMO)",
+    "dateDisclosed": "2021-2023 Disclosures",
+    "applicantCategory": "Civil Rights Researcher & Legal Collective",
+    "keyDisclosure": "PMO maintained that PM CARES Fund is not a 'Public Authority' under Section 2(h) of the RTI Act 2005, despite being chaired by the Prime Minister and promoted with State Emblem.",
+    "impactSummary": "Highlighted statutory ambiguity regarding transparency of public charitable trusts managed by government functionaries; audited privately by independent chartered accountants rather than the CAG.",
+    "documentProof": "Central Information Commission (CIC) Order Case No. CIC/PMOIN/A/2021",
+    "status": "Documented in Public Records",
+    "officialLink": "https://cic.gov.in"
+  },
+  {
+    "id": "rti_electoral_bonds_sbi",
+    "caseNumber": "CIC/SBIND/A/2024/602931",
+    "subject": "Electoral Bond Alphanumeric Serial Numbers & Purchaser Mapping",
+    "publicAuthority": "State Bank of India (SBI) / ECI",
+    "dateDisclosed": "March 2024 (Supreme Court Enforced)",
+    "applicantCategory": "Association for Democratic Reforms (ADR) & Investigative Journalists",
+    "keyDisclosure": "Following Supreme Court Constitution Bench ruling striking down the 2018 scheme, SBI disclosed complete donor and recipient bond redemption records totaling ₹16,518 Crore.",
+    "impactSummary": "Revealed direct correlations between corporate donations, public procurement contract awards, and investigative agency actions across multiple political parties.",
+    "documentProof": "Supreme Court of India Judgment WP(C) No. 880/2017 & SBI Affidavit to ECI",
+    "status": "Supreme Court Validated",
+    "officialLink": "https://www.eci.gov.in/disclosure-of-electoral-bonds"
+  },
+  {
+    "id": "rti_smart_city_funds",
+    "caseNumber": "RTI/MOHUA/2023/89201",
+    "subject": "Unspent Central Funds in Smart Cities Mission Across Non-Metro Cities",
+    "publicAuthority": "Ministry of Housing and Urban Affairs",
+    "dateDisclosed": "October 2023",
+    "applicantCategory": "Urban Policy Collective",
+    "keyDisclosure": "Over ₹14,200 Crore of allocated central smart city grants remained unutilized or parked in escrow bank accounts across 38 tier-2 and tier-3 cities due to delays in tendering.",
+    "impactSummary": "Prompted parliamentary committee inquiry into municipal execution capacity and SPV accountability.",
+    "documentProof": "MoHUA RTI Reply Ref No. K-14011/2023-SCM-IV",
+    "status": "Official MoHUA Reply",
+    "officialLink": "https://mohua.gov.in"
+  },
+  {
+    "id": "rti_cpr_train_safety",
+    "caseNumber": "RTI/RAIL/2023/104921",
+    "subject": "Kavach Automatic Train Protection (ATP) Deployment Coverage",
+    "publicAuthority": "Ministry of Railways / RDSO",
+    "dateDisclosed": "June 2023",
+    "applicantCategory": "Railway Safety Researchers",
+    "keyDisclosure": "As of mid-2023, the indigenous Kavach ATP system was operational across only 1,465 km out of Indian Railways' total broad-gauge route network of 68,000+ km (approx. 2.1% coverage).",
+    "impactSummary": "Accelerated budget allocation and fast-tracked tendering for additional high-density corridors following the Balasore train tragedy.",
+    "documentProof": "Ministry of Railways RTI Response No. 2023/Safety(A&R)/1/RTI",
+    "status": "Official Railway Board Record",
+    "officialLink": "https://indianrailways.gov.in"
+  },
+  {
+    "id": "rti_covid_vaccine_procurement",
+    "caseNumber": "RTI/MOHFW/2022/44120",
+    "subject": "Advance Purchase Orders and Differential Pricing for Vaccines",
+    "publicAuthority": "Ministry of Health & Family Welfare / ICMR",
+    "dateDisclosed": "April 2022",
+    "applicantCategory": "Public Health Transparency Alliance",
+    "keyDisclosure": "Disclosed the tiered pricing breakdown between Central Government procurement (₹150/dose) and Private Hospital caps (₹600 - ₹1,200/dose) during Phase 2 vaccination rollout.",
+    "impactSummary": "Led to universalized free central procurement for all 18+ adult age cohorts starting June 21, 2021.",
+    "documentProof": "MoHFW RTI Reply Ref No. Z.28015/19/2022-EMR",
+    "status": "Documented in Public Records",
+    "officialLink": "https://main.mohfw.gov.in"
+  }
+]

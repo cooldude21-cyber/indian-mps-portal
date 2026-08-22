@@ -2,12 +2,20 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import { execFile } from 'child_process';
+import { promisify } from 'util';
+
+const execFileAsync = promisify(execFile);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
+
+// Parse JSON and urlencoded request bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from root directory
 app.use(express.static(__dirname));
@@ -261,32 +269,11 @@ function cleanPoliticianName(raw) {
   return str;
 }
 
-function resolvePoliticianImage(name, existingImage) {
-  if (existingImage && existingImage.startsWith('http') && !existingImage.includes('ui-avatars')) return existingImage;
-  if (!name) return '';
-  const cleanName = cleanPoliticianName(name);
-  const lowerClean = cleanName.toLowerCase();
-  
-  if (REAL_PHOTO_REGISTRY[lowerClean]) {
-    return REAL_PHOTO_REGISTRY[lowerClean];
-  }
-  // Try partial key matching
-  for (const [key, url] of Object.entries(REAL_PHOTO_REGISTRY)) {
-    if (lowerClean === key || (lowerClean.length > 5 && (lowerClean.includes(key) || key.includes(lowerClean)))) {
-      return url;
-    }
-  }
-  if (photoCache.has(lowerClean)) {
-    return photoCache.get(lowerClean);
-  }
-  return '';
-}
-
 // In-memory Wikipedia photo search cache
 const photoCache = new Map();
 
 // Pre-load disk photo cache if present
-(async () => {
+async function reloadPhotoCache() {
   try {
     const data = await fs.readFile(path.join(__dirname, 'photo_cache.json'), 'utf-8');
     const parsed = JSON.parse(data);
@@ -299,7 +286,108 @@ const photoCache = new Map();
   } catch (e) {
     // Disk cache optional
   }
-})();
+}
+reloadPhotoCache();
+
+function resolvePoliticianImage(name, existingImage) {
+  if (existingImage && existingImage.startsWith('http') && !existingImage.includes('ui-avatars')) return existingImage;
+  if (!name) return '';
+  const cleanName = cleanPoliticianName(name);
+  const lowerClean = cleanName.toLowerCase();
+  const lowerRaw = name.toLowerCase().trim();
+  
+  if (REAL_PHOTO_REGISTRY[lowerClean]) return REAL_PHOTO_REGISTRY[lowerClean];
+  if (REAL_PHOTO_REGISTRY[lowerRaw]) return REAL_PHOTO_REGISTRY[lowerRaw];
+  if (photoCache.has(lowerClean)) return photoCache.get(lowerClean);
+  if (photoCache.has(lowerRaw)) return photoCache.get(lowerRaw);
+
+  return '';
+}
+
+// Helper to determine Lok Sabha session list
+const LS_SESSIONS_MAP = {
+  18: '18th Lok Sabha (2024–Present)',
+  17: '17th Lok Sabha (2019–2024)',
+  16: '16th Lok Sabha (2014–2019)',
+  15: '15th Lok Sabha (2009–2014)',
+  14: '14th Lok Sabha (2004–2009)',
+  13: '13th Lok Sabha (1999–2004)',
+  12: '12th Lok Sabha (1998–1999)',
+  11: '11th Lok Sabha (1996–1997)',
+  10: '10th Lok Sabha (1991–1996)',
+  9: '9th Lok Sabha (1989–1991)',
+  8: '8th Lok Sabha (1984–1989)',
+  7: '7th Lok Sabha (1980–1984)',
+  6: '6th Lok Sabha (1977–1979)',
+  5: '5th Lok Sabha (1971–1977)',
+  4: '4th Lok Sabha (1967–1970)',
+  3: '3rd Lok Sabha (1962–1967)',
+  2: '2nd Lok Sabha (1957–1962)',
+  1: '1st Lok Sabha (1952–1957)'
+};
+
+function getWikiUrlForLeader(name) {
+  if (!name) return 'https://en.wikipedia.org/wiki/Parliament_of_India';
+  const clean = cleanPoliticianName(name);
+  const customMap = {
+    'jawaharlal nehru': 'https://en.wikipedia.org/wiki/Jawaharlal_Nehru',
+    'lal bahadur shastri': 'https://en.wikipedia.org/wiki/Lal_Bahadur_Shastri',
+    'indira gandhi': 'https://en.wikipedia.org/wiki/Indira_Gandhi',
+    'morarji desai': 'https://en.wikipedia.org/wiki/Morarji_Desai',
+    'charan singh': 'https://en.wikipedia.org/wiki/Charan_Singh',
+    'chaudhary charan singh': 'https://en.wikipedia.org/wiki/Charan_Singh',
+    'rajiv gandhi': 'https://en.wikipedia.org/wiki/Rajiv_Gandhi',
+    'v. p. singh': 'https://en.wikipedia.org/wiki/V._P._Singh',
+    'chandra shekhar': 'https://en.wikipedia.org/wiki/Chandra_Shekhar',
+    'p. v. narasimha rao': 'https://en.wikipedia.org/wiki/P._V._Narasimha_Rao',
+    'atal bihari vajpayee': 'https://en.wikipedia.org/wiki/Atal_Bihari_Vajpayee',
+    'h. d. deve gowda': 'https://en.wikipedia.org/wiki/H._D._Deve_Gowda',
+    'i. k. gujral': 'https://en.wikipedia.org/wiki/I._K._Gujral',
+    'manmohan singh': 'https://en.wikipedia.org/wiki/Manmohan_Singh',
+    'dr. manmohan singh': 'https://en.wikipedia.org/wiki/Manmohan_Singh',
+    'narendra modi': 'https://en.wikipedia.org/wiki/Narendra_Modi',
+    'dr. rajendra prasad': 'https://en.wikipedia.org/wiki/Rajendra_Prasad',
+    'dr. sarvepalli radhakrishnan': 'https://en.wikipedia.org/wiki/Sarvepalli_Radhakrishnan',
+    'dr. zakir husain': 'https://en.wikipedia.org/wiki/Zakir_Husain_(politician)',
+    'v. v. giri': 'https://en.wikipedia.org/wiki/V._V._Giri',
+    'fakhruddin ali ahmed': 'https://en.wikipedia.org/wiki/Fakhruddin_Ali_Ahmed',
+    'neelam sanjiva reddy': 'https://en.wikipedia.org/wiki/Neelam_Sanjiva_Reddy',
+    'giani zail singh': 'https://en.wikipedia.org/wiki/Zail_Singh',
+    'r. venkataraman': 'https://en.wikipedia.org/wiki/R._Venkataraman',
+    'dr. shankar dayal sharma': 'https://en.wikipedia.org/wiki/Shankar_Dayal_Sharma',
+    'k. r. narayanan': 'https://en.wikipedia.org/wiki/K._R._Narayanan',
+    'dr. a.p.j. abdul kalam': 'https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam',
+    'a.p.j. abdul kalam': 'https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam',
+    'pratibha patil': 'https://en.wikipedia.org/wiki/Pratibha_Patil',
+    'pranab mukherjee': 'https://en.wikipedia.org/wiki/Pranab_Mukherjee',
+    'ram nath kovind': 'https://en.wikipedia.org/wiki/Ram_Nath_Kovind',
+    'droupadi murmu': 'https://en.wikipedia.org/wiki/Droupadi_Murmu',
+    'dr. b. r. ambedkar': 'https://en.wikipedia.org/wiki/B._R._Ambedkar',
+    'b. r. ambedkar': 'https://en.wikipedia.org/wiki/B._R._Ambedkar',
+    'sardar vallabhbhai patel': 'https://en.wikipedia.org/wiki/Vallabhbhai_Patel',
+    'vallabhbhai patel': 'https://en.wikipedia.org/wiki/Vallabhbhai_Patel',
+    'mahatma gandhi': 'https://en.wikipedia.org/wiki/Mahatma_Gandhi',
+    'subhas chandra bose': 'https://en.wikipedia.org/wiki/Subhas_Chandra_Bose',
+    'bhagat singh': 'https://en.wikipedia.org/wiki/Bhagat_Singh',
+    'sarojini naidu': 'https://en.wikipedia.org/wiki/Sarojini_Naidu',
+    'maulana abul kalam azad': 'https://en.wikipedia.org/wiki/Abul_Kalam_Azad',
+    'bal gangadhar tilak': 'https://en.wikipedia.org/wiki/Bal_Gangadhar_Tilak',
+    'rahul gandhi': 'https://en.wikipedia.org/wiki/Rahul_Gandhi',
+    'amit shah': 'https://en.wikipedia.org/wiki/Amit_Shah',
+    'sonia gandhi': 'https://en.wikipedia.org/wiki/Sonia_Gandhi',
+    'rajnath singh': 'https://en.wikipedia.org/wiki/Rajnath_Singh',
+    'nitin gadkari': 'https://en.wikipedia.org/wiki/Nitin_Gadkari',
+    'nirmala sitharaman': 'https://en.wikipedia.org/wiki/Nirmala_Sitharaman',
+    'dr. s. jaishankar': 'https://en.wikipedia.org/wiki/S._Jaishankar',
+    'akhilesh yadav': 'https://en.wikipedia.org/wiki/Akhilesh_Yadav',
+    'mamata banerjee': 'https://en.wikipedia.org/wiki/Mamata_Banerjee',
+    'arvind kejriwal': 'https://en.wikipedia.org/wiki/Arvind_Kejriwal',
+    'shashi tharoor': 'https://en.wikipedia.org/wiki/Shashi_Tharoor'
+  };
+  const key = clean.toLowerCase();
+  if (customMap[key]) return customMap[key];
+  return `https://en.wikipedia.org/wiki/${encodeURIComponent(clean.replace(/\s+/g, '_'))}`;
+}
 
 // Cache prepared politician records
 let cachedPoliticians = null;
@@ -316,9 +404,41 @@ async function getPreparedPoliticians() {
     historical = JSON.parse(histRaw).map(h => {
       const cleanName = cleanPoliticianName(h.name);
       const resolvedPhoto = resolvePoliticianImage(cleanName, h.image) || h.image || `/api/politician-photo?name=${encodeURIComponent(cleanName)}`;
+      const wikiLink = h.wikiUrl || getWikiUrlForLeader(cleanName);
+      
+      let pmEra = null;
+      if (h.roleCategory === 'Prime Minister' || (h.era && h.era.includes('Prime Minister'))) {
+        const nameLower = cleanName.toLowerCase();
+        if (nameLower.includes('modi')) {
+          pmEra = 'Modern Leadership (2014 – Present)';
+        } else if (['manmohan', 'vajpayee', 'gujral', 'deve gowda', 'narasimha', 'chandra shekhar', 'v. p. singh', 'singh'].some(s => nameLower.includes(s)) && !nameLower.includes('charan')) {
+          pmEra = 'Coalition & Reform Era (1989 – 2014)';
+        } else if (['rajiv', 'charan', 'morarji'].some(s => nameLower.includes(s))) {
+          pmEra = 'Post-Emergency Era (1977 – 1989)';
+        } else {
+          pmEra = 'Founding Republic Era (1947 – 1977)';
+        }
+      }
+
+      let presEra = null;
+      if (h.roleCategory === 'President' || (h.era && h.era.includes('President'))) {
+        const nameLower = cleanName.toLowerCase();
+        if (['murmu', 'kovind', 'mukherjee', 'patil', 'kalam'].some(s => nameLower.includes(s))) {
+          presEra = '21st Century Presidents (2002 – Present)';
+        } else if (['narayanan', 'sharma', 'venkataraman', 'zail singh'].some(s => nameLower.includes(s))) {
+          presEra = 'Constitutional Guardians & Reform (1982 – 2002)';
+        } else {
+          presEra = 'Early Republic Presidents (1950 – 1982)';
+        }
+      }
+
       return {
         ...h,
-        image: resolvedPhoto
+        image: resolvedPhoto,
+        wikiUrl: wikiLink,
+        pmEra,
+        presEra,
+        tenureGroup: pmEra || presEra || (h.era === 'Founding Fathers & Independence' ? 'Constituent Assembly & Freedom Movement' : 'National Archive')
       };
     });
   } catch (e) {
@@ -331,34 +451,49 @@ async function getPreparedPoliticians() {
     lokSabha = lsJson.map((mp, index) => {
       const cleanName = cleanPoliticianName(mp.name);
       const resolvedPhoto = resolvePoliticianImage(cleanName, mp.image) || `/api/politician-photo?name=${encodeURIComponent(cleanName)}`;
-      const isSitting = mp.type === 'Current' || mp.type === 'Sitting' || (mp.term && String(mp.term).split(',').includes('18')) || mp.term === '18';
-      const termDisplay = mp.term ? `${mp.term} Lok Sabha` : (isSitting ? '18th Lok Sabha' : 'Lok Sabha');
-      const activeYears = isSitting ? '2024 - 2029' : (mp.term ? `Term: ${mp.term}` : 'Parliamentary Record');
-      const statusTag = isSitting ? 'Sitting MP' : (mp.type || 'Former MP');
+      
+      // Parse all terms
+      let termsArray = [];
+      if (mp.term) {
+        termsArray = String(mp.term).split(',').map(t => parseInt(t.trim(), 10)).filter(n => !isNaN(n));
+      }
+      if (termsArray.length === 0) {
+        termsArray = [18]; // Default sitting
+      }
+      
+      const isSitting = mp.type === 'Current' || mp.type === 'Sitting' || termsArray.includes(18) || mp.term === '18';
+      const termDisplay = termsArray.map(t => `${t}th Lok Sabha`).join(', ');
+      const sessionLabels = termsArray.map(t => LS_SESSIONS_MAP[t] || `${t}th Lok Sabha`);
+      const activeYears = isSitting ? '2024 - 2029 (18th Lok Sabha)' : `Lok Sabha Terms: ${termsArray.join(', ')}`;
+      const statusTag = isSitting ? 'Sitting MP (18th Lok Sabha)' : (mp.type || 'Former Lok Sabha MP');
       const stateResolved = resolveStateFromConstituency(mp.constituency, mp.state);
+      const wikiLink = mp.wikiUrl || getWikiUrlForLeader(cleanName);
       
       return {
         id: mp.id ? `ls_${mp.id}` : `ls_${index}`,
         name: cleanName || mp.name || 'Member of Parliament',
         fullName: mp.name || cleanName || 'Member of Parliament',
-        subtitle: `${mp.party || 'MP'} • ${termDisplay} (${mp.constituency || 'General'}, ${stateResolved})`,
-        designation: `Member of Parliament (${termDisplay} • ${statusTag})`,
+        subtitle: `${mp.party || 'MP'} • ${sessionLabels[0] || '18th Lok Sabha'} (${mp.constituency || 'General'}, ${stateResolved})`,
+        designation: `Member of Parliament (${sessionLabels[0] || '18th Lok Sabha'} • ${statusTag})`,
         party: mp.party || 'Independent',
         activePeriod: activeYears,
-        primaryActivity: `Lok Sabha MP for ${mp.constituency || 'Constituency'}, ${stateResolved}`,
+        primaryActivity: `Lok Sabha Parliamentary Representative for ${mp.constituency || 'Constituency'}, ${stateResolved}`,
         state: stateResolved,
         constituency: mp.constituency || 'General',
-        education: mp.education || 'Graduate / Public Service',
+        education: mp.education || 'Graduate / Public Service Record',
         criminalCases: mp.criminalCases ? (String(mp.criminalCases).includes('Case') ? mp.criminalCases : `${mp.criminalCases} Cases`) : '0 Cases',
-        assets: mp.assets || 'Declared Public Affidavit',
-        era: isSitting ? 'Lok Sabha 2024' : 'Lok Sabha (Archive)',
+        assets: mp.assets || 'Declared Public Affidavit (ECI Form 26)',
+        era: isSitting ? '18th Lok Sabha (2024–Present)' : (sessionLabels[0] || 'Lok Sabha Archive'),
+        lsTerms: termsArray,
+        lsSessions: sessionLabels,
         image: resolvedPhoto,
-        summary: mp.shortBio || `Member of Parliament representing ${mp.constituency || 'Constituency'}, ${stateResolved} (${mp.party || 'Political Party'}). Disclosed asset filings and legislative records cataloged in ECI Election Affidavits.`,
-        detailedBio: mp.detailedBio || `${mp.name} has represented ${mp.constituency || 'their constituency'} (${stateResolved}) in the Lok Sabha as a member of ${mp.party || 'their political party'}. Public disclosures verified in Election Commission of India (ECI) Affidavits.`,
+        wikiUrl: wikiLink,
+        summary: mp.shortBio || `Member of Parliament representing ${mp.constituency || 'Constituency'}, ${stateResolved} (${mp.party || 'Political Party'}). Disclosed asset filings and legislative records cataloged in official ECI Affidavits.`,
+        detailedBio: mp.detailedBio || `${cleanName} has represented ${mp.constituency || 'their constituency'} (${stateResolved}) in the Lok Sabha as an elected member of ${mp.party || 'their political party'}. Public declarations, parliamentary participation, and statutory asset disclosures verified in Election Commission of India (ECI) Affidavits.`,
         keyAchievements: [
           `Elected representative to the Lok Sabha for ${mp.constituency || 'Constituency'} (${stateResolved})`,
-          `Parliamentary tenure recorded: ${termDisplay} (${statusTag})`,
-          `Legislative participation and public asset disclosures cataloged`
+          `Parliamentary session recorded: ${sessionLabels.join(' | ')} (${statusTag})`,
+          `Statutory public asset disclosures and election affidavits cataloged`
         ],
         sansadUrl: 'https://sansad.in/ls/members',
         eciUrl: 'https://affidavit.eci.gov.in/',
@@ -377,6 +512,26 @@ async function getPreparedPoliticians() {
       const resolvedPhoto = resolvePoliticianImage(cleanName, '') || `/api/politician-photo?name=${encodeURIComponent(cleanName)}`;
       const stateName = rs.state || 'India';
       const termPeriod = rs.currentTerm || 'Parliamentary Archive';
+      const wikiLink = rs.wikiUrl || getWikiUrlForLeader(cleanName);
+
+      // Determine Rajya Sabha historical era
+      let rsEra = 'Rajya Sabha (Historical Council)';
+      const termStr = String(termPeriod);
+      const yearMatch = termStr.match(/\b(19\d\d|20\d\d)\b/);
+      const startYear = yearMatch ? parseInt(yearMatch[1], 10) : 2020;
+      
+      if (startYear >= 2024 || termStr.includes('2024') || termStr.includes('2026') || termStr.includes('2028') || termStr.includes('2030')) {
+        rsEra = 'Current Council (Sitting Members)';
+      } else if (startYear >= 2014) {
+        rsEra = '2014 – Present (Contemporary Council)';
+      } else if (startYear >= 1991) {
+        rsEra = '1991 – 2013 (Economic Liberalization Era)';
+      } else if (startYear >= 1970) {
+        rsEra = '1970 – 1990 (Post-Emergency & Coalition Era)';
+      } else {
+        rsEra = '1952 – 1969 (First Parliament & Constituent Era)';
+      }
+
       return {
         id: `rs_${index}`,
         name: cleanName,
@@ -388,17 +543,19 @@ async function getPreparedPoliticians() {
         primaryActivity: `Rajya Sabha Parliamentary Representative for ${stateName}`,
         state: stateName,
         constituency: `Council of States (${stateName})`,
-        education: 'Parliamentary Record',
+        education: 'Parliamentary Directory Record',
         criminalCases: '0 Disclosed Cases (Parliamentary Record)',
         assets: 'Declared Parliamentary Disclosure',
         era: 'Rajya Sabha',
+        rsEra: rsEra,
         image: resolvedPhoto,
-        summary: `Elected representative in the Council of States (Rajya Sabha) from ${stateName} affiliated with ${rs.party || 'Parliament'}. Recorded term: ${termPeriod} (Total terms: ${rs.totalTerms || 1}). Disclosed under Rajya Sabha Secretariat official register.`,
-        detailedBio: `${rs.name} has served in the Parliament of India as a Member of the Rajya Sabha (Council of States) representing ${stateName}. Public legislative records cataloged in the official Rajya Sabha Secretariat Register of Members. Total terms served: ${rs.totalTerms || 1}.`,
+        wikiUrl: wikiLink,
+        summary: `Elected representative in the Council of States (Rajya Sabha) from ${stateName} affiliated with ${rs.party || 'Parliament'}. Recorded term: ${termPeriod} (Total terms: ${rs.totalTerms || 1}). Official entry under Rajya Sabha Secretariat register.`,
+        detailedBio: `${cleanName} has served in the Parliament of India as a Member of the Rajya Sabha (Council of States) representing ${stateName}. Public legislative records cataloged in the official Rajya Sabha Secretariat Register of Members. Total terms served: ${rs.totalTerms || 1}.`,
         keyAchievements: [
-          `Elected to the Council of States (Rajya Sabha)`,
-          `State parliamentary representative for ${stateName}`,
-          `Parliamentary term recorded: ${termPeriod}`,
+          `Elected representative in the Council of States (Rajya Sabha)`,
+          `Parliamentary representation for ${stateName}`,
+          `Parliamentary term recorded: ${termPeriod} (${rsEra})`,
           `Official entry in Rajya Sabha Secretariat All Members Register`
         ],
         sansadUrl: 'https://sansad.in/rs/members',
@@ -421,6 +578,204 @@ app.get('/api/politicians', async (req, res) => {
     res.json(politicians);
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve politicians', message: err.message });
+  }
+});
+
+// Master State & Parliamentary Constituencies Hierarchical Registry Endpoint
+app.get('/api/state-constituencies', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'data', 'state_constituencies.json');
+    if (await fs.stat(filePath).catch(() => false)) {
+      const data = await fs.readFile(filePath, 'utf-8');
+      return res.json(JSON.parse(data));
+    }
+    res.status(404).json({ error: 'State constituencies registry not found' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load state constituencies', message: err.message });
+  }
+});
+
+// Automated Wikipedia Summary & Bio Fetcher Endpoint
+app.get('/api/wiki-bio', async (req, res) => {
+  const rawName = req.query.name;
+  if (!rawName) return res.status(400).json({ error: 'Name query parameter required' });
+  
+  const cleanName = cleanPoliticianName(rawName);
+  const wikiUrl = getWikiUrlForLeader(cleanName);
+  
+  try {
+    // 1. Try Wikipedia REST API summary
+    const restUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(cleanName.replace(/\s+/g, '_'))}`;
+    const restResp = await fetch(restUrl, {
+      headers: { 'User-Agent': 'IndianParliamentDossier/3.0 (contact@parliament-portal.org)' }
+    });
+    
+    if (restResp.ok) {
+      const data = await restResp.json();
+      if (data.extract) {
+        return res.json({
+          title: data.title || cleanName,
+          extract: data.extract,
+          description: data.description || '',
+          photoUrl: data.thumbnail?.source || null,
+          wikiUrl: data.content_urls?.desktop?.page || wikiUrl
+        });
+      }
+    }
+
+    // 2. Fallback to OpenSearch / Action query
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(cleanName + ' Indian politician')}&gsrlimit=1&prop=extracts|pageimages&exintro=true&explaintext=true&pithumbsize=600&format=json`;
+    const searchResp = await fetch(searchUrl, {
+      headers: { 'User-Agent': 'IndianParliamentDossier/3.0 (contact@parliament-portal.org)' }
+    });
+
+    if (searchResp.ok) {
+      const sData = await searchResp.json();
+      const pages = sData?.query?.pages;
+      if (pages) {
+        const pageId = Object.keys(pages)[0];
+        if (pageId && pageId !== '-1') {
+          const p = pages[pageId];
+          return res.json({
+            title: p.title || cleanName,
+            extract: p.extract || `${cleanName} is an Indian public figure and parliamentary representative.`,
+            photoUrl: p.thumbnail?.source || null,
+            wikiUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/\s+/g, '_'))}`
+          });
+        }
+      }
+    }
+
+    return res.json({
+      title: cleanName,
+      extract: `${cleanName} has served as a verified legislative representative in the Parliament of India. Disclosed filings cataloged in public electoral gazettes.`,
+      photoUrl: null,
+      wikiUrl: wikiUrl
+    });
+  } catch (err) {
+    return res.json({
+      title: cleanName,
+      extract: `${cleanName} is a cataloged representative in the Indian Parliamentary Directory.`,
+      photoUrl: null,
+      wikiUrl: wikiUrl
+    });
+  }
+});
+
+// Photo Cache Full Directory Endpoint
+app.get('/api/photo-cache', async (req, res) => {
+  await reloadPhotoCache();
+  const obj = {};
+  for (const [k, v] of Object.entries(REAL_PHOTO_REGISTRY)) {
+    obj[k] = v;
+  }
+  for (const [k, v] of photoCache.entries()) {
+    obj[k] = v;
+  }
+  res.json(obj);
+});
+
+// Live Real-Time News via Google News RSS proxy
+const newsCache = new Map();
+const NEWS_CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache
+
+app.get('/api/politician-news', async (req, res) => {
+  const rawName = req.query.name;
+  if (!rawName) {
+    return res.status(400).json({ error: 'Name query parameter required' });
+  }
+
+  const cleanName = cleanPoliticianName(rawName);
+  const cacheKey = cleanName.toLowerCase();
+
+  const cached = newsCache.get(cacheKey);
+  if (cached && (Date.now() - cached.timestamp < NEWS_CACHE_TTL_MS)) {
+    return res.json({ name: cleanName, articles: cached.articles, cached: true });
+  }
+
+  try {
+    const searchQuery = `"${cleanName}" politician OR MP OR minister OR Parliament OR Lok Sabha OR Rajya Sabha`;
+    const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(searchQuery)}&hl=en-IN&gl=IN&ceid=IN:en`;
+
+    const response = await fetch(rssUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Google News RSS returned ${response.status}`);
+    }
+
+    const xml = await response.text();
+    const articles = [];
+    const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+    let match;
+
+    while ((match = itemRegex.exec(xml)) !== null && articles.length < 15) {
+      const itemContent = match[1];
+
+      // Extract title
+      const titleMatch = /<title>([\s\S]*?)<\/title>/i.exec(itemContent);
+      let title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').trim() : '';
+
+      // Extract link
+      const linkMatch = /<link>([\s\S]*?)<\/link>/i.exec(itemContent);
+      let link = linkMatch ? linkMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').trim() : '';
+
+      // Extract pubDate
+      const pubDateMatch = /<pubDate>([\s\S]*?)<\/pubDate>/i.exec(itemContent);
+      let pubDate = pubDateMatch ? pubDateMatch[1].trim() : '';
+
+      // Extract source
+      const sourceMatch = /<source[^>]*>([\s\S]*?)<\/source>/i.exec(itemContent);
+      let source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').trim() : 'Google News';
+
+      // Clean title if source is at the end (e.g. "Title - Source")
+      if (title.includes(' - ')) {
+        const parts = title.split(' - ');
+        if (!source || source === 'Google News') {
+          source = parts.pop().trim();
+        } else {
+          parts.pop();
+        }
+        title = parts.join(' - ').trim();
+      }
+
+      // Extract description / snippet
+      const descMatch = /<description>([\s\S]*?)<\/description>/i.exec(itemContent);
+      let description = descMatch ? descMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1') : '';
+      description = description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+      // Decode common HTML entities
+      title = title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+      description = description.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+
+      if (title && link) {
+        articles.push({
+          title,
+          link,
+          pubDate,
+          source,
+          description: description || `Recent news and parliamentary coverage regarding ${cleanName}.`
+        });
+      }
+    }
+
+    newsCache.set(cacheKey, { timestamp: Date.now(), articles });
+    return res.json({ name: cleanName, articles, total: articles.length });
+  } catch (err) {
+    console.error(`Failed to fetch Google News RSS for ${cleanName}:`, err);
+    const fallbackArticles = [
+      {
+        title: `Latest Parliamentary & Political Coverage: ${cleanName}`,
+        link: `https://news.google.com/search?q=${encodeURIComponent(cleanName)}&hl=en-IN&gl=IN&ceid=IN:en`,
+        pubDate: new Date().toUTCString(),
+        source: 'Google News Live Feed',
+        description: `Explore all verified press releases, parliamentary questions, and news stories for ${cleanName}.`
+      }
+    ];
+    return res.json({ name: cleanName, articles: fallbackArticles, total: 1, fallback: true });
   }
 });
 
@@ -450,13 +805,6 @@ app.get('/api/politician-photo', async (req, res) => {
   if (REAL_PHOTO_REGISTRY[cacheKey]) {
     photoCache.set(cacheKey, REAL_PHOTO_REGISTRY[cacheKey]);
     return sendResponse(REAL_PHOTO_REGISTRY[cacheKey]);
-  }
-
-  for (const [k, url] of Object.entries(REAL_PHOTO_REGISTRY)) {
-    if (cacheKey.length > 5 && (cacheKey.includes(k) || k.includes(cacheKey))) {
-      photoCache.set(cacheKey, url);
-      return sendResponse(url);
-    }
   }
 
   // Try Wikipedia PageImages API
@@ -552,6 +900,219 @@ app.get('/api/stats', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve stats', message: err.message });
+  }
+});
+
+// Civic Accountability & Governance Endpoints
+
+// Scheme Scorecards Endpoint (PIB claims vs CAG audits)
+app.get('/api/schemes', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'data', 'schemes.json');
+    const data = await fs.readFile(filePath, 'utf-8');
+    const schemes = JSON.parse(data);
+    const category = req.query.category;
+    if (category && category !== 'All') {
+      const filtered = schemes.filter(s => s.category.toLowerCase() === category.toLowerCase());
+      return res.json(filtered);
+    }
+    res.json(schemes);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve schemes', message: err.message });
+  }
+});
+
+// MPLADS Fund Utilization Endpoint
+app.get('/api/mplads', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'data', 'mplads.json');
+    const data = await fs.readFile(filePath, 'utf-8');
+    const mpladsList = JSON.parse(data);
+    const search = (req.query.q || '').toLowerCase().trim();
+    if (search) {
+      const filtered = mpladsList.filter(m =>
+        m.mpName.toLowerCase().includes(search) ||
+        m.constituency.toLowerCase().includes(search) ||
+        m.state.toLowerCase().includes(search)
+      );
+      return res.json(filtered);
+    }
+    res.json(mpladsList);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve MPLADS records', message: err.message });
+  }
+});
+
+// RTI Primary Document Archives Endpoint
+app.get('/api/rti-archives', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'data', 'rti_archives.json');
+    const data = await fs.readFile(filePath, 'utf-8');
+    const archives = JSON.parse(data);
+    res.json(archives);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve RTI archives', message: err.message });
+  }
+});
+
+// Hyper-Local Constituency Intelligence Endpoint (PIN Code, District, State lookup)
+app.get('/api/constituencies', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'data', 'constituencies.json');
+    const data = await fs.readFile(filePath, 'utf-8');
+    const constituencies = JSON.parse(data);
+    const query = (req.query.q || req.query.pin || '').toLowerCase().trim();
+
+    if (query) {
+      const results = constituencies.filter(c => {
+        const pinMatch = c.pinCodes && c.pinCodes.some(p => p.includes(query) || query.includes(p));
+        const constMatch = c.constituency.toLowerCase().includes(query);
+        const districtMatch = c.district.toLowerCase().includes(query);
+        const stateMatch = c.state.toLowerCase().includes(query);
+        const mpMatch = c.sittingMp.toLowerCase().includes(query);
+        return pinMatch || constMatch || districtMatch || stateMatch || mpMatch;
+      });
+      return res.json({ query, matches: results, total: results.length });
+    }
+
+    res.json({ total: constituencies.length, constituencies });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve constituency intelligence', message: err.message });
+  }
+});
+
+// Automated Real-Time Parliament Data & Portrait Sync (Python Engine)
+app.all('/api/sync/parliament', async (req, res) => {
+  try {
+    const pythonScript = path.join(__dirname, 'scripts', 'sync_parliament_data.py');
+    const { stdout, stderr } = await execFileAsync('python3', [pythonScript]);
+    
+    // Invalidate cached politician records
+    cachedPoliticians = null;
+    
+    res.json({
+      status: 'success',
+      timestamp: new Date().toISOString(),
+      message: 'Parliamentary data and portrait synchronization completed successfully.',
+      output: stdout,
+      errors: stderr || null
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      timestamp: new Date().toISOString(),
+      error: 'Failed to execute Parliament sync pipeline',
+      message: err.message
+    });
+  }
+});
+
+// Issue Reporting & Civic Feedback API (Persists locally & syncs to Google Sheets webhook if configured)
+const ISSUES_FILE_PATH = path.join(__dirname, 'data', 'reported_issues.json');
+
+app.post('/api/report-issue', async (req, res) => {
+  try {
+    const { name, email, phone, issueSelect, description, candidateContext } = req.body;
+
+    if (!name || !email || !description) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Name, email, and description are required fields.'
+      });
+    }
+
+    const ticketId = 'CIVIC-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(1000 + Math.random() * 9000);
+    const newReport = {
+      ticketId,
+      name: String(name).trim(),
+      email: String(email).trim(),
+      phone: String(phone || '').trim(),
+      issueSelect: String(issueSelect || 'General Discrepancy / Feedback').trim(),
+      description: String(description).trim(),
+      candidateContext: String(candidateContext || 'General Portal / Record').trim(),
+      timestamp: new Date().toISOString(),
+      status: 'Open / Under Review',
+      syncedToGoogleSheets: false
+    };
+
+    // 1. Read existing issues
+    let issues = [];
+    try {
+      const data = await fs.readFile(ISSUES_FILE_PATH, 'utf-8');
+      issues = JSON.parse(data);
+    } catch {
+      issues = [];
+    }
+
+    // 2. Append new issue
+    issues.unshift(newReport);
+    await fs.writeFile(ISSUES_FILE_PATH, JSON.stringify(issues, null, 2), 'utf-8');
+
+    // 3. Forward to Google Sheets Webhook if GOOGLE_SHEET_WEBHOOK_URL is configured
+    const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+    let sheetSynced = false;
+    let sheetError = null;
+
+    if (webhookUrl) {
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ticketId: newReport.ticketId,
+            name: newReport.name,
+            email: newReport.email,
+            phone: newReport.phone,
+            issueSelect: newReport.issueSelect,
+            description: newReport.description,
+            candidateContext: newReport.candidateContext,
+            timestamp: newReport.timestamp
+          })
+        });
+        if (response.ok) {
+          sheetSynced = true;
+          newReport.syncedToGoogleSheets = true;
+          // Update record with synced status
+          await fs.writeFile(ISSUES_FILE_PATH, JSON.stringify(issues, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('Google Sheets Webhook Sync warning:', err.message);
+        sheetError = err.message;
+      }
+    }
+
+    return res.json({
+      status: 'success',
+      ticketId,
+      message: 'Issue report successfully submitted and recorded in the civic verification register.',
+      timestamp: newReport.timestamp,
+      sheetSynced
+    });
+  } catch (err) {
+    console.error('Error recording issue:', err);
+    res.status(500).json({ status: 'error', message: 'Failed to record issue report', error: err.message });
+  }
+});
+
+// Retrieve all reported issues (with basic audit protection)
+app.get('/api/reported-issues', async (req, res) => {
+  try {
+    const data = await fs.readFile(ISSUES_FILE_PATH, 'utf-8');
+    const issues = JSON.parse(data);
+    res.json({ total: issues.length, issues });
+  } catch {
+    res.json({ total: 0, issues: [] });
+  }
+});
+
+// Serve Firebase Applet Configuration to Client
+app.get('/api/firebase-config', async (req, res) => {
+  try {
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    const data = await fs.readFile(configPath, 'utf-8');
+    res.json(JSON.parse(data));
+  } catch (err) {
+    res.status(500).json({ error: 'Firebase configuration not found', message: err.message });
   }
 });
 

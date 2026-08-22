@@ -1,0 +1,14 @@
+[
+  {
+    "ticketId": "CIVIC-M01A9K-1001",
+    "name": "Arun Sharma",
+    "email": "arun.sharma@example.org",
+    "phone": "+91 98100 12345",
+    "issueSelect": "Data Inaccuracy / Factual Error",
+    "description": "Verified Form 26 filing update for 18th Lok Sabha election affidavit.",
+    "candidateContext": "Varanasi Parliamentary Constituency",
+    "timestamp": "2026-08-20T10:15:00.000Z",
+    "status": "Verified / Integrated",
+    "syncedToGoogleSheets": true
+  }
+]

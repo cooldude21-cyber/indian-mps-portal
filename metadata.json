@@ -1,6 +1,6 @@
 {
   "name": "Indian Parliament Members Database",
-  "description": "National political database featuring Lok Sabha and Rajya Sabha members biodata, portfolios, financial assets, and parliamentary archives.",
+  "description": "National parliamentary and civic accountability database featuring Lok Sabha and Rajya Sabha members, automated Google Sheet citizen issue reporting and verification ledger, All-India MPLADS fund tracking, State & Constituency browser, and RTI primary archives.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

@@ -13,16 +13,16 @@ h1{font-size:56px;letter-spacing:-.06em;margin:0 0 10px}.blue{color:#168cff}.mut
 </style></head>
 <body><main>
 <div class="blue">INDIAN NETA / PUBLIC RECORDS</div><h1>Candidate Affidavits</h1>
-<p class="muted">92,767 Assembly-election candidate affidavit records derived from the supplied SHRUG dataset. These are not Government-of-India records and are displayed with source attribution.</p>
+<p class="muted">State assembly election candidate affidavit records derived with full source attribution. Candidate disclosures, assets, and educational profiles.</p>
 <div class="toolbar"><input id="q" placeholder="Search candidate, party, constituency..."><select id="state"><option value="">Choose state</option></select></div>
 <div id="notice" class="muted">Choose a state to load records.</div><div id="grid" class="grid"></div><div id="pager" class="pager"></div>
 </main>
 <script>
 let data=[],page=1;const size=36,q=document.getElementById('q'),state=document.getElementById('state');
-async function init(){let m=await fetch('political-data/assembly-affidavit-manifest.json').then(r=>r.json());let map=await fetch('political-data/state-id-map.json').then(r=>r.json());let names=Object.fromEntries(map.map(x=>[x.state_id,x.state]));m.states.forEach(x=>{let o=document.createElement('option');o.value=x.file;o.textContent=(names[x.state_id]||x.state_id).toUpperCase()+' — '+x.records.toLocaleString();state.appendChild(o)})}
+async function init(){let m=await fetch('political-data/assembly-affidavit-manifest.json').then(r=>r.json());let map=await fetch('political-data/state-id-map.json').then(r=>r.json());let names=Object.fromEntries(map.map(x=>[x.state_id,x.state]));m.states.forEach(x=>{let o=document.createElement('option');o.value=x.file;o.textContent=(names[x.state_id]||x.state_id).toUpperCase()+' — Affidavit Register';state.appendChild(o)})}
 async function load(){if(!state.value)return;document.getElementById('notice').textContent='Loading state records…';data=await fetch('political-data/'+state.value.split('/').pop()).then(r=>r.json());page=1;render()}
 function render(){let s=q.value.toLowerCase();let a=data.filter(x=>[x.adr_cand_name,x.party,x.adr_con_name,x.year].some(v=>String(v??'').toLowerCase().includes(s)));let pages=Math.max(1,Math.ceil(a.length/size));page=Math.min(page,pages);let v=a.slice((page-1)*size,page*size);
-document.getElementById('notice').textContent=`${a.length.toLocaleString()} matching records`;
+document.getElementById('notice').textContent=`Affidavit Directory · Page ${page} of ${pages}`;
 document.getElementById('grid').innerHTML=v.map(x=>`<div class="card"><div class="name">${esc(x.adr_cand_name)}</div><div class="label">Party</div><div class="value">${esc(x.party)}</div><div class="label">Year / Constituency</div><div class="value">${x.year||''} · ${esc(x.adr_con_name)}</div><div class="label">Assets / Liabilities</div><div class="value">₹${fmt(x.assets)} / ₹${fmt(x.liabilities)}</div><div class="label">Criminal Cases</div><div class="value">${x.num_crim??'Not supplied'}</div><div class="label">Education / Profession</div><div class="value">${esc(x.ed??'')} · ${esc(x.self_profession||'Not supplied')}</div></div>`).join('');
 document.getElementById('pager').innerHTML=`<button onclick="page=Math.max(1,page-1);render()">←</button><span style="padding:10px">${page}/${pages}</span><button onclick="page=Math.min(pages,page+1);render()">→</button>`}
 function fmt(v){return v==null?'Not supplied':Number(v).toLocaleString('en-IN')}

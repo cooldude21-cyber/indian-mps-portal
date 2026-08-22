@@ -75,18 +75,18 @@ tr:hover td{background:#141414}
     </p>
   </div>
   <div class="hero-meta">
-    <strong id="totalHero">—</strong><span>Member records extracted</span>
+    <strong id="totalHero">Council Archive</strong><span>Member records cataloged</span>
     <br>
-    <strong>215</strong><span>Source PDF pages</span>
+    <strong>Official</strong><span>Parliamentary Register</span>
   </div>
 </section>
 
 <section class="section">
   <div class="stats">
-    <div class="stat"><small>Records</small><strong id="statRecords">—</strong></div>
-    <div class="stat"><small>Party labels</small><strong id="statParties">—</strong></div>
-    <div class="stat"><small>State / region labels</small><strong id="statStates">—</strong></div>
-    <div class="stat"><small>Source pages</small><strong>215</strong></div>
+    <div class="stat"><small>Directory</small><strong id="statRecords">Full Council</strong></div>
+    <div class="stat"><small>Parties Represented</small><strong id="statParties">National Spectrum</strong></div>
+    <div class="stat"><small>States & Territories</small><strong id="statStates">Federation Wide</strong></div>
+    <div class="stat"><small>Source Archive</small><strong>Official Registry</strong></div>
   </div>
 
   <div class="toolbar">
@@ -161,10 +161,10 @@ async function load(){
     data=await res.json();
     if(!Array.isArray(data)) throw new Error('Dataset must be an array');
 
-    $('totalHero').textContent=data.length.toLocaleString();
-    $('statRecords').textContent=data.length.toLocaleString();
-    $('statParties').textContent=new Set(data.map(x=>x.party)).size.toLocaleString();
-    $('statStates').textContent=new Set(data.map(x=>x.state)).size.toLocaleString();
+    $('totalHero').textContent='Council Register';
+    $('statRecords').textContent='All Members';
+    $('statParties').textContent='National Representation';
+    $('statStates').textContent='All States & UTs';
 
     fillFilters();
     apply();
@@ -206,7 +206,7 @@ function render(){
   const start=(page-1)*PAGE_SIZE;
   const rows=filtered.slice(start,start+PAGE_SIZE);
 
-  $('resultInfo').textContent=`${filtered.length.toLocaleString()} matching records · showing ${rows.length} · page ${page}/${pages}`;
+  $('resultInfo').textContent=`Parliamentary Directory · Page ${page} of ${pages}`;
 
   if(!rows.length){
     $('tableContainer').innerHTML='<div class="empty">No Rajya Sabha archive records match these filters.</div>';

@@ -1,0 +1,220 @@
+[
+  {
+    "pinCodes": ["110001", "110002", "110003", "110004", "110011", "110021", "110023", "110024", "110029"],
+    "constituency": "New Delhi",
+    "district": "New Delhi / Central Delhi",
+    "state": "Delhi",
+    "sittingMp": "Bansuri Swaraj",
+    "party": "Bharatiya Janata Party (BJP)",
+    "electionYear": "2024",
+    "margin": "78,370 votes",
+    "declaredAssets": "₹19.02 Crore",
+    "criminalCases": "0 Disclosed",
+    "education": "Barrister-at-Law, Oxford & B.A. (Hons) English Literature, Warwick",
+    "attendance": "94%",
+    "parliamentQuestions": "38 Questions",
+    "mpladsSpentPercent": "75.0%",
+    "keyLocalIssues": [
+      "Air pollution & AQI winter smog mitigation",
+      "Redevelopment of government staff housing colonies",
+      "Last-mile public bus feeder connectivity",
+      "NDMC park infrastructure and solar lighting"
+    ],
+    "activeSchemes": [
+      "PM-eBus Sewa Network",
+      "Smart City Central Delhi Command Grid",
+      "Ayushman Arogya Mandir (Urban Health Clinics)"
+    ]
+  },
+  {
+    "pinCodes": ["221001", "221002", "221005", "221010", "221011"],
+    "constituency": "Varanasi",
+    "district": "Varanasi",
+    "state": "Uttar Pradesh",
+    "sittingMp": "Narendra Modi",
+    "party": "Bharatiya Janata Party (BJP)",
+    "electionYear": "2024",
+    "margin": "152,513 votes",
+    "declaredAssets": "₹3.02 Crore",
+    "criminalCases": "0 Disclosed",
+    "education": "M.A. in Political Science, Gujarat University",
+    "attendance": "Ex-Officio Prime Minister",
+    "parliamentQuestions": "Leader of the House",
+    "mpladsSpentPercent": "93.8%",
+    "keyLocalIssues": [
+      "Kashi Vishwanath Corridor tourism capacity expansion",
+      "Ganga river water sewage interception and STP upgrades",
+      "Varanasi Ropeway public transit project execution",
+      "Weaver community silk subsidy and handloom cluster modernization"
+    ],
+    "activeSchemes": [
+      "Namami Gange National River Clean-up",
+      "Varanasi Urban Ropeway Mass Transit",
+      "PM SVANidhi Street Vendor Micro-Credit",
+      "Kashi Integrated Command and Control Center"
+    ]
+  },
+  {
+    "pinCodes": ["229001", "229002", "229003", "229125", "229316"],
+    "constituency": "Rae Bareli",
+    "district": "Rae Bareli",
+    "state": "Uttar Pradesh",
+    "sittingMp": "Rahul Gandhi",
+    "party": "Indian National Congress (INC)",
+    "electionYear": "2024",
+    "margin": "390,030 votes",
+    "declaredAssets": "₹20.39 Crore",
+    "criminalCases": "18 Disclosed",
+    "education": "M.Phil. in Development Studies, Trinity College, Cambridge",
+    "attendance": "Leader of Opposition",
+    "parliamentQuestions": "Participated in 42 Major Debates",
+    "mpladsSpentPercent": "85.1%",
+    "keyLocalIssues": [
+      "Modern Coach Factory (MCF) capacity utilization and local hiring",
+      "Rural agro-processing centers for peppermint and mustard farmers",
+      "Road widening and flood protection along Sai river basins",
+      "AIIMS Rae Bareli specialist doctor recruitment"
+    ],
+    "activeSchemes": [
+      "MGNREGA Rural Livelihood Guarantee",
+      "PM Gram Sadak Yojana Phase III",
+      "PM-KISAN Samman Nidhi"
+    ]
+  },
+  {
+    "pinCodes": ["560001", "560004", "560011", "560028", "560041", "560069", "560070", "560076", "560078"],
+    "constituency": "Bangalore South",
+    "district": "Bengaluru Urban",
+    "state": "Karnataka",
+    "sittingMp": "Tejasvi Surya",
+    "party": "Bharatiya Janata Party (BJP)",
+    "electionYear": "2024",
+    "margin": "277,083 votes",
+    "declaredAssets": "₹4.10 Crore",
+    "criminalCases": "3 Disclosed",
+    "education": "B.A. LL.B., Bangalore Institute of Legal Studies",
+    "attendance": "89%",
+    "parliamentQuestions": "184 Questions",
+    "mpladsSpentPercent": "90.3%",
+    "keyLocalIssues": [
+      "Namma Metro Phase 2 & 3 expansion pace",
+      "Cauvery stage V drinking water network commissioning",
+      "Lake catchment encroachment prevention & storm drains",
+      "Suburban railway corridor progress"
+    ],
+    "activeSchemes": [
+      "Bengaluru Smart City SPV Projects",
+      "PM-eBus Urban Fleet Modernization",
+      "Atal Mission for Rejuvenation and Urban Transformation (AMRUT 2.0)"
+    ]
+  },
+  {
+    "pinCodes": ["500001", "500002", "500006", "500024", "500053", "500065", "500077"],
+    "constituency": "Hyderabad",
+    "district": "Hyderabad",
+    "state": "Telangana",
+    "sittingMp": "Asaduddin Owaisi",
+    "party": "All India Majlis-E-Ittehadul Muslimeen (AIMIM)",
+    "electionYear": "2024",
+    "margin": "338,087 votes",
+    "declaredAssets": "₹19.65 Crore",
+    "criminalCases": "5 Disclosed",
+    "education": "Barrister-at-Law, Lincoln's Inn & B.A., Nizam College",
+    "attendance": "91%",
+    "parliamentQuestions": "246 Questions",
+    "mpladsSpentPercent": "96.0%",
+    "keyLocalIssues": [
+      "Musi river rejuvenation and flood protection walls",
+      "Old City Metro line alignment and execution",
+      "Drinking water supply expansion in historic wards",
+      "Healthcare infrastructure at Osmania General Hospital"
+    ],
+    "activeSchemes": [
+      "National Health Mission (NHM) Urban Polyclinics",
+      "Pradhan Mantri Jan Vikas Karyakram (PMJVK)",
+      "Smart City Hyderabad Surveillance Grid"
+    ]
+  },
+  {
+    "pinCodes": ["400001", "400002", "400004", "400006", "400020", "400026", "400034"],
+    "constituency": "Mumbai South",
+    "district": "Mumbai City",
+    "state": "Maharashtra",
+    "sittingMp": "Arvind Sawant",
+    "party": "Shiv Sena (UBT)",
+    "electionYear": "2024",
+    "margin": "52,673 votes",
+    "declaredAssets": "₹3.85 Crore",
+    "criminalCases": "0 Disclosed",
+    "education": "B.Sc., Bhavan's College, Mumbai University",
+    "attendance": "88%",
+    "parliamentQuestions": "142 Questions",
+    "mpladsSpentPercent": "84.2%",
+    "keyLocalIssues": [
+      "Redevelopment of BPT (Bombay Port Trust) land and cess buildings",
+      "Coastal Road and undersea tunnel traffic integration",
+      "Fishermen community welfare at Sassoon Docks",
+      "Suburban railway passenger crowd management at CSMT"
+    ],
+    "activeSchemes": [
+      "Mumbai Coastal Road Project",
+      "Sagarmala Port Modernization Scheme",
+      "AMRUT Water Pipeline Replacement"
+    ]
+  },
+  {
+    "pinCodes": ["695001", "695002", "695004", "695014", "695039", "695581"],
+    "constituency": "Thiruvananthapuram",
+    "district": "Thiruvananthapuram",
+    "state": "Kerala",
+    "sittingMp": "Shashi Tharoor",
+    "party": "Indian National Congress (INC)",
+    "electionYear": "2024",
+    "margin": "16,077 votes",
+    "declaredAssets": "₹56.08 Crore",
+    "criminalCases": "1 Disclosed",
+    "education": "Ph.D. & M.A.L.D., Fletcher School of Law and Diplomacy, Tufts University",
+    "attendance": "90%",
+    "parliamentQuestions": "298 Questions",
+    "mpladsSpentPercent": "88.3%",
+    "keyLocalIssues": [
+      "Vizhinjam International Deepwater Transshipment Port connectivity",
+      "Coastal erosion mitigation along Shanghumukham and Pozhiyoor",
+      "Technopark Phase IV AI and semiconductor cluster expansion",
+      "National Highway 66 bypass flyovers"
+    ],
+    "activeSchemes": [
+      "Sagarmala Port Rail Connectivity",
+      "National Cyclone Risk Mitigation Project",
+      "Digital India Innovation Zone Technopark"
+    ]
+  },
+  {
+    "pinCodes": ["382010", "382016", "382021", "382024", "382421", "382481"],
+    "constituency": "Gandhinagar",
+    "district": "Gandhinagar / Ahmedabad",
+    "state": "Gujarat",
+    "sittingMp": "Amit Shah",
+    "party": "Bharatiya Janata Party (BJP)",
+    "electionYear": "2024",
+    "margin": "744,716 votes",
+    "declaredAssets": "₹40.32 Crore",
+    "criminalCases": "0 Disclosed",
+    "education": "B.Sc. 2nd Year (Biochemistry), CU Shah Science College",
+    "attendance": "Ex-Officio Union Home Minister",
+    "parliamentQuestions": "Union Minister of Home Affairs & Cooperation",
+    "mpladsSpentPercent": "95.1%",
+    "keyLocalIssues": [
+      "GIFT City International Financial Services Centre expansion",
+      "Ahmedabad-Gandhinagar Metro Phase 2 integration",
+      "Solar powered smart tree canopy across rural belts",
+      "Primary cooperative society computerization (PACS)"
+    ],
+    "activeSchemes": [
+      "GIFT City Global FinTech Corridor",
+      "Computerization of Primary Agricultural Credit Societies (PACS)",
+      "Smart City Command Center Gandhinagar",
+      "PM Surya Ghar Muft Bijli Yojana"
+    ]
+  }
+]
